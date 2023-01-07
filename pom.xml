@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jda.app</groupId>
+  <artifactId>jda-app-opasys</artifactId>
+  <version>1.0</version>
+  <name>OPASys</name>
+  
+  <properties>
+		<jda.version>5.4-SNAPSHOT</jda.version>  
+    <java.version>11</java.version>
+  </properties>
+  
+  <dependencies>
+  	<dependency>
+			<groupId>jda.modules</groupId>
+			<artifactId>jda-mccl</artifactId>
+			<version>${jda.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jda.modules</groupId>
+			<artifactId>jda-mccltool</artifactId>
+			<version>${jda.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jda.modules</groupId>
+			<artifactId>jda-sccl</artifactId>
+			<version>${jda.version}</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>jda.modules</groupId>-->
+<!--			<artifactId>jda-sccltool</artifactId>-->
+<!--			<version>${jda.version}</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>jda.modules</groupId>-->
+<!--			<artifactId>jda-mosar</artifactId>-->
+<!--			<version>${jda.version}</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>jda.modules</groupId>-->
+<!--			<artifactId>jda-swtool</artifactId>-->
+<!--			<version>${jda.version}</version>-->
+<!--		</dependency>-->
+  </dependencies>
+</project>
