@@ -1,45 +1,73 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>jda.app</groupId>
-  <artifactId>jda-app-opasys</artifactId>
-  <version>1.0</version>
-  <name>OPASys</name>
-  
-  <properties>
-		<jda.version>5.4-SNAPSHOT</jda.version>  
-    <java.version>11</java.version>
-  </properties>
-  
-  <dependencies>
-  	<dependency>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>jda.app</groupId>
+	<artifactId>jda-app-opasys</artifactId>
+	<version>1.0</version>
+	<name>OPASys</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<java.version>11</java.version>
+		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+	</properties>
+
+	<modules>
+		<module>modules</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Alternative to using Spring Parent POM: Import dependency management from Spring Boot -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>2.2.6.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--END: Spring Parent POM-->
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+	<!--	<dependency>
 			<groupId>jda.modules</groupId>
-			<artifactId>jda-mccl</artifactId>
-			<version>${jda.version}</version>
+			<artifactId>jda-msacommon</artifactId>
+			<version>1.0</version>
+		</dependency>
+-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jda.modules</groupId>
-			<artifactId>jda-mccltool</artifactId>
-			<version>${jda.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
 		<dependency>
-			<groupId>jda.modules</groupId>
-			<artifactId>jda-sccl</artifactId>
-			<version>${jda.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>jda.modules</groupId>-->
-<!--			<artifactId>jda-sccltool</artifactId>-->
-<!--			<version>${jda.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>jda.modules</groupId>-->
-<!--			<artifactId>jda-mosar</artifactId>-->
-<!--			<version>${jda.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>jda.modules</groupId>-->
-<!--			<artifactId>jda-swtool</artifactId>-->
-<!--			<version>${jda.version}</version>-->
-<!--		</dependency>-->
-  </dependencies>
+		
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
