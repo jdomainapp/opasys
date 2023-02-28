@@ -7,7 +7,6 @@
 		<artifactId>jda-app-opasys-modules</artifactId>
 		<version>1.0</version>
 	</parent>
-	<groupId>jda.app</groupId>
 	<artifactId>eurekaserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Eureka Server</name>
