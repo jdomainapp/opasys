@@ -28,6 +28,7 @@ public class User {
 	
 	private String attachment;
 	
-	private int userId;
+	//1:Admin; 2: Project_Manager; 3: Team_Member
+	private int roleId;
 
 }

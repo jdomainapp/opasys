@@ -10,11 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jda.app.opasys.project.modules.activity.model.Activity;
-import jda.app.opasys.project.modules.activity.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +24,10 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @Entity
 @Table(name = "project")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id", scope = Project.class)
 public class Project {
 	@Id
 	@Column(name = "id", nullable = false)
@@ -31,8 +37,6 @@ public class Project {
 	private String name;
 
 	private String description;
-	
-	private String attachment;
 	
 //	@Column(name = "typeId")
 //	private int typeId;
@@ -53,6 +57,6 @@ public class Project {
 	
 	private Date endDate;
 	
-	@Transient
+	@OneToMany(mappedBy="project")
 	private List<Activity> activities;
 }
