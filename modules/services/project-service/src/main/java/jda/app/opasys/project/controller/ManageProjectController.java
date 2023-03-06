@@ -18,11 +18,10 @@ public class ManageProjectController {
 	
 	
 	public final static String PATH_PROJECT = "/project";
-	public final static String PATH_ACTIVITY = "/activity";
 
-	@RequestMapping(value = PATH_PROJECT + "**")
+	@RequestMapping(value = PATH_PROJECT + "/**")
 	public ResponseEntity<?> handleProject(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<Project, Integer> controller = ControllerRegistry.getInstance().get(Project.class);
-		return ResponseEntity.ok(controller.handleRequest(req, res));
+		return controller.handleRequest(req, res);
 	}
 }

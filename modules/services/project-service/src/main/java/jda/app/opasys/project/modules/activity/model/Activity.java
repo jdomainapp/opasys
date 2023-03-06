@@ -35,18 +35,22 @@ public class Activity {
 
 	private String name;
 
-	private int type;
+//	@Column(name = "type_id")
+//	private int typeId;
+	@ManyToOne
+    @JoinColumn(name="type_id", nullable=false)
+	private ActivityType type;
 	
 	private String attachment;
 	
 //	@Column(name = "userId")
 //	private int userId;
 	@ManyToOne
-    @JoinColumn(name="userId", nullable=false)
+    @JoinColumn(name="user_id", nullable=false)
 	private User user;
 	
 	@ManyToOne
-    @JoinColumn(name="project_Id", nullable=false)
+    @JoinColumn(name="project_id", nullable=false)
 	private Project project;
 	
 }

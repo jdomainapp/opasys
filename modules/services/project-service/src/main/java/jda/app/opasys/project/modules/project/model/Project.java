@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -23,12 +26,12 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "project")
+@Table(name = "project", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = Project.class)
-public class Project {
+public class Project extends RepresentationModel<Project>{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -38,23 +41,25 @@ public class Project {
 
 	private String description;
 	
-//	@Column(name = "typeId")
+//	@Column(name = "type_id")
 //	private int typeId;
 	@ManyToOne
-    @JoinColumn(name="typeId", nullable=false)
+    @JoinColumn(name="type_id", nullable=false)
 	private ProjectType type;
 	
-//	@Column(name = "projManagerId")
+//	@Column(name = "user_id")
 //	private int projManagerId;
 	@ManyToOne
-    @JoinColumn(name="projManagerId", nullable=false)
+    @JoinColumn(name="user_id", nullable=false)
 	private User projManager;
 	
 	//0: processing, 1: completed
 	private int status;
 	
+	@Column(name = "start_date")
 	private Date startDate;
 	
+	@Column(name = "end_date")
 	private Date endDate;
 	
 	@OneToMany(mappedBy="project")

@@ -16,7 +16,8 @@ import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
 public class ProjectController extends DefaultController<Project, Integer> {
-
+//	@Column(name = "type_id")
+//	private int typeId;
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_ACTIVITY = "/activity";
 
@@ -24,17 +25,17 @@ public class ProjectController extends DefaultController<Project, Integer> {
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		//manageproject/project/{10}
-		//CRUD project (click link to get activites of a project)
+		//manageproject/project/{10}: CRUD project (click link to get activites of a project)
+		//project/2/acitivity: get list of activities in a project
 		if (path.matches("(.*)"+PATH_PROJECT+"(\\/\\d+)*$")) {
 			return super.handleRequest(req, res, ids.isEmpty()? null : ids.get(0));
 			
-		//manageproject/project/{10}/activity/{12}
-		// CRUD a activity
-		// input: projectId, output: List<Activity>
-		} else if (path.matches("(.*)"+PATH_ACTIVITY+"(\\/\\d+)")) {
+		//manageproject/project/{10}/activity/{12}: CRUD a activity
+		//TODO: getActivityList by projectId
+		//TODO: File upload????
+		} else if (path.matches("(.*)"+PATH_ACTIVITY+"(\\/\\d+)*$")) {
 			DefaultController<Activity, Integer> childController = ControllerRegistry.getInstance().get(Activity.class);
-			return childController.handleRequest(req, res, ids.size()==2 ? null : ids.get(1));
+			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else {
 			// invalid path
 			return ResponseEntity.badRequest().build();

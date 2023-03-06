@@ -1,4 +1,4 @@
-package jda.app.opasys.project.modules.project.model;
+package jda.app.opasys.orgasset.modules.project.model;
 
 import java.util.List;
 
