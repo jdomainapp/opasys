@@ -1,4 +1,4 @@
-package jda.app.opasys.issue.modules.issueasset.model;
+package jda.app.opasys.project.modules.orgasset.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,14 +17,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter @Setter @ToString
 @Entity
-@Table(name = "issue", schema = "issue")
+@Table(name = "opa", schema = "org_asset")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = IssueAsset.class)
-public class IssueAsset extends RepresentationModel<IssueAsset>{
+		  property = "id", scope = OrgAsset.class)
+public class OrgAsset extends RepresentationModel<OrgAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -34,9 +35,13 @@ public class IssueAsset extends RepresentationModel<IssueAsset>{
 
 	private String description;
 	
-	@Column(name = "project_id")
-	private int projectId;
+	@Column(name = "project_type")
+	private int projectType;
 	
+	@Column(name = "activity_type")
+	private int activityType;
+	
+	//0: processing, 1: completed
 	private int status;
 	
 	private String attachment;

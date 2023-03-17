@@ -16,6 +16,7 @@
 	</properties>
 
 	<modules>
+		<module>opa-service</module>
 		<module>project-service</module>
 		<module>knowledge-asset-service</module>
 		<module>organisational-asset-service</module>

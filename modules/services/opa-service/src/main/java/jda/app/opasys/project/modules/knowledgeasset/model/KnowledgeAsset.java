@@ -1,4 +1,4 @@
-package jda.app.opasys.issue.modules.issueasset.model;
+package jda.app.opasys.project.modules.knowledgeasset.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,19 +12,18 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "issue", schema = "issue")
+@Table(name = "opa", schema = "knowledge_asset")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = IssueAsset.class)
-public class IssueAsset extends RepresentationModel<IssueAsset>{
+		  property = "id", scope = KnowledgeAsset.class)
+public class KnowledgeAsset extends RepresentationModel<KnowledgeAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

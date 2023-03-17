@@ -1,9 +1,10 @@
-package jda.app.opasys.orgasset.modules.orgasset.repository;
+package jda.app.opasys.project.modules.orgasset.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import jda.app.opasys.orgasset.modules.orgasset.model.OrgAsset;
+import jda.app.opasys.project.modules.orgasset.model.OrgAsset;
+
 
 @Repository
 public interface OrgAssetRepository extends PagingAndSortingRepository<OrgAsset, Integer>{

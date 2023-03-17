@@ -1,4 +1,4 @@
-package jda.app.opasys.knowledgeasset.modules.confasset;
+package jda.app.opasys.project.modules.knowledgeasset;
 
 import java.util.List;
 
@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import jda.app.opasys.knowledgeasset.modules.confasset.model.ConfAsset;
+import jda.app.opasys.project.modules.knowledgeasset.model.KnowledgeAsset;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class ConfAssetController extends DefaultController<ConfAsset, Integer>{
-	public final static String PATH = "/conf";
+public class KnowledgeAssetController extends DefaultController<KnowledgeAsset, Integer>{
+	public final static String PATH = "/knowledge_asset";
+
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
