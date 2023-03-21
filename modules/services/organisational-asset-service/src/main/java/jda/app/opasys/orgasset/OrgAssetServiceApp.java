@@ -1,7 +1,6 @@
-package jda.app.opasys.security;
+package jda.app.opasys.orgasset;
 
 import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -21,17 +20,18 @@ import jda.modules.msacommon.controller.RedirectController;
 import jda.modules.msacommon.controller.RedirectControllerRegistry;
 import jda.modules.msacommon.controller.ServiceRegistry;
 
+
 @SpringBootApplication
 @RefreshScope
 @EnableEurekaClient
-public class SecurityServiceApp {
-	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceApp.class);
+public class OrgAssetServiceApp {
+	private static final Logger logger = LoggerFactory.getLogger(OrgAssetServiceApp.class);
 	
 	public static void main(String[] args) {
 		final ServiceRegistry serviceRegistry = ServiceRegistry.getInstance();
 		final ControllerRegistry controllerRegistry = ControllerRegistry.getInstance();
 		final RedirectControllerRegistry redirectControllerRegistry = RedirectControllerRegistry.getInstance();
-		ApplicationContext ctx = SpringApplication.run(SecurityServiceApp.class, args);
+		ApplicationContext ctx = SpringApplication.run(OrgAssetServiceApp.class, args);
 		ctx.getBeansOfType(PagingAndSortingRepository.class).forEach((k, v) -> {serviceRegistry.put(k, v);
 		System.out.println("CHECK SERVICES: "+ k +"_"+v);
 			});

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.knowledgeasset.modules.opa.model.KnowledgeAsset;
+import jda.app.opasys.knowledgeasset.modules.opa.model.OPA;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,5 +35,5 @@ public class PlanAsset extends RepresentationModel<PlanAsset>{
 
 	@ManyToOne
     @JoinColumn(name="opa_id", nullable=false)
-	private KnowledgeAsset opa;
+	private OPA opa;
 }

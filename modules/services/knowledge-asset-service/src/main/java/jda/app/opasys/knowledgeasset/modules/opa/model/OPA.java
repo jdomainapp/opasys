@@ -22,8 +22,8 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = KnowledgeAsset.class)
-public class KnowledgeAsset extends RepresentationModel<KnowledgeAsset>{
+		  property = "id", scope = OPA.class)
+public class OPA extends RepresentationModel<OPA>{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

@@ -1,0 +1,270 @@
+
+ISSUE-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS issue.issue
+(
+    id SERIAL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_id integer NOT NULL,
+    activity_type integer NOT NULL,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT issue_pkey PRIMARY KEY (id)
+);
+
+DEFECT-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS defect.defect
+(
+    id SERIAL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_id integer NOT NULL,
+    activity_type integer NOT NULL,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT defect_pkey PRIMARY KEY (id)
+);
+
+SECURITY-SERVICE--------------------
+
+CREATE TABLE IF NOT EXISTS security."user"
+(
+    id SERIAL,
+    username character varying COLLATE pg_catalog."default" NOT NULL,
+    password character varying COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    role_id integer NOT NULL,
+    CONSTRAINT user_pkey PRIMARY KEY (id)
+);
+
+
+ORG-ASSET-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS organisational_asset.org_asset
+(
+    id SERIAL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_type integer,
+    activity_type integer,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT org_asset_pkey PRIMARY KEY (id)
+);
+
+KNOWLEDGE-ASSET-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS knowledge_asset.project
+(
+    id integer NOT NULL,
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(200) COLLATE pg_catalog."default",
+    type_id integer NOT NULL,
+    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    status integer,
+    start_date date,
+    end_date date,
+    CONSTRAINT project_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.opa
+(
+    id integer NOT NULL DEFAULT nextval('knowledge_asset.opa_id_seq'::regclass),
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_id integer NOT NULL,
+    activity_type integer NOT NULL,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT opa_pkey PRIMARY KEY (id),
+    CONSTRAINT opa_project_fk FOREIGN KEY (project_id)
+        REFERENCES opa.project (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.conf_asset
+(
+    id integer NOT NULL DEFAULT nextval('knowledge_asset.conf_asset_id_seq'::regclass),
+    opa_id integer NOT NULL,
+    CONSTRAINT conf_opa_fk FOREIGN KEY (opa_id)
+        REFERENCES knowledge_asset.opa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.fin_asset
+(
+    id integer NOT NULL DEFAULT nextval('knowledge_asset.fin_asset_id_seq'::regclass),
+    opa_id integer NOT NULL,
+    CONSTRAINT fin_asset_pkey PRIMARY KEY (id),
+    CONSTRAINT fin_opa_fk FOREIGN KEY (opa_id)
+        REFERENCES knowledge_asset.opa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.plan_asset
+(
+    id integer NOT NULL DEFAULT nextval('knowledge_asset.plan_asset_id_seq'::regclass),
+    opa_id integer NOT NULL,
+    CONSTRAINT plan_asset_pkey PRIMARY KEY (id),
+    CONSTRAINT plan_opa_fk FOREIGN KEY (opa_id)
+        REFERENCES knowledge_asset.opa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.metric_asset
+(
+    id integer NOT NULL DEFAULT nextval('knowledge_asset.metric_asset_id_seq'::regclass),
+    opa_id integer NOT NULL,
+    CONSTRAINT metric_asset_pkey PRIMARY KEY (id),
+    CONSTRAINT metric_opa_fk FOREIGN KEY (opa_id)
+        REFERENCES knowledge_asset.opa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.risk_asset
+(
+    id integer NOT NULL DEFAULT nextval('knowledge_asset.risk_asset_id_seq'::regclass),
+    opa_id integer NOT NULL,
+    CONSTRAINT risk_asset_pkey PRIMARY KEY (id),
+    CONSTRAINT risk_opa_fk FOREIGN KEY (opa_id)
+        REFERENCES knowledge_asset.opa (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+
+CREATE TABLE IF NOT EXISTS knowledge_asset.opa
+(
+    id SERIAL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_id integer NOT NULL,
+    activity_type integer NOT NULL,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT opa_pkey PRIMARY KEY (id),
+    CONSTRAINT opa_project_fk FOREIGN KEY (project_id)
+        REFERENCES opa.project (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+OPA-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS opa.org_asset
+(
+    id integer NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_type integer,
+    activity_type integer,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT org_asset_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS opa.project
+(
+    id integer NOT NULL,
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(200) COLLATE pg_catalog."default",
+    type_id integer NOT NULL,
+    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    status integer,
+    start_date date,
+    end_date date,
+    CONSTRAINT project_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS opa.knowledge_asset
+(
+    id integer NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default" NOT NULL,
+    project_id integer NOT NULL,
+    activity_type integer NOT NULL,
+    status integer,
+    attachment character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT knowledge_asset_pkey PRIMARY KEY (id),
+    CONSTRAINT knowledge_project_fk FOREIGN KEY (project_id)
+        REFERENCES opa.project (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+PROJECT-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS project.activity_type
+(
+    id SERIAL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT activity_type_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS project.project_type
+(
+    id SERIAL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT project_type_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS project."user"
+(
+    id integer NOT NULL,
+    username character varying COLLATE pg_catalog."default" NOT NULL,
+    password character varying COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    role_id integer NOT NULL,
+    CONSTRAINT user_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS project.project
+(
+    id SERIAL,
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(200) COLLATE pg_catalog."default",
+    type_id integer NOT NULL,
+    user_id integer NOT NULL,
+    status integer,
+    start_date date,
+    end_date date,
+    CONSTRAINT project_pkey PRIMARY KEY (id),
+    CONSTRAINT project_type_fk FOREIGN KEY (type_id)
+        REFERENCES project.project_type (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT project_user_fk FOREIGN KEY (user_id)
+        REFERENCES project."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE IF NOT EXISTS project.activity
+(
+    id SERIAL),
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    type_id integer,
+    user_id integer NOT NULL,
+    attachment character varying COLLATE pg_catalog."default",
+    project_id integer,
+    CONSTRAINT activity_pkey PRIMARY KEY (id),
+    CONSTRAINT activity_project_fk FOREIGN KEY (project_id)
+        REFERENCES project.project (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID,
+    CONSTRAINT activity_type_fk FOREIGN KEY (type_id)
+        REFERENCES project.activity_type (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT activity_user_fk FOREIGN KEY (user_id)
+        REFERENCES project."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);

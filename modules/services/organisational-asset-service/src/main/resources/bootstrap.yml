@@ -1,6 +1,6 @@
 spring:
     application:
-     name: organisational-asset-service 
+     name: org-asset-service 
     profiles:
       active: dev
     cloud:

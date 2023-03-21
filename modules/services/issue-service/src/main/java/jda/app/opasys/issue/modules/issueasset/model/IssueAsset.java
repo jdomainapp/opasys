@@ -37,6 +37,9 @@ public class IssueAsset extends RepresentationModel<IssueAsset>{
 	@Column(name = "project_id")
 	private int projectId;
 	
+	@Column(name = "activity_type")
+	private int activityType;
+	
 	private int status;
 	
 	private String attachment;

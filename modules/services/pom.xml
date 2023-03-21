@@ -19,7 +19,7 @@
 		<module>opa-service</module>
 		<module>project-service</module>
 		<module>knowledge-asset-service</module>
-		<module>organisational-asset-service</module>
+		<module>org-asset-service</module>
 		<module>issue-service</module>
 		<module>defect-service</module>
 		<module>asset-storage-service</module>

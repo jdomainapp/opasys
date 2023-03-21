@@ -1,4 +1,4 @@
-package jda.app.opasys.defect.modules.defectasset.model;
+package jda.app.opasys.security.modules.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,28 +19,25 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "defect", schema = "defect")
+@Table(name = "user", schema = "security")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = DefectAsset.class)
-public class DefectAsset extends RepresentationModel<DefectAsset>{
+		  property = "id", scope = User.class)
+public class User extends RepresentationModel<User>{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String name;
+	private String username;
 
-	private String description;
+	private String password;
+
+	private String name;
 	
-	@Column(name = "project_id")
-	private int projectId;
-	
-	@Column(name = "activity_type")
-	private int activityType;
-	
-	private int status;
-	
-	private String attachment;
+	//1:Admin; 2: Project_Manager; 3: Team_Member
+	@Column(name = "role_id")
+	private int roleId;
+
 }

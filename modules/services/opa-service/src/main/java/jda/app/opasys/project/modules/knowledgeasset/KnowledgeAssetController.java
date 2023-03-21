@@ -8,23 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import jda.app.opasys.project.controller.ManageOPAController;
 import jda.app.opasys.project.modules.knowledgeasset.model.KnowledgeAsset;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
 public class KnowledgeAssetController extends DefaultController<KnowledgeAsset, Integer>{
-	public final static String PATH = "/knowledge_asset";
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		if (path.matches("(.*)"+PATH+"(\\/\\d+)*$")) {
-			return super.handleRequest(req, res, ids.isEmpty()? null : ids.get(0));
-		}else {
-			// invalid path
-			return ResponseEntity.badRequest().build();
-		}
+		return ControllerTk.isPathContainId(ManageOPAController.PATH_KNOWLEDGE, path)
+				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
+				: ResponseEntity.badRequest().build();
 	}
 }

@@ -8,9 +8,9 @@
 	</parent>
 	
 	<groupId>jda.app</groupId>
-	<artifactId>organisational-asset-service</artifactId>
+	<artifactId>org-asset-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>organisational-asset-service</name>
+	<name>org-asset-service</name>
 	<description>Manage Organisational asset</description>
 
 </project>

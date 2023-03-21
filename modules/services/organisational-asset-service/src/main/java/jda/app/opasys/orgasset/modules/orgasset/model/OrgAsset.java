@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "organisational_asset", schema = "org_asset")
+@Table(name = "org_asset", schema = "organisational_asset")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
