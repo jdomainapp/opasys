@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.project.modules.knowledgeasset.model.KnowledgeAsset;
 import jda.app.opasys.project.modules.orgasset.model.OrgAsset;
+import jda.app.opasys.project.modules.project.model.Project;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.DefaultController;
 
@@ -19,8 +20,9 @@ import jda.modules.msacommon.controller.DefaultController;
 public class ManageOPAController {
 	
 	
-	public final static String PATH_KNOWLEDGE = "/opa/knowledge_asset";
-	public final static String PATH_ORG = "/opa/org_asset";
+	public final static String PATH_KNOWLEDGE = "/knowledge_asset";
+	public final static String PATH_ORG = "/org_asset";
+	public final static String PATH_PROJECT = "/project";
 
 	@RequestMapping(value = PATH_KNOWLEDGE + "/**")
 	public ResponseEntity<?> handleKnowledgeAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -32,6 +34,13 @@ public class ManageOPAController {
 	@RequestMapping(value = PATH_ORG + "/**")
 	public ResponseEntity<?> handleOrgAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<OrgAsset, Integer> controller = ControllerRegistry.getInstance().get(OrgAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@RequestMapping(value = PATH_PROJECT + "/**")
+	public ResponseEntity<?> handleProject(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		DefaultController<OrgAsset, Integer> controller = ControllerRegistry.getInstance().get(Project.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

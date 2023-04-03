@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "opa", schema = "org_asset")
+@Table(name = "org_asset", schema = "opa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
@@ -28,7 +28,6 @@ import lombok.ToString;
 public class OrgAsset extends RepresentationModel<OrgAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;

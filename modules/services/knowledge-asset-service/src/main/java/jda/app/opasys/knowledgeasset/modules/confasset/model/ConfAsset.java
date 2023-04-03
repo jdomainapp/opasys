@@ -1,7 +1,9 @@
 package jda.app.opasys.knowledgeasset.modules.confasset.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.knowledgeasset.modules.opa.model.OPA;
+import jda.app.opasys.knowledgeasset.modules.knowledgeasset.model.KnowledgeAsset;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,7 +35,7 @@ public class ConfAsset extends RepresentationModel<ConfAsset>{
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne
-    @JoinColumn(name="opa_id", nullable=false)
-	private OPA opa;
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn(name="opa_id", nullable = false)
+	private KnowledgeAsset knowledgeAsset;
 }

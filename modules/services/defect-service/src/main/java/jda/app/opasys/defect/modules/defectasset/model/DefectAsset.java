@@ -36,9 +36,9 @@ public class DefectAsset extends RepresentationModel<DefectAsset>{
 	
 	@Column(name = "project_id")
 	private int projectId;
-	
-	@Column(name = "activity_type")
-	private int activityType;
+//	
+//	@Column(name = "activity_type")
+//	private int activityType;
 	
 	private int status;
 	

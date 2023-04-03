@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.hateoas.RepresentationModel;
@@ -12,13 +14,15 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import jda.app.opasys.project.modules.project.model.Project;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "opa", schema = "knowledge_asset")
+@Table(name = "knowledge_asset", schema = "opa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
@@ -26,15 +30,18 @@ import lombok.ToString;
 public class KnowledgeAsset extends RepresentationModel<KnowledgeAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
 	private String description;
 	
-	@Column(name = "project_id")
-	private int projectId;
+	@ManyToOne
+    @JoinColumn(name="project_id", nullable=false)
+	private Project project;
+	
+	@Column(name = "activity_type")
+	private int activityType;
 	
 	private int status;
 	
