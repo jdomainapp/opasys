@@ -10,8 +10,9 @@ import org.springframework.stereotype.Controller;
 
 import jda.app.opasys.project.controller.ManageProjectController;
 import jda.app.opasys.project.modules.activity.model.Activity;
-import jda.app.opasys.project.modules.issueasset.model.IssueAsset;
+import jda.app.opasys.project.modules.defectasset.model.DefectAsset;
 import jda.app.opasys.project.modules.project.model.Project;
+import jda.app.opasys.project.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.ControllerTk;
@@ -35,8 +36,11 @@ public class ProjectController extends DefaultController2<Project, Integer> {
 		} else if (ControllerTk.isPathContainId(ManageProjectController.PATH_ACTIVITY, path)) {
 			DefaultController2<Activity, Integer> childController = ControllerRegistry2.getInstance().get(Activity.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
-		}else if (ControllerTk.isPathContainId(ManageProjectController.PATH_ISSUE, path)) {
-			DefaultController2<IssueAsset, Integer> childController = ControllerRegistry2.getInstance().get(IssueAsset.class);
+		}else if (ControllerTk.isPathContainId(ManageProjectController.PATH_RISK, path)) {
+			DefaultController2<RiskAsset, Integer> childController = ControllerRegistry2.getInstance().get(RiskAsset.class);
+			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
+		}else if (ControllerTk.isPathContainId(ManageProjectController.PATH_DEFECT, path)) {
+			DefaultController2<DefectAsset, Integer> childController = ControllerRegistry2.getInstance().get(DefectAsset.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else {
 			// invalid path

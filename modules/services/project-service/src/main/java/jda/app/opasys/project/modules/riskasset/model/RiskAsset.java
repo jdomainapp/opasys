@@ -1,47 +1,60 @@
-package jda.app.opasys.defect.modules.defectasset.model;
+package jda.app.opasys.project.modules.riskasset.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jda.app.opasys.project.modules.project.model.Project;
+import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "defect", schema = "defect")
+@Table(name = "risk", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = DefectAsset.class)
-public class DefectAsset extends RepresentationModel<DefectAsset>{
+		  property = "id", scope = RiskAsset.class)
+public class RiskAsset {
+
 	@Id
 	@Column(name = "id", nullable = false)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
+	private String level;
+	
 	private String description;
 	
-	private String level;
+	private String occurence;
+	
+	private String impact;
 	
 	private String solution;
 	
 	private String status;
 	
-	@Column(name = "project_id")
-	private int projectId;
+//	@Column(name = "userId")
+//	private int userId;
+	@ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+	private User user;
 	
-	@Column(name = "user_id")
-	private int userId;
+	@ManyToOne
+    @JoinColumn(name="project_id", nullable=false)
+	private Project project;
+	
 }

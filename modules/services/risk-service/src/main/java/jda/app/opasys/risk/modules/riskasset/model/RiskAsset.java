@@ -1,4 +1,4 @@
-package jda.app.opasys.defect.modules.defectasset.model;
+package jda.app.opasys.risk.modules.riskasset.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +19,12 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "defect", schema = "defect")
+@Table(name = "risk", schema = "risk")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = DefectAsset.class)
-public class DefectAsset extends RepresentationModel<DefectAsset>{
+		  property = "id", scope = RiskAsset.class)
+public class RiskAsset extends RepresentationModel<RiskAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;
@@ -35,6 +35,10 @@ public class DefectAsset extends RepresentationModel<DefectAsset>{
 	
 	private String level;
 	
+	private String occurence;
+	
+	private String impact;
+	
 	private String solution;
 	
 	private String status;
@@ -44,4 +48,5 @@ public class DefectAsset extends RepresentationModel<DefectAsset>{
 	
 	@Column(name = "user_id")
 	private int userId;
+
 }

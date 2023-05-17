@@ -1,6 +1,7 @@
-package jda.app.opasys.project.controller;
+package jda.app.opasys.risk.controller;
 
 import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,25 +10,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jda.app.opasys.project.modules.project.model.Project;
+import jda.app.opasys.risk.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.DefaultController2;
 
 @RestController
 @RequestMapping(value = "/")
-public class ManageProjectController {
-	
-	
-	public final static String PATH_PROJECT = "/project";
-	public final static String PATH_ACTIVITY = "/activity";
-	public final static String PATH_RISK = "/risk";
-	public final static String PATH_DEFECT = "/defect";
+public class ManageRiskAssetController {
+	public final static String PATH = "/risk";
 
-	@RequestMapping(value = PATH_PROJECT + "/**")
+	@RequestMapping(value = PATH + "/**")
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController2<Project, Integer> controller = ControllerRegistry2.getInstance().get(Project.class);
+		DefaultController2<RiskAsset, Integer> controller = ControllerRegistry2.getInstance().get(RiskAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
+	
+	//TODO: download and upload file
 }

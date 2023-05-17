@@ -1,6 +1,8 @@
+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
 
-ISSUE-SERVICE--------------------
-CREATE TABLE IF NOT EXISTS issue.issue
+
+RISK-SERVICE--------------------
+CREATE TABLE IF NOT EXISTS risk.risk
 (
     id integer NOT NULL,
     project_id integer NOT NULL,
@@ -17,14 +19,14 @@ CREATE TABLE IF NOT EXISTS issue.issue
 DEFECT-SERVICE--------------------
 CREATE TABLE IF NOT EXISTS defect.defect
 (
-    id SERIAL,
-    name character varying COLLATE pg_catalog."default" NOT NULL,
-    description character varying COLLATE pg_catalog."default" NOT NULL,
+    id integer NOT NULL,
     project_id integer NOT NULL,
-    activity_type integer NOT NULL,
-    status integer,
-    attachment character varying COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT defect_pkey PRIMARY KEY (id)
+    user_id integer NOT NULL,
+    level character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    solution character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default"
 );
 
 SECURITY-SERVICE--------------------
@@ -180,7 +182,7 @@ CREATE TABLE IF NOT EXISTS opa.knowledge_asset
         NOT VALID
 );
 
-CREATE TABLE IF NOT EXISTS opa.issue
+CREATE TABLE IF NOT EXISTS opa.risk
 (
     id integer NOT NULL,
     project_id integer NOT NULL,
@@ -267,7 +269,7 @@ CREATE TABLE IF NOT EXISTS project.activity
         ON DELETE NO ACTION
         NOT VALID
 );
-CREATE TABLE IF NOT EXISTS project.issue
+CREATE TABLE IF NOT EXISTS project.risk
 (
     id SERIAL,
     project_id integer NOT NULL,
@@ -285,6 +287,26 @@ CREATE TABLE IF NOT EXISTS project.issue
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT risk_user_fk FOREIGN KEY (user_id)
+        REFERENCES project."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+CREATE TABLE IF NOT EXISTS project.defect
+(
+    id SERIAL,
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    level character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    solution character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default",
+    CONSTRAINT defect_pkey PRIMARY KEY (id),
+    CONSTRAINT defect_project_fk FOREIGN KEY (project_id)
+        REFERENCES project.project (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT defect_user_fk FOREIGN KEY (user_id)
         REFERENCES project."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
