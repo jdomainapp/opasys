@@ -27,20 +27,26 @@ import lombok.ToString;
 public class IssueAsset extends RepresentationModel<IssueAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
 	private String description;
 	
+	private String level;
+	
+	private String occurence;
+	
+	private String impact;
+	
+	private String solution;
+	
+	private String status;
+	
 	@Column(name = "project_id")
 	private int projectId;
-//	
-//	@Column(name = "activity_type")
-//	private int activityType;
 	
-	private int status;
-	
-	private String attachment;
+	@Column(name = "user_id")
+	private int userId;
+
 }

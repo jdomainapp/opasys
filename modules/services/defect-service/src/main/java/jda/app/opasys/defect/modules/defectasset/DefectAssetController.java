@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.defect.controller.ManageDefectAssetController;
 import jda.app.opasys.defect.modules.defectasset.model.DefectAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class DefectAssetController extends DefaultController<DefectAsset, Integer> {
+public class DefectAssetController extends DefaultController2<DefectAsset, Integer> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

@@ -38,7 +38,6 @@ import lombok.ToString;
 public class KnowledgeAsset extends RepresentationModel<KnowledgeAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;

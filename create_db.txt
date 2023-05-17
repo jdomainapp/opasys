@@ -2,14 +2,16 @@
 ISSUE-SERVICE--------------------
 CREATE TABLE IF NOT EXISTS issue.issue
 (
-    id SERIAL,
-    name character varying COLLATE pg_catalog."default" NOT NULL,
-    description character varying COLLATE pg_catalog."default" NOT NULL,
+    id integer NOT NULL,
     project_id integer NOT NULL,
-    activity_type integer NOT NULL,
-    status integer,
-    attachment character varying COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT issue_pkey PRIMARY KEY (id)
+    user_id integer NOT NULL,
+    level character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    occurence character varying COLLATE pg_catalog."default",
+    impact character varying COLLATE pg_catalog."default",
+    solution character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default"
 );
 
 DEFECT-SERVICE--------------------
@@ -65,9 +67,9 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.project
     CONSTRAINT project_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS knowledge_asset.opa
+CREATE TABLE IF NOT EXISTS knowledge_asset.knowledge_asset
 (
-    id integer NOT NULL DEFAULT nextval('knowledge_asset.opa_id_seq'::regclass),
+    id integer NOT NULL,
     name character varying COLLATE pg_catalog."default" NOT NULL,
     description character varying COLLATE pg_catalog."default" NOT NULL,
     project_id integer NOT NULL,
@@ -76,14 +78,14 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.opa
     attachment character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT opa_pkey PRIMARY KEY (id),
     CONSTRAINT opa_project_fk FOREIGN KEY (project_id)
-        REFERENCES opa.project (id) MATCH SIMPLE
+        REFERENCES knowledge_asset.project (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS knowledge_asset.conf_asset
 (
-    id integer NOT NULL DEFAULT nextval('knowledge_asset.conf_asset_id_seq'::regclass),
+    id SERIALL,
     opa_id integer NOT NULL,
     CONSTRAINT conf_opa_fk FOREIGN KEY (opa_id)
         REFERENCES knowledge_asset.opa (id) MATCH SIMPLE
@@ -93,7 +95,7 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.conf_asset
 
 CREATE TABLE IF NOT EXISTS knowledge_asset.fin_asset
 (
-    id integer NOT NULL DEFAULT nextval('knowledge_asset.fin_asset_id_seq'::regclass),
+    id SERIAL,
     opa_id integer NOT NULL,
     CONSTRAINT fin_asset_pkey PRIMARY KEY (id),
     CONSTRAINT fin_opa_fk FOREIGN KEY (opa_id)
@@ -104,7 +106,7 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.fin_asset
 
 CREATE TABLE IF NOT EXISTS knowledge_asset.plan_asset
 (
-    id integer NOT NULL DEFAULT nextval('knowledge_asset.plan_asset_id_seq'::regclass),
+    id SERIAL,
     opa_id integer NOT NULL,
     CONSTRAINT plan_asset_pkey PRIMARY KEY (id),
     CONSTRAINT plan_opa_fk FOREIGN KEY (opa_id)
@@ -115,7 +117,7 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.plan_asset
 
 CREATE TABLE IF NOT EXISTS knowledge_asset.metric_asset
 (
-    id integer NOT NULL DEFAULT nextval('knowledge_asset.metric_asset_id_seq'::regclass),
+    id SERIAL,
     opa_id integer NOT NULL,
     CONSTRAINT metric_asset_pkey PRIMARY KEY (id),
     CONSTRAINT metric_opa_fk FOREIGN KEY (opa_id)
@@ -126,7 +128,7 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.metric_asset
 
 CREATE TABLE IF NOT EXISTS knowledge_asset.risk_asset
 (
-    id integer NOT NULL DEFAULT nextval('knowledge_asset.risk_asset_id_seq'::regclass),
+    id SERIAL,
     opa_id integer NOT NULL,
     CONSTRAINT risk_asset_pkey PRIMARY KEY (id),
     CONSTRAINT risk_opa_fk FOREIGN KEY (opa_id)
@@ -135,23 +137,6 @@ CREATE TABLE IF NOT EXISTS knowledge_asset.risk_asset
         ON DELETE NO ACTION
 );
 
-
-CREATE TABLE IF NOT EXISTS knowledge_asset.opa
-(
-    id SERIAL,
-    name character varying COLLATE pg_catalog."default" NOT NULL,
-    description character varying COLLATE pg_catalog."default" NOT NULL,
-    project_id integer NOT NULL,
-    activity_type integer NOT NULL,
-    status integer,
-    attachment character varying COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT opa_pkey PRIMARY KEY (id),
-    CONSTRAINT opa_project_fk FOREIGN KEY (project_id)
-        REFERENCES opa.project (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
-)
 OPA-SERVICE--------------------
 CREATE TABLE IF NOT EXISTS opa.org_asset
 (
@@ -170,7 +155,7 @@ CREATE TABLE IF NOT EXISTS opa.project
     id integer NOT NULL,
     name character varying(100) COLLATE pg_catalog."default" NOT NULL,
     description character varying(200) COLLATE pg_catalog."default",
-    type_id integer NOT NULL,
+    project_type integer NOT NULL,
     username character varying(50) COLLATE pg_catalog."default" NOT NULL,
     status integer,
     start_date date,
@@ -180,7 +165,7 @@ CREATE TABLE IF NOT EXISTS opa.project
 
 CREATE TABLE IF NOT EXISTS opa.knowledge_asset
 (
-    id integer NOT NULL,
+    id SERIAL,
     name character varying COLLATE pg_catalog."default" NOT NULL,
     description character varying COLLATE pg_catalog."default" NOT NULL,
     project_id integer NOT NULL,
@@ -193,6 +178,20 @@ CREATE TABLE IF NOT EXISTS opa.knowledge_asset
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
+);
+
+CREATE TABLE IF NOT EXISTS opa.issue
+(
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    level character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    occurence character varying COLLATE pg_catalog."default",
+    impact character varying COLLATE pg_catalog."default",
+    solution character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default"
 );
 
 PROJECT-SERVICE--------------------
@@ -245,7 +244,7 @@ CREATE TABLE IF NOT EXISTS project.project
 
 CREATE TABLE IF NOT EXISTS project.activity
 (
-    id SERIAL),
+    id SERIAL,
     name character varying COLLATE pg_catalog."default" NOT NULL,
     type_id integer,
     user_id integer NOT NULL,
@@ -267,4 +266,26 @@ CREATE TABLE IF NOT EXISTS project.activity
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
+);
+CREATE TABLE IF NOT EXISTS project.issue
+(
+    id SERIAL,
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    level character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    occurence character varying COLLATE pg_catalog."default",
+    impact character varying COLLATE pg_catalog."default",
+    solution character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default",
+    CONSTRAINT risk_pkey PRIMARY KEY (id),
+    CONSTRAINT risk_project_fk FOREIGN KEY (project_id)
+        REFERENCES project.project (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT risk_user_fk FOREIGN KEY (user_id)
+        REFERENCES project."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );

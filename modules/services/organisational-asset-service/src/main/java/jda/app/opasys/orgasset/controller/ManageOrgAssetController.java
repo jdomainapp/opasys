@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.orgasset.modules.orgasset.model.OrgAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.DefaultController2;
 
 @RestController
 @RequestMapping(value = "/")
 public class ManageOrgAssetController {
 	public final static String PATH = "/org_asset";
+	public final static String SERVICE_NAME = "org-asset-service";
 
 	@RequestMapping(value = PATH + "/**")
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<OrgAsset, Integer> controller = ControllerRegistry.getInstance().get(OrgAsset.class);
+		DefaultController2<OrgAsset, Integer> controller = ControllerRegistry2.getInstance().get(OrgAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

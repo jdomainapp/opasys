@@ -13,17 +13,18 @@ import jda.app.opasys.knowledgeasset.controller.ManageKnowledgeAssetController;
 import jda.app.opasys.knowledgeasset.modules.confasset.model.ConfAsset;
 import jda.app.opasys.knowledgeasset.modules.knowledgeasset.model.KnowledgeAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
+import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class ConfAssetController extends DefaultController<ConfAsset, Integer>{
+public class ConfAssetController extends DefaultController2<ConfAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		DefaultController<KnowledgeAsset, Integer> knowledgeController = ControllerRegistry.getInstance().get(KnowledgeAsset.class);
+		DefaultController2<KnowledgeAsset, Integer> knowledgeController = ControllerRegistry2.getInstance().get(KnowledgeAsset.class);
 //		ResponseEntity<?> resp = knowledgeController != null ? knowledgeController.handleRequest(req, res)
 //				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		return ControllerTk.isPathContainId(ManageKnowledgeAssetController.PATH_CONF, path)

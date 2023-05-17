@@ -22,7 +22,6 @@
 		<module>org-asset-service</module>
 		<module>issue-service</module>
 		<module>defect-service</module>
-		<module>asset-storage-service</module>
 		<module>security-service</module>
 		
 	</modules>
@@ -32,6 +31,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
 		

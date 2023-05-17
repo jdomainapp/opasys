@@ -13,4 +13,11 @@
 	<name>project-service</name>
 	<description>Manage projects</description>
 
+	<dependencies>
+		<dependency>
+			<groupId>jda.modules</groupId>
+			<artifactId>jda-msacommon</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
 </project>

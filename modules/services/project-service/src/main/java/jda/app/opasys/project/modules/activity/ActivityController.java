@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.project.controller.ManageProjectController;
 import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class ActivityController extends DefaultController<Activity, Integer>{
+public class ActivityController extends DefaultController2<Activity, Integer>{
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();

@@ -10,13 +10,15 @@ import org.springframework.stereotype.Controller;
 
 import jda.app.opasys.project.controller.ManageProjectController;
 import jda.app.opasys.project.modules.activity.model.Activity;
+import jda.app.opasys.project.modules.issueasset.model.IssueAsset;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.modules.msacommon.controller.ControllerRegistry;
+import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class ProjectController extends DefaultController<Project, Integer> {
+public class ProjectController extends DefaultController2<Project, Integer> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
@@ -31,7 +33,10 @@ public class ProjectController extends DefaultController<Project, Integer> {
 		//TODO: getActivityList by projectId
 		//TODO: File upload????
 		} else if (ControllerTk.isPathContainId(ManageProjectController.PATH_ACTIVITY, path)) {
-			DefaultController<Activity, Integer> childController = ControllerRegistry.getInstance().get(Activity.class);
+			DefaultController2<Activity, Integer> childController = ControllerRegistry2.getInstance().get(Activity.class);
+			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
+		}else if (ControllerTk.isPathContainId(ManageProjectController.PATH_ISSUE, path)) {
+			DefaultController2<IssueAsset, Integer> childController = ControllerRegistry2.getInstance().get(IssueAsset.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else {
 			// invalid path

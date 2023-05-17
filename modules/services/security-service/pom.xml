@@ -13,4 +13,11 @@
 	<name>security-service</name>
 	<description>Manage security</description>
 
+	<dependencies>
+		<dependency>
+			<groupId>jda.modules</groupId>
+			<artifactId>jda-msacommon</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
 </project>

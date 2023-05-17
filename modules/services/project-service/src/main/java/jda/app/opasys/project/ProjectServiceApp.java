@@ -1,47 +1,73 @@
 package jda.app.opasys.project;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.app.opasys.project.modules.user.model.User;
+import jda.modules.msacommon.connections.UserContextInterceptor;
+import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.DefaultController2;
 import jda.modules.msacommon.controller.RedirectController;
 import jda.modules.msacommon.controller.RedirectControllerRegistry;
 import jda.modules.msacommon.controller.ServiceRegistry;
+import jda.modules.msacommon.events.model.ChangeModel2;
+import jda.modules.msacommon.messaging.kafka.KafkaChangeAction;
 
 
 @SpringBootApplication
 @RefreshScope
 @EnableEurekaClient
+@EnableBinding(Sink.class)
 public class ProjectServiceApp {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectServiceApp.class);
 	
 	public static void main(String[] args) {
 		final ServiceRegistry serviceRegistry = ServiceRegistry.getInstance();
-		final ControllerRegistry controllerRegistry = ControllerRegistry.getInstance();
+		final ControllerRegistry2 controllerRegistry = ControllerRegistry2.getInstance();
 		final RedirectControllerRegistry redirectControllerRegistry = RedirectControllerRegistry.getInstance();
 		ApplicationContext ctx = SpringApplication.run(ProjectServiceApp.class, args);
 		ctx.getBeansOfType(PagingAndSortingRepository.class).forEach((k, v) -> {serviceRegistry.put(k, v);
 		System.out.println("CHECK SERVICES: "+ k +"_"+v);
 			});
-		ctx.getBeansOfType(DefaultController.class).forEach((k, v) -> {controllerRegistry.put(k, v);
+		ctx.getBeansOfType(DefaultController2.class).forEach((k, v) -> {controllerRegistry.put(k, v);
 		System.out.println("CHECK Controller: "+ k +"_"+v);
 			});
 		ctx.getBeansOfType(RedirectController.class).forEach((k, v) -> {redirectControllerRegistry.put(k, v);
 		System.out.println("CHECK RedirectController: "+ k +"_"+v);
 			});
+		
+	}
+	
+	@StreamListener(Sink.INPUT)
+	public void processChanges(ChangeModel2 model) {
+
+		logger.debug("Received a message of type " + model.getType());
+		if (model.getAction().equals(KafkaChangeAction.CREATED) || model.getAction().equals(KafkaChangeAction.UPDATED) || model.getAction().equals(KafkaChangeAction.DELETED)) {
+			logger.debug("Received a {} event from the user service for user id {}",model.getAction(), model.getId());
+			DefaultController2<User, Integer> controller = ControllerRegistry2.getInstance().get(User.class);
+			controller.executeReceivedEvent(model.getAction(), model.getId(), model.getPath());
+		} else {
+			logger.error("Received an UNKNOWN event from the user service of type {}", model.getType());
+		}
 		
 	}
 
@@ -58,6 +84,23 @@ public class ProjectServiceApp {
 		messageSource.setUseCodeAsDefaultMessage(true);
 		messageSource.setBasenames("messages");
 		return messageSource;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@LoadBalanced
+	@Bean
+	public RestTemplate getRestTemplate(){
+		RestTemplate template = new RestTemplate();
+        List interceptors = template.getInterceptors();
+        if (interceptors==null){
+            template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
+        }
+        else{
+            interceptors.add(new UserContextInterceptor());
+            template.setInterceptors(interceptors);
+        }
+
+        return template;
 	}
 
 }

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.knowledgeasset.controller.ManageKnowledgeAssetController;
 import jda.app.opasys.knowledgeasset.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController;
+import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class RiskAssetController extends DefaultController<RiskAsset, Integer>{
+public class RiskAssetController extends DefaultController2<RiskAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
