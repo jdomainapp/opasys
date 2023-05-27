@@ -22,6 +22,7 @@
 		<module>org-asset-service</module>
 		<module>risk-service</module>
 		<module>defect-service</module>
+		<module>issue-service</module>
 		<module>security-service</module>
 		
 	</modules>

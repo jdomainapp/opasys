@@ -1,0 +1,3155 @@
+{
+	"info": {
+		"_postman_id": "6b42c976-7799-4596-b93a-0782988a0540",
+		"name": "opasys",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2435428"
+	},
+	"item": [
+		{
+			"name": "security-service",
+			"item": [
+				{
+					"name": "getUserList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/security-service/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"security-service",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"username\":\"test\",\n    \"password\":\"123456\",\n    \"name\":\"Vu Thanh Hai3\",\n    \"roleId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/security-service/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"security-service",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 4,\n    \"username\": \"test\",\n    \"password\": \"123456\",\n    \"name\": \"Vu Thanh Hai3\",\n    \"roleId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/security-service/user/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"security-service",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/security-service/user/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"security-service",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/security-service/user/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"security-service",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "project-service",
+			"item": [
+				{
+					"name": "getProjectList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Mail Exchange3\",\n    \"description\":\"Nang cap he thong mail\",\n    \"type\":{\"id\":\"1\"},\n    \"projManager\": {\"id\":\"2\"},\n    \"status\":\"0\",\n    \"startDate\": \"\",\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Mail Exchange3\",\n    \"description\":\"Nang cap he thong mail2\",\n    \"type\":{\"id\":\"1\"},\n    \"projManager\": {\"id\":\"1\"},\n    \"status\":\"0\",\n    \"startDate\": \"\",\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActivityList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAcitivityById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/activity/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"activity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createActivity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Metric he thong\",\n    \"type\":{\"id\":\"1\"},\n    \"user\": {\"id\":\"2\"},\n    \"project\": {\"id\": \"2\"},\n    \"attachment\":\"/home/vietdo/Ha/JDA/file_upload\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateActivity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Metric Mo ta he thong\",\n    \"type\":{\"id\":\"1\"},\n    \"user\": {\"id\":\"2\"},\n    \"project\": {\"id\": \"2\"},\n    \"attachment\":\"/home/vietdo/Ha/JDA/file_upload\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/activity/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"activity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteActivity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/activity/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"activity",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRisk",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Bug 2\",\n    \"user\": {\"id\":\"2\"},\n    \"project\": {\"id\": \"2\"},\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"risk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRisk",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 2\",\n    \"user\": {\"id\":\"2\"},\n    \"project\": {\"id\": \"2\"},\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file2\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/risk/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"risk",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/risk/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"risk",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"risk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRisk",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/risk/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"risk",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDefect",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Bug 2\",\n    \"user\": {\"id\":\"2\"},\n    \"project\": {\"id\": \"2\"},\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/defect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"defect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDefect",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Defect 1\",\n    \"user\": {\"id\":\"2\"},\n    \"project\": {\"id\": \"2\"},\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file2\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/defect/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"defect",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDefectList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/defect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"defect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDefectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/defect/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"defect",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDefect",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/defect/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"defect",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"project\":{\"id\":\"2\"},\n    \"createUser\": {\"id\":\"2\"},\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"description\":\"Test issue3\",\n    \"summary\":\"Test issue3\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateIssue",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"project\":{\"id\":\"2\"},\n    \"createUser\": {\"id\":\"2\"},\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"description\":\"Test issue5\",\n    \"summary\":\"Test issue5\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIssueList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIssueById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteIssue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"commentUser\": {\"id\":\"4\"},\n    \"issue\": {\"id\":\"1\"},\n    \"comment\": \"Test Comment3\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"commentUser\": {\"id\":\"4\"},\n    \"issue\": {\"id\":\"1\"},\n    \"comment\": \"Test Comment5\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/issue/2/comment/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"issue",
+								"2",
+								"comment",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "org-asset-service",
+			"item": [
+				{
+					"name": "createOrgAsset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Plan CNTT\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"activityType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/org-asset-service/org_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"org-asset-service",
+								"org_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOrgAsset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"name\": \"Plan XD\",\n    \"description\": \"Bieu mau lap ke hoach du an XD\",\n    \"projectType\": 2,\n    \"activityType\": 1,\n    \"status\": 1,\n    \"attachment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/org-asset-service/org_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"org-asset-service",
+								"org_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrgAssetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/org-asset-service/org_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"org-asset-service",
+								"org_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrgAssetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/org-asset-service/org_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"org-asset-service",
+								"org_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOrgAsset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/org-asset-service/org_asset/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"org-asset-service",
+								"org_asset",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "opa-service",
+			"item": [
+				{
+					"name": "createOrgAsset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Plan X2D\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"activityType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/org_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"org_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOrgAsset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan XD\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"activityType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/org_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"org_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrgAssetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/org_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"org_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrgAssetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/org_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"org_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOrgAsset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/org_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"org_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRiskAsset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/risk_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"risk_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRiskAsset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 3\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/risk_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"risk_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskAssetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/risk_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"risk_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskAssetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/risk_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"risk_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRiskAsset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/risk_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"risk_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDefectAsset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Defect 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/defect_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"defect_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDefectAsset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Defect 3\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/defect_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"defect_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDefectAssetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/defect_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"defect_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDefectAssetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/defect_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"defect_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDefectAsset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/defect_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"defect_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/project/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Mail Exchange3\",\n    \"description\":\"Nang cap he thong mail\",\n    \"projectType\":\"1\",\n    \"projManager\": \"troibk\",\n    \"status\":\"0\",\n    \"startDate\": \"\",\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Mail Exchange1\",\n    \"description\":\"Nang cap he thong mail2\",\n    \"projectType\":\"1\",\n    \"projManager\": \"troibk\",\n    \"status\":\"0\",\n    \"startDate\": \"\",\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/project/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/project/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"project",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createKnowledgeAsset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Metric1\",\n    \"description\":\"Metric1\",\n    \"project\":{\"id\":1},\n    \"activityType\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/knowledge_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"knowledge_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateKnowledgeAsset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Metric3\",\n    \"description\":\"Metric3\",\n    \"project\":{\"id\":1},\n    \"activityType\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/knowledge_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"knowledge_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKnowledgeAssetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/knowledge_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"knowledge_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKnowledgeAssetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/knowledge_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"knowledge_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteKnowledgeAsset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/knowledge_asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"knowledge_asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"2\",\n    \"createUserId\": \"2\",\n    \"assigneeId\": \"4\",\n    \"parentIssueId\":\"0\",\n    \"description\":\"Test issue2\",\n    \"summary\":\"Test issue3\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateIssue",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"1\",\n    \"projectId\":\"2\",\n    \"createUserId\": \"2\",\n    \"assigneeId\": \"4\",\n    \"parentIssueId\":\"0\",\n    \"description\":\"Test issue1\",\n    \"summary\":\"Test issue1\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIssueList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIssueById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteIssue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"commentUserId\": \"4\",\n    \"issue\": {\"id\":\"1\"},\n    \"comment\": \"Test Comment3\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/1/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"commentUserId\": \"4\",\n    \"issue\": {\"id\":\"1\"},\n    \"comment\": \"Test Comment6\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/1/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"1",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/1/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/1/comment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"1",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/issue_asset/1/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"issue_asset",
+								"1",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "knowledge-asset-service",
+			"item": [
+				{
+					"name": "createKnowlegdeAsset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"knowledgeAsset\": {\n    \"id\":\"0\",\n    \"name\":\"Defect1\",\n    \"description\":\"Defect1\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/knowlegde-asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"knowlegde-asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateKnowlegdeAsset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"knowledgeAsset\": {\n        \"id\": 2,\n        \"name\": \"Defect3\",\n        \"description\": \"Defect4\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\",\n        \"confAssets\": null\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/knowlegde-asset/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"knowlegde-asset",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKnowlegdeAssetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/knowlegde-asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"knowlegde-asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKnowlegdeAssetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/knowlegde-asset/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"knowlegde-asset",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteKnowlegdeAsset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/knowlegde-asset/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"knowlegde-asset",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createConfig",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"knowledgeAsset\": {\n    \"id\":\"0\",\n    \"name\":\"Defect1\",\n    \"description\":\"Defect1\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateConfig",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"knowledgeAsset\": {\n        \"id\": 2,\n        \"name\": \"Defect3\",\n        \"description\": \"Defect4\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\",\n        \"confAssets\": null\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/config/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"config",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConfigList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConfigById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/config/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"config",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteConfig",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/config/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"config",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBudget",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"knowledgeAsset\": {\n    \"id\":\"0\",\n    \"name\":\"Budget3\",\n    \"description\":\"Budget3\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/finance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"finance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBudget",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 3,\n    \"knowledgeAsset\": {\n        \"id\": 7,\n        \"name\": \"Budget3\",\n        \"description\": \"Budget4\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/finance/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"finance",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBudgetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/finance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"finance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBudgetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/finance/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"finance",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBudget",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/finance/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"finance",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createMetric",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 0,\n    \"knowledgeAsset\": {\n        \"id\": 0,\n        \"name\": \"Metric3\",\n        \"description\": \"Metric3\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/metric",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"metric"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMetric",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 3,\n    \"knowledgeAsset\": {\n        \"id\": 10,\n        \"name\": \"Metric3\",\n        \"description\": \"Metric4\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/metric/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"metric",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMetricList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/metric",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"metric"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMetricById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/metric/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"metric",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMetric",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/metric/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"metric",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPlan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 0,\n    \"knowledgeAsset\": {\n        \"id\": 0,\n        \"name\": \"Plan3\",\n        \"description\": \"Plan3\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePlan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 1,\n    \"knowledgeAsset\": {\n        \"id\": 11,\n        \"name\": \"Plan1\",\n        \"description\": \"Plan1\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/plan/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"plan",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlanList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlanById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/plan/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"plan",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePlan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/plan/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"plan",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRisk",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 0,\n    \"knowledgeAsset\": {\n        \"id\": 0,\n        \"name\": \"Plan3\",\n        \"description\": \"Plan3\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"risk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRisk",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 1,\n    \"knowledgeAsset\": {\n        \"id\": 11,\n        \"name\": \"Plan1\",\n        \"description\": \"Plan1\",\n        \"projectId\": 1,\n        \"status\": 1,\n        \"attachment\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/risk/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"risk",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"risk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/risk/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"risk",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRisk",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/knowledge-asset-service/risk/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"knowledge-asset-service",
+								"risk",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "risk-service",
+			"item": [
+				{
+					"name": "createRisk",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/risk-service/risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"risk-service",
+								"risk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRisk",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"Risk 1\",\n    \"description\": \"Can't upload file\",\n    \"level\": \"CRITICAL\",\n    \"occurence\": \"Create org_asset\",\n    \"impact\": \"added time and cost\",\n    \"solution\": \"\",\n    \"status\": \"OPEN\",\n    \"projectId\": 2,\n    \"userId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/risk-service/risk/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"risk-service",
+								"risk",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/risk-service/risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"risk-service",
+								"risk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRiskById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/risk-service/risk/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"risk-service",
+								"risk",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRisk",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/risk-service/risk/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"risk-service",
+								"risk",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "defect-service",
+			"item": [
+				{
+					"name": "createDefect",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/defect-service/defect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"defect-service",
+								"defect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDefect",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Defect 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"level\":\"CRITICAL\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/defect-service/defect/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"defect-service",
+								"defect",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDefectList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/defect-service/defect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"defect-service",
+								"defect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDefectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/defect-service/defect/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"defect-service",
+								"defect",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDefect",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/defect-service/defect/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"defect-service",
+								"defect",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "issue-service",
+			"item": [
+				{
+					"name": "createIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"projectId\":\"5\",\n    \"createUser\": {\"id\":\"2\"},\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"description\":\"Test issue3\",\n    \"summary\":\"Test issue3\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateIssue",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"projectId\":\"5\",\n    \"createUser\": {\"id\":\"2\"},\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"description\":\"Test issue4\",\n    \"summary\":\"Test issue4\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIssueList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIssueById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteIssue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"commentUser\": {\"id\":\"4\"},\n    \"issue\": {\"id\":\"1\"},\n    \"comment\": \"Test Comment3\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/1/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"commentUser\": {\"id\":\"4\"},\n    \"issue\": {\"id\":\"1\"},\n    \"comment\": \"Test Comment5\",\n    \"createDate\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/1/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"1",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/1/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/1/comment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"1",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/issue-service/issue/1/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"issue-service",
+								"issue",
+								"1",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

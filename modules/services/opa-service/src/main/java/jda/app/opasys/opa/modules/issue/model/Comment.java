@@ -1,14 +1,14 @@
-package jda.app.opasys.opa.modules.project.model;
+package jda.app.opasys.opa.modules.issue.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.hateoas.RepresentationModel;
@@ -16,44 +16,33 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import jda.app.opasys.opa.modules.knowledgeasset.model.KnowledgeAsset;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "project", schema = "opa")
+@Table(name = "comment", schema = "opa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Project.class)
-public class Project extends RepresentationModel<Project>{
+		  property = "id", scope = Comment.class)
+public class Comment extends RepresentationModel<Comment>{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;
 
-	private String name;
+	@Column(name="user_id", nullable=false)
+	private int commentUserId;
+	
+	@ManyToOne
+    @JoinColumn(name="issue_id", nullable=false)
+	private IssueAsset issue;
 
-	private String description;
+	private String comment;
 	
-	@Column(name = "project_type")
-	private int projectType;
+	@Column(name = "create_date")
+	private Date createDate;
 	
-	@Column(name = "username")
-	private String projManager;
-	
-	//0: processing, 1: completed
-	private int status;
-	
-	@Column(name = "start_date")
-	private Date startDate;
-	
-	@Column(name = "end_date")
-	private Date endDate;
-	
-	@OneToMany(mappedBy="project")
-	private List<KnowledgeAsset> knowledgeAssets;
-	
+
 }

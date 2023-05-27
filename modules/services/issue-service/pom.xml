@@ -8,9 +8,9 @@
 	</parent>
 	
 	<groupId>jda.app</groupId>
-	<artifactId>defect-service</artifactId>
+	<artifactId>issue-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>defect-service</name>
-	<description>Manage defects</description>
+	<name>issue-service</name>
+	<description>Manage issues</description>
 
 </project>

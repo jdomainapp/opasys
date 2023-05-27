@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.opa.modules.defectasset.model.DefectAsset;
+import jda.app.opasys.opa.modules.issue.model.IssueAsset;
 import jda.app.opasys.opa.modules.knowledgeasset.model.KnowledgeAsset;
 import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
 import jda.app.opasys.opa.modules.project.model.Project;
@@ -27,6 +28,9 @@ public class ManageOPAController {
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_RISK = "/risk_asset";
 	public final static String PATH_DEFECT = "/defect_asset";
+	public final static String PATH_ISSUE = "/issue_asset";
+	public final static String PATH_ISSUE_COMMENT = "/comment";
+	
 
 	@RequestMapping(value = PATH_KNOWLEDGE + "/**")
 	public ResponseEntity<?> handleKnowledgeAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -59,6 +63,13 @@ public class ManageOPAController {
 	@RequestMapping(value = PATH_DEFECT + "/**")
 	public ResponseEntity<?> handleDefectAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController2<DefectAsset, Integer> controller = ControllerRegistry2.getInstance().get(DefectAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@RequestMapping(value = PATH_ISSUE + "/**")
+	public ResponseEntity<?> handleIssueAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		DefaultController2<IssueAsset, Integer> controller = ControllerRegistry2.getInstance().get(IssueAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
