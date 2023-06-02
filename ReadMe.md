@@ -65,11 +65,15 @@ mvn spring-boot:run
 - or Run by class `org.jda.example.coursemanmsa.gatewayserver.ApiGatewayServerApplication`
 ## 5. Run OPASys services
 - Access the directory of each service, run the command: `mvn spring-boot:run`
-### Project Service
-### OPA Service
-### Org Asset Service
-### Knowledge Asset Service
-### Risk Asset Service
-### Defect Asset Service
-### Issue Asset Service
-### Security Service
+### project-service
+### opa-service
+### org-asset-service
+- Manage forms and templates related to procedures and policies in the organization.
+- When procedures and policies are changed, users will create/update/delete org-assets on this service. Then, the service will send kafka events to `opa-service' to update local org-assets in `opa-service`.
+### knowledge-asset-service
+### risk-service
+### defect-service
+### issue-service
+### security-service
+- Manage users of the system.
+- When user is changed (add/edit/delete), `security-service` sends kafka event to `project-service` and `issue-service` to update their local users.
