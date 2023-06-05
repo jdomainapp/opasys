@@ -40,29 +40,14 @@ bin/kafka-topics.sh --create --partitions 1 --replication-factor 1 --topic orgAs
 ### Run Config service
 - Description: The Spring Cloud Configuration Server (aka Config Server) allows you to set
 up application properties with environment-specific values. The other services will retrieve its properties from Config Server when the services lanch.
-- Run by commandline
-```
-cd ../courseman/msa/modules/configserver
-mvn spring-boot:run
-```
-- or Run by class `org.jda.example.coursemanmsa.configserver.ConfigurationServerApplication`
+- Run by class `org.jda.example.coursemanmsa.configserver.ConfigurationServerApplication`
 ### Run Discovery Service
 - Description:  Discovery service like Eureka will abstract away the physical location of our services. Eureka can seamlessly add and remove service
 instances from an environment without impacting the service clients. We use Eureka to look up a service.
-- Run by commandline
-```
-cd ../courseman/msa/modules/eurekaserver
-mvn spring-boot:run
-```
-- or Run by class `org.jda.example.coursemanmsa.eurekaserver.EurekaServerApplication`
+- Run by class `org.jda.example.coursemanmsa.eurekaserver.EurekaServerApplication`
 ### Run Gateway Service
 - Description: A service gateway acts as an intermediary between the service client and an invoked service, pulls apart the path coming in from the service client call and determines what service the service client is trying to invoke. It is a central point to apply rules, policies for requests and responses from/to servcies. The Spring Cloud Gateway allows us to implement custom business logic through filters (pre- and post-filters), it integrates with Netflix’s Eureka Server and can automatically map services registered with Eureka to a route. 
-- Run by commandline
-```
-cd ../courseman/msa/modules/gatewayserver
-mvn spring-boot:run
-```
-- or Run by class `org.jda.example.coursemanmsa.gatewayserver.ApiGatewayServerApplication`
+- Run by class `org.jda.example.coursemanmsa.gatewayserver.ApiGatewayServerApplication`
 ## 5. Run OPASys services
 - Access the directory of each service, run the command: `mvn spring-boot:run`
 ### project-service
