@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jda.app.opasys.common.model.KnowlegdeAsset;
+import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
@@ -26,28 +28,16 @@ import lombok.ToString;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = DefectAsset.class)
-public class DefectAsset {
+public class DefectAsset extends OPA{
 
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String name;
-
-	private String level;
-	
-	private String description;
+	private int level;
 	
 	private String solution;
-	
-	private String status;
-	
-//	@Column(name = "userId")
-//	private int userId;
-	@ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-	private User user;
 	
 	@ManyToOne
     @JoinColumn(name="project_id", nullable=false)

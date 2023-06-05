@@ -11,15 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.app.opasys.project.modules.defectasset.model.DefectAsset;
-import jda.app.opasys.project.modules.issue.model.IssueAsset;
+import jda.app.opasys.project.modules.issueasset.model.IssueAsset;
+import jda.app.opasys.project.modules.opa.OPAController;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.InterfaceController;
+import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 
 @RestController
 @RequestMapping(value = "/")
@@ -32,6 +36,7 @@ public class ManageProjectController {
 	public final static String PATH_DEFECT = "/defect";
 	public final static String PATH_ISSUE = "/issue";
 	public final static String PATH_ISSUE_COMMENT = "/comment";
+	public final static String PATH_OPA = "/opa";
 
 	@RequestMapping(value = PATH_PROJECT + "/**")
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -58,6 +63,9 @@ public class ManageProjectController {
 		}else if (ControllerTk.checkParentChildService(ManageProjectController.PATH_ISSUE, ManageProjectController.PATH_ISSUE_COMMENT, path)) {
 			DefaultController2<IssueAsset, Integer> childController = ControllerRegistry2.getInstance().get(IssueAsset.class);
 			return childController.handleRequest(req, res);
+		}else if (ControllerTk.isPathContainId(ManageProjectController.PATH_OPA, path)) {
+			InterfaceController<Integer, OPA> interfaceController = InterfaceControllerRegistry.getInstance().get(OPA.class);
+			return interfaceController.handleRequest(req, res);
 		}else{
 			// invalid path
 			return ResponseEntity.badRequest().build();

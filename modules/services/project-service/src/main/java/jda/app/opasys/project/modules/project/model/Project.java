@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jda.app.opasys.project.modules.activity.model.Activity;
+import jda.app.opasys.project.modules.issueasset.model.IssueAsset;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,4 +66,7 @@ public class Project extends RepresentationModel<Project>{
 	
 	@OneToMany(mappedBy="project")
 	private List<Activity> activities;
+	
+	@OneToMany(mappedBy="project")
+	private List<IssueAsset> issues;
 }

@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jda.app.opasys.common.model.OPA;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,20 +21,16 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "org_asset", schema = "organisational_asset")
+@Table(name = "org_asset", schema = "org_asset")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = OrgAsset.class)
-public class OrgAsset extends RepresentationModel<OrgAsset>{
+public class OrgAsset extends OPA{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
-
-	private String name;
-
-	private String description;
 	
 	@Column(name = "project_type")
 	private int projectType;
@@ -41,8 +38,4 @@ public class OrgAsset extends RepresentationModel<OrgAsset>{
 	@Column(name = "activity_type")
 	private int activityType;
 	
-	//0: processing, 1: completed
-	private int status;
-	
-	private String attachment;
 }

@@ -13,6 +13,7 @@
 		<module>configserver</module>
 		<module>eurekaserver</module>
 		<module>gatewayserver</module>
+		<module>opays-common</module>
 		<module>services</module>
 	</modules>
 
@@ -29,6 +30,7 @@
 	</dependencyManagement>
 	
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>

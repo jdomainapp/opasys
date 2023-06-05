@@ -28,6 +28,11 @@
 	</modules>
 	
 	<dependencies>
+		<dependency>
+			<groupId>jda.app</groupId>
+			<artifactId>opays-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.projectlombok</groupId>

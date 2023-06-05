@@ -4,15 +4,11 @@ spring:
   profiles:
     active:
     - native
-    #- git
   cloud:
     config:
       server:
         native:
           search-locations: classpath:/config
-        git:
-          uri: https://github.com/haworker25/microservice-configs.git
-          #searchPaths: licensingservice
     
 server:
   port: 8071
