@@ -28,7 +28,7 @@ public class OrgAssetController extends DefaultController2<OrgAsset, Integer>{
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		if(ControllerTk.isPathContainId(ManageOrgAssetController.PATH, path)) {
+		if(ControllerTk.isPathContainModule(ManageOrgAssetController.PATH, path)) {
 			ResponseEntity<?> responseEntity = handleRequest(req, res, ids.isEmpty() ? null : ids.get(0));
 			String requestMethod = req.getMethod();
 			String kafkaPath= ControllerTk.getServiceUri(ManageOrgAssetController.SERVICE_NAME, ManageOrgAssetController.PATH+"/{id}");

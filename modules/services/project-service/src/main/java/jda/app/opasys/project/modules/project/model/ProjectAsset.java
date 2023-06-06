@@ -29,54 +29,35 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString
-@Entity
-@Table(name = "project", schema = "project")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Project.class)
-public class Project extends RepresentationModel<Project>{
-	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+public class ProjectAsset extends RepresentationModel<ProjectAsset>{
 	private int id;
 
 	private String name;
 
 	private String description;
 	
-//	@Column(name = "type_id")
-//	private int typeId;
-	@ManyToOne
-    @JoinColumn(name="type_id", nullable=false)
-	private ProjectType type;
+	private int projectType;
 	
-//	@Column(name = "user_id")
-//	private int projManagerId;
-	@ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-	private User projManager;
+	private int projManagerId;
 	
-	//0: processing, 1: completed
 	private int status;
 	
-	@Column(name = "start_date")
 	private Date startDate;
 	
-	@Column(name = "end_date")
 	private Date endDate;
-	
-	@OneToMany(mappedBy="project")
-	private List<Activity> activities;
-	
-	@OneToMany(mappedBy="project")
-	private List<IssueAsset> issues;
-	
-	@OneToMany(mappedBy="project")
-	private List<RiskAsset> risks;
-	
-	@OneToMany(mappedBy="project")
-	private List<DefectAsset> defects;
 
+	public ProjectAsset(int id, String name, String description, int projectType, int projManagerId, int status,
+			Date startDate, Date endDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.projectType = projectType;
+		this.projManagerId = projManagerId;
+		this.status = status;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	
 }

@@ -16,14 +16,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jda.app.opasys.common.model.KnowlegdeAsset;
-import jda.app.opasys.opa.modules.project.model.Project;
+import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "defect", schema = "opa")
+@Table(name = "defect_asset", schema = "opa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 

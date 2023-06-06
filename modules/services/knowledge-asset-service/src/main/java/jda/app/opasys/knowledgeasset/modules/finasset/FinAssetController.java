@@ -20,7 +20,7 @@ public class FinAssetController extends DefaultController2<FinAsset, Integer>{
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		return ControllerTk.isPathContainId(ManageKnowledgeAssetController.PATH_FIN, path)
+		return ControllerTk.isPathContainModule(ManageKnowledgeAssetController.PATH_FIN, path)
 				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
 				: ResponseEntity.badRequest().build();
 	}

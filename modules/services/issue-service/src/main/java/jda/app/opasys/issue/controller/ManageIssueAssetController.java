@@ -29,12 +29,12 @@ public class ManageIssueAssetController {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
 		//issue/{10}
-		if (ControllerTk.isPathContainId(ManageIssueAssetController.PATH_ISSUE, path)) {
+		if (ControllerTk.isPathContainModule(ManageIssueAssetController.PATH_ISSUE, path)) {
 			DefaultController2<IssueAsset, Integer> childController = ControllerRegistry2.getInstance().get(IssueAsset.class);
 			return childController.handleRequest(req, res, ids.isEmpty()? null : ids.get(0));
 			
 		//issue/{issue_id}/comment/{comment_id}
-		}else if (ControllerTk.isPathContainId(ManageIssueAssetController.PATH_COMMENT, path)) {
+		}else if (ControllerTk.isPathContainModule(ManageIssueAssetController.PATH_COMMENT, path)) {
 			DefaultController2<Comment, Integer> childController = ControllerRegistry2.getInstance().get(Comment.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else{

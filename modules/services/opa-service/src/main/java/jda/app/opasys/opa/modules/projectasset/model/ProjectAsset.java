@@ -1,4 +1,4 @@
-package jda.app.opasys.opa.modules.project.model;
+package jda.app.opasys.opa.modules.projectasset.model;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,12 +17,12 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "project", schema = "opa")
+@Table(name = "project_asset", schema = "opa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Project.class)
-public class Project extends RepresentationModel<Project>{
+		  property = "id", scope = ProjectAsset.class)
+public class ProjectAsset extends RepresentationModel<ProjectAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;
@@ -34,8 +34,8 @@ public class Project extends RepresentationModel<Project>{
 	@Column(name = "project_type")
 	private int projectType;
 	
-	@Column(name = "username")
-	private String projManager;
+	@Column(name = "user_id")
+	private int projManagerId;
 	
 	private int status;
 	

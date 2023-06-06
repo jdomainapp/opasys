@@ -20,7 +20,7 @@ public class OpaKnowledgeAssetController extends DefaultController2<OpaKnowledge
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		return ControllerTk.isPathContainId(ManageOPAController.PATH_KNOWLEDGE, path)
+		return ControllerTk.isPathContainModule(ManageOPAController.PATH_KNOWLEDGE, path)
 				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
 				: ResponseEntity.badRequest().build();
 	}

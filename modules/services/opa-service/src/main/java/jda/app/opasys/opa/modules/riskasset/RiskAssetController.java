@@ -19,7 +19,7 @@ public class RiskAssetController extends DefaultController2<RiskAsset, Integer>{
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		return ControllerTk.isPathContainId(ManageOPAController.PATH_RISK, path)
+		return ControllerTk.isPathContainModule(ManageOPAController.PATH_RISK, path)
 				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
 				: ResponseEntity.badRequest().build();
 

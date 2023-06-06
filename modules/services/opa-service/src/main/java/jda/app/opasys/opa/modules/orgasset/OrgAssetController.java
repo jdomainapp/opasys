@@ -20,7 +20,7 @@ public class OrgAssetController extends DefaultController2<OrgAsset, Integer> {
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		return ControllerTk.isPathContainId(ManageOPAController.PATH_ORG, path)
+		return ControllerTk.isPathContainModule(ManageOPAController.PATH_ORG, path)
 				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
 				: ResponseEntity.badRequest().build();
 	}

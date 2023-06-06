@@ -20,7 +20,7 @@ public class PlanAssetController extends DefaultController2<PlanAsset, Integer>{
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		return ControllerTk.isPathContainId(ManageKnowledgeAssetController.PATH_PLAN, path)
+		return ControllerTk.isPathContainModule(ManageKnowledgeAssetController.PATH_PLAN, path)
 				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
 				: ResponseEntity.badRequest().build();
 	}

@@ -13,7 +13,7 @@ import jda.app.opasys.opa.modules.defectasset.model.DefectAsset;
 import jda.app.opasys.opa.modules.issueasset.model.IssueAsset;
 import jda.app.opasys.opa.modules.knowledgeasset.model.OpaKnowledgeAsset;
 import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
-import jda.app.opasys.opa.modules.project.model.Project;
+import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import jda.app.opasys.opa.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.DefaultController2;
@@ -40,7 +40,7 @@ public class ManageOPAController {
 	
 	@RequestMapping(value = PATH_PROJECT + "/**")
 	public ResponseEntity<?> handleProject(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController2<OrgAsset, Integer> controller = ControllerRegistry2.getInstance().get(Project.class);
+		DefaultController2<ProjectAsset, Integer> controller = ControllerRegistry2.getInstance().get(ProjectAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

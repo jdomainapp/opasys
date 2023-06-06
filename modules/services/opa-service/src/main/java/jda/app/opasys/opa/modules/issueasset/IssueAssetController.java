@@ -23,11 +23,11 @@ public class IssueAssetController extends DefaultController2<IssueAsset, Integer
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
 		//project/{10}/issue/{id}
-		if (ControllerTk.isPathContainId(ManageOPAController.PATH_ISSUE, path)) {
+		if (ControllerTk.isPathContainModule(ManageOPAController.PATH_ISSUE, path)) {
 			return super.handleRequest(req, res, ids.size()==1 ? ids.get(0):null);
 			
 		//project/{10}/issue/{issue_id}/comment/{comment_id}
-		}else if (ControllerTk.isPathContainId(ManageOPAController.PATH_ISSUE_COMMENT, path)) {
+		}else if (ControllerTk.isPathContainModule(ManageOPAController.PATH_ISSUE_COMMENT, path)) {
 			DefaultController2<Comment, Integer> childController = ControllerRegistry2.getInstance().get(Comment.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else{
