@@ -3,7 +3,7 @@
 ### JPA project
 - Download JPA project from https://github.com/jdomainapp/jda.git
 - Copy library folder `local-maven-repo` to local Maven repository
-- Rename JAR Maven lib file `xml1.1.jar` in local Maven repository to `xml1.8.jar`
+- Copy JAR Maven lib file `com/thoughtworks/xstream/xstream/1.4.18/xstream-1.4.18.jar` in local Maven repository to folder `com/thoughtworks/xstream/xstream/1.4.11.1` and rename to xstream-1.4.11.1.jar
 - Run maven complie and install 
 ```
 cd ../jpa
