@@ -3,7 +3,7 @@ package jda.app.opasys.project.modules.activity.model;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class OpaKnowledgeAsset {
+public class LocalKnowledgeAsset {
 	private int id;
 
 	private int projectId;
@@ -17,6 +17,7 @@ public class OpaKnowledgeAsset {
 	private String attachment;
 
 	private int userId;
-
+	
+	private int activityType;
 
 }

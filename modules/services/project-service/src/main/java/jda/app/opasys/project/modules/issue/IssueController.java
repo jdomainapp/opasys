@@ -1,4 +1,4 @@
-package jda.app.opasys.project.modules.issueasset;
+package jda.app.opasys.project.modules.issue;
 
 import java.util.List;
 
@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import jda.app.opasys.project.controller.ManageProjectController;
-import jda.app.opasys.project.modules.issueasset.model.Comment;
-import jda.app.opasys.project.modules.issueasset.model.IssueAsset;
+import jda.app.opasys.project.modules.issue.model.Comment;
+import jda.app.opasys.project.modules.issue.model.Issue;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class IssueAssetController extends DefaultController2<IssueAsset, Integer> {
+public class IssueController extends DefaultController2<Issue, Integer> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

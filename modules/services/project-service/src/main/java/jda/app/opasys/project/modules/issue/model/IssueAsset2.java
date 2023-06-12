@@ -1,4 +1,7 @@
-package jda.app.opasys.project.modules.defectasset.model;
+package jda.app.opasys.project.modules.issue.model;
+
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -17,30 +21,44 @@ import jda.app.opasys.common.model.KnowlegdeAsset;
 import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.user.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString
-@Entity
-@Table(name = "defect", schema = "project")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = DefectAsset.class)
-public class DefectAsset extends OPA{
+@AllArgsConstructor
+public class IssueAsset2{
 
-	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	private String name;
 
-	private int level;
+	private String description;
 	
-	private String solution;
+	private int status;
 	
-	@ManyToOne
-    @JoinColumn(name="project_id", nullable=false)
-	private Project project;
+	private String attachment;
+
+	private int userId;
+
+	private int parentIssueId;
 	
+	private String summary;
+	
+	private int type;
+	
+	private int priority;
+	
+	private int projectId;
+
+	private User assignee;
+
+	private Date createDate;
+
+	public IssueAsset2(int id) {
+		super();
+		this.id = id;
+	}
+	
+
 }

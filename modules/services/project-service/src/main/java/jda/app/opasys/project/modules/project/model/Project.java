@@ -21,9 +21,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jda.app.opasys.project.modules.activity.model.Activity;
-import jda.app.opasys.project.modules.defectasset.model.DefectAsset;
-import jda.app.opasys.project.modules.issueasset.model.IssueAsset;
-import jda.app.opasys.project.modules.riskasset.model.RiskAsset;
+import jda.app.opasys.project.modules.defect.model.Defect;
+import jda.app.opasys.project.modules.issue.model.Issue;
+import jda.app.opasys.project.modules.risk.model.Risk;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,12 +71,12 @@ public class Project extends RepresentationModel<Project>{
 	private List<Activity> activities;
 	
 	@OneToMany(mappedBy="project")
-	private List<IssueAsset> issues;
+	private List<Issue> issues;
 	
 	@OneToMany(mappedBy="project")
-	private List<RiskAsset> risks;
+	private List<Risk> risks;
 	
 	@OneToMany(mappedBy="project")
-	private List<DefectAsset> defects;
+	private List<Defect> defects;
 
 }

@@ -26,8 +26,8 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Comment.class)
-public class Comment extends RepresentationModel<Comment>{
+		  property = "id", scope = CommentAsset.class)
+public class CommentAsset extends RepresentationModel<CommentAsset>{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;

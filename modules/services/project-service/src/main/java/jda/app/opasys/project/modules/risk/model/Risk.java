@@ -1,43 +1,50 @@
-package jda.app.opasys.project.modules.user.model;
+package jda.app.opasys.project.modules.risk.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jda.app.opasys.common.model.OPA;
+import jda.app.opasys.project.modules.project.model.Project;
+import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "user", schema = "project")
+@Table(name = "risk", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = User.class)
-public class User extends RepresentationModel<User>{
+		  property = "id", scope = Risk.class)
+public class Risk extends OPA{
 
 	@Id
 	@Column(name = "id", nullable = false)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String username;
-
-	private String password;
-
-	private String name;
+	private int level;
 	
-	//1:Admin; 2: Project_Manager; 3: Team_Member
-	@Column(name = "role_id")
-	private int roleId;
-
+	private String occurence;
+	
+	private String impact;
+	
+	private String solution;
+	
+	
+	@ManyToOne
+    @JoinColumn(name="project_id", nullable=false)
+	private Project project;
+	
 }

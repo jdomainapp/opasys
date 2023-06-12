@@ -2,8 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Ubuntu 10.23-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.23 (Ubuntu 10.23-0ubuntu0.18.04.1)
+-- Dumped from database version 10.23 (Ubuntu 10.23-0ubuntu0.18.04.2)
+-- Dumped by pg_dump version 10.23 (Ubuntu 10.23-0ubuntu0.18.04.2)
+
+-- Started on 2023-06-12 12:10:40 PDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,28 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: opasys; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE opasys WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
-
-
-ALTER DATABASE opasys OWNER TO postgres;
-
-\connect opasys
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
+-- TOC entry 14 (class 2615 OID 24588)
 -- Name: defect; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -48,6 +29,7 @@ CREATE SCHEMA defect;
 ALTER SCHEMA defect OWNER TO admin;
 
 --
+-- TOC entry 5 (class 2615 OID 40960)
 -- Name: issue; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -57,6 +39,7 @@ CREATE SCHEMA issue;
 ALTER SCHEMA issue OWNER TO admin;
 
 --
+-- TOC entry 9 (class 2615 OID 24624)
 -- Name: knowledge_asset; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -66,6 +49,7 @@ CREATE SCHEMA knowledge_asset;
 ALTER SCHEMA knowledge_asset OWNER TO admin;
 
 --
+-- TOC entry 13 (class 2615 OID 24753)
 -- Name: opa; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -75,15 +59,17 @@ CREATE SCHEMA opa;
 ALTER SCHEMA opa OWNER TO admin;
 
 --
--- Name: organisational_asset; Type: SCHEMA; Schema: -; Owner: admin
+-- TOC entry 4 (class 2615 OID 24612)
+-- Name: org_asset; Type: SCHEMA; Schema: -; Owner: admin
 --
 
-CREATE SCHEMA organisational_asset;
+CREATE SCHEMA org_asset;
 
 
-ALTER SCHEMA organisational_asset OWNER TO admin;
+ALTER SCHEMA org_asset OWNER TO admin;
 
 --
+-- TOC entry 11 (class 2615 OID 24784)
 -- Name: project; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -93,6 +79,7 @@ CREATE SCHEMA project;
 ALTER SCHEMA project OWNER TO admin;
 
 --
+-- TOC entry 8 (class 2615 OID 24576)
 -- Name: risk; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -102,6 +89,7 @@ CREATE SCHEMA risk;
 ALTER SCHEMA risk OWNER TO admin;
 
 --
+-- TOC entry 12 (class 2615 OID 24600)
 -- Name: security; Type: SCHEMA; Schema: -; Owner: admin
 --
 
@@ -111,6 +99,7 @@ CREATE SCHEMA security;
 ALTER SCHEMA security OWNER TO admin;
 
 --
+-- TOC entry 1 (class 3079 OID 13039)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -118,6 +107,8 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
+-- TOC entry 3191 (class 0 OID 0)
+-- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -129,6 +120,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- TOC entry 229 (class 1259 OID 41190)
 -- Name: defect; Type: TABLE; Schema: defect; Owner: admin
 --
 
@@ -136,17 +128,19 @@ CREATE TABLE defect.defect (
     id integer NOT NULL,
     project_id integer NOT NULL,
     user_id integer NOT NULL,
-    level character varying(20) NOT NULL,
     name character varying NOT NULL,
     description character varying,
     solution character varying,
-    status character varying
+    attachment character varying,
+    status integer,
+    level integer
 );
 
 
 ALTER TABLE defect.defect OWNER TO admin;
 
 --
+-- TOC entry 235 (class 1259 OID 41261)
 -- Name: comment; Type: TABLE; Schema: issue; Owner: admin
 --
 
@@ -162,13 +156,14 @@ CREATE TABLE issue.comment (
 ALTER TABLE issue.comment OWNER TO admin;
 
 --
+-- TOC entry 222 (class 1259 OID 40971)
 -- Name: issue; Type: TABLE; Schema: issue; Owner: admin
 --
 
 CREATE TABLE issue.issue (
     id integer NOT NULL,
     project_id integer NOT NULL,
-    user_create_id integer NOT NULL,
+    user_id integer NOT NULL,
     assignee_id integer NOT NULL,
     description character varying,
     summary character varying NOT NULL,
@@ -176,13 +171,16 @@ CREATE TABLE issue.issue (
     type integer NOT NULL,
     priority integer NOT NULL,
     create_date date,
-    parent_issue_id integer
+    parent_issue_id integer,
+    attachment character varying,
+    name character varying
 );
 
 
 ALTER TABLE issue.issue OWNER TO admin;
 
 --
+-- TOC entry 221 (class 1259 OID 40961)
 -- Name: user; Type: TABLE; Schema: issue; Owner: admin
 --
 
@@ -198,215 +196,127 @@ CREATE TABLE issue."user" (
 ALTER TABLE issue."user" OWNER TO admin;
 
 --
+-- TOC entry 231 (class 1259 OID 41216)
 -- Name: conf_asset; Type: TABLE; Schema: knowledge_asset; Owner: admin
 --
 
 CREATE TABLE knowledge_asset.conf_asset (
     id integer NOT NULL,
-    opa_id integer NOT NULL
+    name character varying NOT NULL,
+    description character varying,
+    project_id integer NOT NULL,
+    status integer,
+    attachment character varying NOT NULL,
+    user_id integer NOT NULL
 );
 
 
 ALTER TABLE knowledge_asset.conf_asset OWNER TO admin;
 
 --
--- Name: conf_asset_id_seq; Type: SEQUENCE; Schema: knowledge_asset; Owner: admin
---
-
-CREATE SEQUENCE knowledge_asset.conf_asset_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE knowledge_asset.conf_asset_id_seq OWNER TO admin;
-
---
--- Name: conf_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: knowledge_asset; Owner: admin
---
-
-ALTER SEQUENCE knowledge_asset.conf_asset_id_seq OWNED BY knowledge_asset.conf_asset.id;
-
-
---
+-- TOC entry 232 (class 1259 OID 41224)
 -- Name: fin_asset; Type: TABLE; Schema: knowledge_asset; Owner: admin
 --
 
 CREATE TABLE knowledge_asset.fin_asset (
     id integer NOT NULL,
-    opa_id integer NOT NULL
+    name character varying NOT NULL,
+    description character varying,
+    project_id integer NOT NULL,
+    status integer,
+    attachment character varying NOT NULL,
+    user_id integer NOT NULL
 );
 
 
 ALTER TABLE knowledge_asset.fin_asset OWNER TO admin;
 
 --
--- Name: fin_asset_id_seq; Type: SEQUENCE; Schema: knowledge_asset; Owner: admin
---
-
-CREATE SEQUENCE knowledge_asset.fin_asset_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE knowledge_asset.fin_asset_id_seq OWNER TO admin;
-
---
--- Name: fin_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: knowledge_asset; Owner: admin
---
-
-ALTER SEQUENCE knowledge_asset.fin_asset_id_seq OWNED BY knowledge_asset.fin_asset.id;
-
-
---
--- Name: knowledge_asset; Type: TABLE; Schema: knowledge_asset; Owner: admin
---
-
-CREATE TABLE knowledge_asset.knowledge_asset (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    description character varying NOT NULL,
-    project_id integer NOT NULL,
-    activity_type integer NOT NULL,
-    status integer,
-    attachment character varying NOT NULL
-);
-
-
-ALTER TABLE knowledge_asset.knowledge_asset OWNER TO admin;
-
---
+-- TOC entry 233 (class 1259 OID 41232)
 -- Name: metric_asset; Type: TABLE; Schema: knowledge_asset; Owner: admin
 --
 
 CREATE TABLE knowledge_asset.metric_asset (
     id integer NOT NULL,
-    opa_id integer NOT NULL
+    name character varying NOT NULL,
+    description character varying,
+    project_id integer NOT NULL,
+    status integer,
+    attachment character varying NOT NULL,
+    user_id integer NOT NULL
 );
 
 
 ALTER TABLE knowledge_asset.metric_asset OWNER TO admin;
 
 --
--- Name: metric_asset_id_seq; Type: SEQUENCE; Schema: knowledge_asset; Owner: admin
---
-
-CREATE SEQUENCE knowledge_asset.metric_asset_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE knowledge_asset.metric_asset_id_seq OWNER TO admin;
-
---
--- Name: metric_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: knowledge_asset; Owner: admin
---
-
-ALTER SEQUENCE knowledge_asset.metric_asset_id_seq OWNED BY knowledge_asset.metric_asset.id;
-
-
---
+-- TOC entry 234 (class 1259 OID 41240)
 -- Name: plan_asset; Type: TABLE; Schema: knowledge_asset; Owner: admin
 --
 
 CREATE TABLE knowledge_asset.plan_asset (
     id integer NOT NULL,
-    opa_id integer NOT NULL
+    name character varying NOT NULL,
+    description character varying,
+    project_id integer NOT NULL,
+    status integer,
+    attachment character varying NOT NULL,
+    user_id integer NOT NULL
 );
 
 
 ALTER TABLE knowledge_asset.plan_asset OWNER TO admin;
 
 --
--- Name: plan_asset_id_seq; Type: SEQUENCE; Schema: knowledge_asset; Owner: admin
+-- TOC entry 237 (class 1259 OID 41294)
+-- Name: defect_asset; Type: TABLE; Schema: opa; Owner: admin
 --
 
-CREATE SEQUENCE knowledge_asset.plan_asset_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE knowledge_asset.plan_asset_id_seq OWNER TO admin;
-
---
--- Name: plan_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: knowledge_asset; Owner: admin
---
-
-ALTER SEQUENCE knowledge_asset.plan_asset_id_seq OWNED BY knowledge_asset.plan_asset.id;
-
-
---
--- Name: project; Type: TABLE; Schema: knowledge_asset; Owner: admin
---
-
-CREATE TABLE knowledge_asset.project (
+CREATE TABLE opa.defect_asset (
     id integer NOT NULL,
-    name character varying(100) NOT NULL,
-    description character varying(200),
-    type_id integer NOT NULL,
-    username character varying(50) NOT NULL,
-    status integer,
-    start_date date,
-    end_date date
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    level integer NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    solution character varying,
+    status integer NOT NULL,
+    attachment character varying
 );
 
 
-ALTER TABLE knowledge_asset.project OWNER TO admin;
+ALTER TABLE opa.defect_asset OWNER TO admin;
 
 --
--- Name: risk_asset; Type: TABLE; Schema: knowledge_asset; Owner: admin
+-- TOC entry 227 (class 1259 OID 41160)
+-- Name: issue_asset; Type: TABLE; Schema: opa; Owner: admin
 --
 
-CREATE TABLE knowledge_asset.risk_asset (
+CREATE TABLE opa.issue_asset (
     id integer NOT NULL,
-    opa_id integer NOT NULL
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    assignee_id integer NOT NULL,
+    description character varying,
+    summary character varying NOT NULL,
+    status integer NOT NULL,
+    type integer NOT NULL,
+    priority integer NOT NULL,
+    create_date date,
+    parent_issue_id integer,
+    attachment character varying,
+    name character varying
 );
 
 
-ALTER TABLE knowledge_asset.risk_asset OWNER TO admin;
+ALTER TABLE opa.issue_asset OWNER TO admin;
 
 --
--- Name: risk_asset_id_seq; Type: SEQUENCE; Schema: knowledge_asset; Owner: admin
+-- TOC entry 228 (class 1259 OID 41169)
+-- Name: issue_comment; Type: TABLE; Schema: opa; Owner: admin
 --
 
-CREATE SEQUENCE knowledge_asset.risk_asset_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE knowledge_asset.risk_asset_id_seq OWNER TO admin;
-
---
--- Name: risk_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: knowledge_asset; Owner: admin
---
-
-ALTER SEQUENCE knowledge_asset.risk_asset_id_seq OWNED BY knowledge_asset.risk_asset.id;
-
-
---
--- Name: comment; Type: TABLE; Schema: opa; Owner: admin
---
-
-CREATE TABLE opa.comment (
+CREATE TABLE opa.issue_comment (
     id integer NOT NULL,
     issue_id integer NOT NULL,
     comment character varying,
@@ -415,65 +325,29 @@ CREATE TABLE opa.comment (
 );
 
 
-ALTER TABLE opa.comment OWNER TO admin;
+ALTER TABLE opa.issue_comment OWNER TO admin;
 
 --
--- Name: defect; Type: TABLE; Schema: opa; Owner: admin
---
-
-CREATE TABLE opa.defect (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    user_id integer NOT NULL,
-    level character varying(20) NOT NULL,
-    name character varying NOT NULL,
-    description character varying,
-    solution character varying,
-    status character varying
-);
-
-
-ALTER TABLE opa.defect OWNER TO admin;
-
---
--- Name: issue; Type: TABLE; Schema: opa; Owner: admin
---
-
-CREATE TABLE opa.issue (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    user_create_id integer NOT NULL,
-    assignee_id integer NOT NULL,
-    description character varying,
-    summary character varying NOT NULL,
-    status integer NOT NULL,
-    type integer NOT NULL,
-    priority integer NOT NULL,
-    create_date date,
-    parent_issue_id integer
-);
-
-
-ALTER TABLE opa.issue OWNER TO admin;
-
---
+-- TOC entry 211 (class 1259 OID 24769)
 -- Name: knowledge_asset; Type: TABLE; Schema: opa; Owner: admin
 --
 
 CREATE TABLE opa.knowledge_asset (
     id integer NOT NULL,
     name character varying NOT NULL,
-    description character varying NOT NULL,
+    description character varying,
     project_id integer NOT NULL,
     activity_type integer NOT NULL,
     status integer,
-    attachment character varying NOT NULL
+    attachment character varying NOT NULL,
+    user_id integer
 );
 
 
 ALTER TABLE opa.knowledge_asset OWNER TO admin;
 
 --
+-- TOC entry 210 (class 1259 OID 24767)
 -- Name: knowledge_asset_id_seq; Type: SEQUENCE; Schema: opa; Owner: admin
 --
 
@@ -489,6 +363,8 @@ CREATE SEQUENCE opa.knowledge_asset_id_seq
 ALTER TABLE opa.knowledge_asset_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3192 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: knowledge_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: opa; Owner: admin
 --
 
@@ -496,6 +372,7 @@ ALTER SEQUENCE opa.knowledge_asset_id_seq OWNED BY opa.knowledge_asset.id;
 
 
 --
+-- TOC entry 208 (class 1259 OID 24754)
 -- Name: org_asset; Type: TABLE; Schema: opa; Owner: admin
 --
 
@@ -506,72 +383,79 @@ CREATE TABLE opa.org_asset (
     project_type integer,
     activity_type integer,
     status integer,
-    attachment character varying NOT NULL
+    attachment character varying NOT NULL,
+    user_id integer
 );
 
 
 ALTER TABLE opa.org_asset OWNER TO admin;
 
 --
--- Name: project; Type: TABLE; Schema: opa; Owner: admin
+-- TOC entry 209 (class 1259 OID 24762)
+-- Name: project_asset; Type: TABLE; Schema: opa; Owner: admin
 --
 
-CREATE TABLE opa.project (
+CREATE TABLE opa.project_asset (
     id integer NOT NULL,
     name character varying(100) NOT NULL,
     description character varying(200),
     project_type integer NOT NULL,
-    username character varying(50) NOT NULL,
+    user_id integer NOT NULL,
     status integer,
     start_date date,
     end_date date
 );
 
 
-ALTER TABLE opa.project OWNER TO admin;
+ALTER TABLE opa.project_asset OWNER TO admin;
 
 --
--- Name: risk; Type: TABLE; Schema: opa; Owner: admin
+-- TOC entry 236 (class 1259 OID 41279)
+-- Name: risk_asset; Type: TABLE; Schema: opa; Owner: admin
 --
 
-CREATE TABLE opa.risk (
+CREATE TABLE opa.risk_asset (
     id integer NOT NULL,
     project_id integer NOT NULL,
     user_id integer NOT NULL,
-    level character varying(20) NOT NULL,
+    level integer NOT NULL,
     name character varying NOT NULL,
     description character varying,
     occurence character varying,
     impact character varying,
     solution character varying,
-    status character varying
+    status integer NOT NULL,
+    attachment character varying
 );
 
 
-ALTER TABLE opa.risk OWNER TO admin;
+ALTER TABLE opa.risk_asset OWNER TO admin;
 
 --
--- Name: org_asset; Type: TABLE; Schema: organisational_asset; Owner: admin
+-- TOC entry 207 (class 1259 OID 24615)
+-- Name: org_asset; Type: TABLE; Schema: org_asset; Owner: admin
 --
 
-CREATE TABLE organisational_asset.org_asset (
+CREATE TABLE org_asset.org_asset (
     id integer NOT NULL,
     name character varying NOT NULL,
     description character varying NOT NULL,
     project_type integer,
     activity_type integer,
     status integer,
-    attachment character varying NOT NULL
+    attachment character varying NOT NULL,
+    user_id integer NOT NULL
 );
 
 
-ALTER TABLE organisational_asset.org_asset OWNER TO admin;
+ALTER TABLE org_asset.org_asset OWNER TO admin;
 
 --
--- Name: org_asset_id_seq; Type: SEQUENCE; Schema: organisational_asset; Owner: admin
+-- TOC entry 206 (class 1259 OID 24613)
+-- Name: org_asset_id_seq; Type: SEQUENCE; Schema: org_asset; Owner: admin
 --
 
-CREATE SEQUENCE organisational_asset.org_asset_id_seq
+CREATE SEQUENCE org_asset.org_asset_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -580,32 +464,38 @@ CREATE SEQUENCE organisational_asset.org_asset_id_seq
     CACHE 1;
 
 
-ALTER TABLE organisational_asset.org_asset_id_seq OWNER TO admin;
+ALTER TABLE org_asset.org_asset_id_seq OWNER TO admin;
 
 --
--- Name: org_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: organisational_asset; Owner: admin
+-- TOC entry 3193 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: org_asset_id_seq; Type: SEQUENCE OWNED BY; Schema: org_asset; Owner: admin
 --
 
-ALTER SEQUENCE organisational_asset.org_asset_id_seq OWNED BY organisational_asset.org_asset.id;
+ALTER SEQUENCE org_asset.org_asset_id_seq OWNED BY org_asset.org_asset.id;
 
 
 --
+-- TOC entry 220 (class 1259 OID 24835)
 -- Name: activity; Type: TABLE; Schema: project; Owner: admin
 --
 
 CREATE TABLE project.activity (
     id integer NOT NULL,
     name character varying NOT NULL,
-    type_id integer,
+    activity_type integer,
     user_id integer NOT NULL,
     attachment character varying,
-    project_id integer
+    project_id integer,
+    description character varying,
+    status integer
 );
 
 
 ALTER TABLE project.activity OWNER TO admin;
 
 --
+-- TOC entry 219 (class 1259 OID 24833)
 -- Name: activity_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -621,6 +511,8 @@ CREATE SEQUENCE project.activity_id_seq
 ALTER TABLE project.activity_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3194 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: activity_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -628,6 +520,7 @@ ALTER SEQUENCE project.activity_id_seq OWNED BY project.activity.id;
 
 
 --
+-- TOC entry 213 (class 1259 OID 24787)
 -- Name: activity_type; Type: TABLE; Schema: project; Owner: admin
 --
 
@@ -640,6 +533,7 @@ CREATE TABLE project.activity_type (
 ALTER TABLE project.activity_type OWNER TO admin;
 
 --
+-- TOC entry 212 (class 1259 OID 24785)
 -- Name: activity_type_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -655,6 +549,8 @@ CREATE SEQUENCE project.activity_type_id_seq
 ALTER TABLE project.activity_type_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3195 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: activity_type_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -662,21 +558,24 @@ ALTER SEQUENCE project.activity_type_id_seq OWNED BY project.activity_type.id;
 
 
 --
--- Name: comment; Type: TABLE; Schema: project; Owner: admin
+-- TOC entry 226 (class 1259 OID 41136)
+-- Name: issue_comment; Type: TABLE; Schema: project; Owner: admin
 --
 
-CREATE TABLE project.comment (
+CREATE TABLE project.issue_comment (
     id integer NOT NULL,
     issue_id integer NOT NULL,
     comment character varying,
     create_date date,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    title character varying
 );
 
 
-ALTER TABLE project.comment OWNER TO admin;
+ALTER TABLE project.issue_comment OWNER TO admin;
 
 --
+-- TOC entry 225 (class 1259 OID 41134)
 -- Name: comment_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -692,13 +591,16 @@ CREATE SEQUENCE project.comment_id_seq
 ALTER TABLE project.comment_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3196 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
-ALTER SEQUENCE project.comment_id_seq OWNED BY project.comment.id;
+ALTER SEQUENCE project.comment_id_seq OWNED BY project.issue_comment.id;
 
 
 --
+-- TOC entry 239 (class 1259 OID 41312)
 -- Name: defect; Type: TABLE; Schema: project; Owner: admin
 --
 
@@ -706,17 +608,19 @@ CREATE TABLE project.defect (
     id integer NOT NULL,
     project_id integer NOT NULL,
     user_id integer NOT NULL,
-    level character varying(20) NOT NULL,
+    level integer NOT NULL,
     name character varying NOT NULL,
     description character varying,
     solution character varying,
-    status character varying
+    status integer,
+    attachment character varying
 );
 
 
 ALTER TABLE project.defect OWNER TO admin;
 
 --
+-- TOC entry 238 (class 1259 OID 41310)
 -- Name: defect_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -732,6 +636,8 @@ CREATE SEQUENCE project.defect_id_seq
 ALTER TABLE project.defect_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3197 (class 0 OID 0)
+-- Dependencies: 238
 -- Name: defect_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -739,13 +645,14 @@ ALTER SEQUENCE project.defect_id_seq OWNED BY project.defect.id;
 
 
 --
+-- TOC entry 224 (class 1259 OID 41110)
 -- Name: issue; Type: TABLE; Schema: project; Owner: admin
 --
 
 CREATE TABLE project.issue (
     id integer NOT NULL,
     project_id integer NOT NULL,
-    user_create_id integer NOT NULL,
+    user_id integer NOT NULL,
     assignee_id integer NOT NULL,
     description character varying,
     summary character varying NOT NULL,
@@ -753,13 +660,16 @@ CREATE TABLE project.issue (
     type integer NOT NULL,
     priority integer NOT NULL,
     create_date date,
-    parent_issue_id integer
+    parent_issue_id integer,
+    name character varying,
+    attachment character varying
 );
 
 
 ALTER TABLE project.issue OWNER TO admin;
 
 --
+-- TOC entry 223 (class 1259 OID 41108)
 -- Name: issue_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -775,6 +685,8 @@ CREATE SEQUENCE project.issue_id_seq
 ALTER TABLE project.issue_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3198 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: issue_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -782,6 +694,7 @@ ALTER SEQUENCE project.issue_id_seq OWNED BY project.issue.id;
 
 
 --
+-- TOC entry 218 (class 1259 OID 24817)
 -- Name: project; Type: TABLE; Schema: project; Owner: admin
 --
 
@@ -800,6 +713,7 @@ CREATE TABLE project.project (
 ALTER TABLE project.project OWNER TO admin;
 
 --
+-- TOC entry 217 (class 1259 OID 24815)
 -- Name: project_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -815,6 +729,8 @@ CREATE SEQUENCE project.project_id_seq
 ALTER TABLE project.project_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3199 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: project_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -822,6 +738,7 @@ ALTER SEQUENCE project.project_id_seq OWNED BY project.project.id;
 
 
 --
+-- TOC entry 215 (class 1259 OID 24798)
 -- Name: project_type; Type: TABLE; Schema: project; Owner: admin
 --
 
@@ -834,6 +751,7 @@ CREATE TABLE project.project_type (
 ALTER TABLE project.project_type OWNER TO admin;
 
 --
+-- TOC entry 214 (class 1259 OID 24796)
 -- Name: project_type_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -849,6 +767,8 @@ CREATE SEQUENCE project.project_type_id_seq
 ALTER TABLE project.project_type_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3200 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: project_type_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -856,6 +776,7 @@ ALTER SEQUENCE project.project_type_id_seq OWNED BY project.project_type.id;
 
 
 --
+-- TOC entry 241 (class 1259 OID 41333)
 -- Name: risk; Type: TABLE; Schema: project; Owner: admin
 --
 
@@ -863,19 +784,21 @@ CREATE TABLE project.risk (
     id integer NOT NULL,
     project_id integer NOT NULL,
     user_id integer NOT NULL,
-    level character varying(20) NOT NULL,
+    level integer NOT NULL,
     name character varying NOT NULL,
     description character varying,
     occurence character varying,
     impact character varying,
     solution character varying,
-    status character varying
+    status integer,
+    attachment character varying
 );
 
 
 ALTER TABLE project.risk OWNER TO admin;
 
 --
+-- TOC entry 240 (class 1259 OID 41331)
 -- Name: risk_id_seq; Type: SEQUENCE; Schema: project; Owner: admin
 --
 
@@ -891,6 +814,8 @@ CREATE SEQUENCE project.risk_id_seq
 ALTER TABLE project.risk_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3201 (class 0 OID 0)
+-- Dependencies: 240
 -- Name: risk_id_seq; Type: SEQUENCE OWNED BY; Schema: project; Owner: admin
 --
 
@@ -898,6 +823,7 @@ ALTER SEQUENCE project.risk_id_seq OWNED BY project.risk.id;
 
 
 --
+-- TOC entry 216 (class 1259 OID 24807)
 -- Name: user; Type: TABLE; Schema: project; Owner: admin
 --
 
@@ -913,6 +839,7 @@ CREATE TABLE project."user" (
 ALTER TABLE project."user" OWNER TO admin;
 
 --
+-- TOC entry 230 (class 1259 OID 41196)
 -- Name: risk; Type: TABLE; Schema: risk; Owner: admin
 --
 
@@ -920,19 +847,21 @@ CREATE TABLE risk.risk (
     id integer NOT NULL,
     project_id integer NOT NULL,
     user_id integer NOT NULL,
-    level character varying(20) NOT NULL,
     name character varying NOT NULL,
     description character varying,
     occurence character varying,
     impact character varying,
     solution character varying,
-    status character varying
+    level integer,
+    status integer,
+    attachment character varying
 );
 
 
 ALTER TABLE risk.risk OWNER TO admin;
 
 --
+-- TOC entry 205 (class 1259 OID 24603)
 -- Name: user; Type: TABLE; Schema: security; Owner: admin
 --
 
@@ -948,6 +877,7 @@ CREATE TABLE security."user" (
 ALTER TABLE security."user" OWNER TO admin;
 
 --
+-- TOC entry 204 (class 1259 OID 24601)
 -- Name: user_id_seq; Type: SEQUENCE; Schema: security; Owner: admin
 --
 
@@ -963,6 +893,8 @@ CREATE SEQUENCE security.user_id_seq
 ALTER TABLE security.user_id_seq OWNER TO admin;
 
 --
+-- TOC entry 3202 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: security; Owner: admin
 --
 
@@ -970,41 +902,7 @@ ALTER SEQUENCE security.user_id_seq OWNED BY security."user".id;
 
 
 --
--- Name: conf_asset id; Type: DEFAULT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.conf_asset ALTER COLUMN id SET DEFAULT nextval('knowledge_asset.conf_asset_id_seq'::regclass);
-
-
---
--- Name: fin_asset id; Type: DEFAULT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.fin_asset ALTER COLUMN id SET DEFAULT nextval('knowledge_asset.fin_asset_id_seq'::regclass);
-
-
---
--- Name: metric_asset id; Type: DEFAULT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.metric_asset ALTER COLUMN id SET DEFAULT nextval('knowledge_asset.metric_asset_id_seq'::regclass);
-
-
---
--- Name: plan_asset id; Type: DEFAULT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.plan_asset ALTER COLUMN id SET DEFAULT nextval('knowledge_asset.plan_asset_id_seq'::regclass);
-
-
---
--- Name: risk_asset id; Type: DEFAULT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.risk_asset ALTER COLUMN id SET DEFAULT nextval('knowledge_asset.risk_asset_id_seq'::regclass);
-
-
---
+-- TOC entry 2943 (class 2604 OID 24772)
 -- Name: knowledge_asset id; Type: DEFAULT; Schema: opa; Owner: admin
 --
 
@@ -1012,13 +910,15 @@ ALTER TABLE ONLY opa.knowledge_asset ALTER COLUMN id SET DEFAULT nextval('opa.kn
 
 
 --
--- Name: org_asset id; Type: DEFAULT; Schema: organisational_asset; Owner: admin
+-- TOC entry 2942 (class 2604 OID 24618)
+-- Name: org_asset id; Type: DEFAULT; Schema: org_asset; Owner: admin
 --
 
-ALTER TABLE ONLY organisational_asset.org_asset ALTER COLUMN id SET DEFAULT nextval('organisational_asset.org_asset_id_seq'::regclass);
+ALTER TABLE ONLY org_asset.org_asset ALTER COLUMN id SET DEFAULT nextval('org_asset.org_asset_id_seq'::regclass);
 
 
 --
+-- TOC entry 2947 (class 2604 OID 24838)
 -- Name: activity id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1026,6 +926,7 @@ ALTER TABLE ONLY project.activity ALTER COLUMN id SET DEFAULT nextval('project.a
 
 
 --
+-- TOC entry 2944 (class 2604 OID 24790)
 -- Name: activity_type id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1033,13 +934,7 @@ ALTER TABLE ONLY project.activity_type ALTER COLUMN id SET DEFAULT nextval('proj
 
 
 --
--- Name: comment id; Type: DEFAULT; Schema: project; Owner: admin
---
-
-ALTER TABLE ONLY project.comment ALTER COLUMN id SET DEFAULT nextval('project.comment_id_seq'::regclass);
-
-
---
+-- TOC entry 2950 (class 2604 OID 41315)
 -- Name: defect id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1047,6 +942,7 @@ ALTER TABLE ONLY project.defect ALTER COLUMN id SET DEFAULT nextval('project.def
 
 
 --
+-- TOC entry 2948 (class 2604 OID 41113)
 -- Name: issue id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1054,6 +950,15 @@ ALTER TABLE ONLY project.issue ALTER COLUMN id SET DEFAULT nextval('project.issu
 
 
 --
+-- TOC entry 2949 (class 2604 OID 41139)
+-- Name: issue_comment id; Type: DEFAULT; Schema: project; Owner: admin
+--
+
+ALTER TABLE ONLY project.issue_comment ALTER COLUMN id SET DEFAULT nextval('project.comment_id_seq'::regclass);
+
+
+--
+-- TOC entry 2946 (class 2604 OID 24820)
 -- Name: project id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1061,6 +966,7 @@ ALTER TABLE ONLY project.project ALTER COLUMN id SET DEFAULT nextval('project.pr
 
 
 --
+-- TOC entry 2945 (class 2604 OID 24801)
 -- Name: project_type id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1068,6 +974,7 @@ ALTER TABLE ONLY project.project_type ALTER COLUMN id SET DEFAULT nextval('proje
 
 
 --
+-- TOC entry 2951 (class 2604 OID 41336)
 -- Name: risk id; Type: DEFAULT; Schema: project; Owner: admin
 --
 
@@ -1075,6 +982,7 @@ ALTER TABLE ONLY project.risk ALTER COLUMN id SET DEFAULT nextval('project.risk_
 
 
 --
+-- TOC entry 2941 (class 2604 OID 24606)
 -- Name: user id; Type: DEFAULT; Schema: security; Owner: admin
 --
 
@@ -1082,6 +990,447 @@ ALTER TABLE ONLY security."user" ALTER COLUMN id SET DEFAULT nextval('security.u
 
 
 --
+-- TOC entry 3171 (class 0 OID 41190)
+-- Dependencies: 229
+-- Data for Name: defect; Type: TABLE DATA; Schema: defect; Owner: admin
+--
+
+COPY defect.defect (id, project_id, user_id, name, description, solution, attachment, status, level) FROM stdin;
+1	1	2	Bug 1	Can't upload file			1	1
+2	1	2	Bug 3	Can't upload file			1	1
+5	3	2	Bug 1	Can't upload file			1	1
+\.
+
+
+--
+-- TOC entry 3177 (class 0 OID 41261)
+-- Dependencies: 235
+-- Data for Name: comment; Type: TABLE DATA; Schema: issue; Owner: admin
+--
+
+COPY issue.comment (id, issue_id, comment, create_date, user_id) FROM stdin;
+3	1	Test Comment3	\N	4
+4	8	Test Comment3	\N	4
+\.
+
+
+--
+-- TOC entry 3164 (class 0 OID 40971)
+-- Dependencies: 222
+-- Data for Name: issue; Type: TABLE DATA; Schema: issue; Owner: admin
+--
+
+COPY issue.issue (id, project_id, user_id, assignee_id, description, summary, status, type, priority, create_date, parent_issue_id, attachment, name) FROM stdin;
+1	5	2	4	Test issue1	Test issue1	1	1	2	\N	0		Test issue1
+2	5	2	4	Test issue3	Test issue2	1	1	2	\N	0		Test issue3
+8	3	2	4	Test issue7	Test issue7	1	1	2	\N	0		Test issue2
+\.
+
+
+--
+-- TOC entry 3163 (class 0 OID 40961)
+-- Dependencies: 221
+-- Data for Name: user; Type: TABLE DATA; Schema: issue; Owner: admin
+--
+
+COPY issue."user" (id, username, password, name, role_id) FROM stdin;
+2	test2	123456	Vu Thanh Ha2	1
+4	test	123456	Vu Thanh Hai3	1
+\.
+
+
+--
+-- TOC entry 3173 (class 0 OID 41216)
+-- Dependencies: 231
+-- Data for Name: conf_asset; Type: TABLE DATA; Schema: knowledge_asset; Owner: admin
+--
+
+COPY knowledge_asset.conf_asset (id, name, description, project_id, status, attachment, user_id) FROM stdin;
+2	Config3	Config2	1	1		2
+\.
+
+
+--
+-- TOC entry 3174 (class 0 OID 41224)
+-- Dependencies: 232
+-- Data for Name: fin_asset; Type: TABLE DATA; Schema: knowledge_asset; Owner: admin
+--
+
+COPY knowledge_asset.fin_asset (id, name, description, project_id, status, attachment, user_id) FROM stdin;
+2	Finace3	Finace2	1	1		2
+\.
+
+
+--
+-- TOC entry 3175 (class 0 OID 41232)
+-- Dependencies: 233
+-- Data for Name: metric_asset; Type: TABLE DATA; Schema: knowledge_asset; Owner: admin
+--
+
+COPY knowledge_asset.metric_asset (id, name, description, project_id, status, attachment, user_id) FROM stdin;
+1	Metric1	Metric1	1	1		2
+2	Metric3	Metric2	1	1		2
+\.
+
+
+--
+-- TOC entry 3176 (class 0 OID 41240)
+-- Dependencies: 234
+-- Data for Name: plan_asset; Type: TABLE DATA; Schema: knowledge_asset; Owner: admin
+--
+
+COPY knowledge_asset.plan_asset (id, name, description, project_id, status, attachment, user_id) FROM stdin;
+1	Plan1	Plan1	1	1		2
+2	Plan12	Plan3	1	1		2
+7	Plan he thong	\N	3	0	/home/vietdo/Ha/JDA/file_upload	2
+\.
+
+
+--
+-- TOC entry 3179 (class 0 OID 41294)
+-- Dependencies: 237
+-- Data for Name: defect_asset; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.defect_asset (id, project_id, user_id, level, name, description, solution, status, attachment) FROM stdin;
+1	1	2	1	Bug 1	Can't upload file		1	
+2	1	2	1	Bug 3	Can't upload file		1	
+5	3	2	1	Bug 1	Can't upload file		1	
+\.
+
+
+--
+-- TOC entry 3169 (class 0 OID 41160)
+-- Dependencies: 227
+-- Data for Name: issue_asset; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.issue_asset (id, project_id, user_id, assignee_id, description, summary, status, type, priority, create_date, parent_issue_id, attachment, name) FROM stdin;
+1	5	2	4	Test issue1	Test issue1	1	1	2	\N	0		Test issue1
+2	5	2	4	Test issue3	Test issue1	1	1	2	\N	0		Test issue3
+9	5	2	4	Test issue9	Test issue1	1	1	2	\N	0		Test issue9
+8	3	2	4	Test issue7	Test issue7	1	1	2	\N	0		Test issue2
+\.
+
+
+--
+-- TOC entry 3170 (class 0 OID 41169)
+-- Dependencies: 228
+-- Data for Name: issue_comment; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.issue_comment (id, issue_id, comment, create_date, user_id) FROM stdin;
+2	1	Test Comment6	\N	4
+1	8	Test Comment8	\N	4
+4	8	Test Comment3	\N	4
+\.
+
+
+--
+-- TOC entry 3153 (class 0 OID 24769)
+-- Dependencies: 211
+-- Data for Name: knowledge_asset; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.knowledge_asset (id, name, description, project_id, activity_type, status, attachment, user_id) FROM stdin;
+1	Metric2	Metric1	1	1	1		2
+7	Plan he thong	\N	3	1	0	/home/vietdo/Ha/JDA/file_upload	2
+\.
+
+
+--
+-- TOC entry 3150 (class 0 OID 24754)
+-- Dependencies: 208
+-- Data for Name: org_asset; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.org_asset (id, name, description, project_type, activity_type, status, attachment, user_id) FROM stdin;
+2	Plan CNTT	Bieu mau lap ke hoach du an XD	2	1	1		2
+3	Plan CNTT	Bieu mau lap ke hoach du an XD	2	1	1		2
+\.
+
+
+--
+-- TOC entry 3151 (class 0 OID 24762)
+-- Dependencies: 209
+-- Data for Name: project_asset; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.project_asset (id, name, description, project_type, user_id, status, start_date, end_date) FROM stdin;
+1	Mail Exchange3	Nang cap he thong mail	1	2	0	\N	\N
+3	Mail Exchange3	Nang cap he thong mail2	1	1	0	\N	\N
+\.
+
+
+--
+-- TOC entry 3178 (class 0 OID 41279)
+-- Dependencies: 236
+-- Data for Name: risk_asset; Type: TABLE DATA; Schema: opa; Owner: admin
+--
+
+COPY opa.risk_asset (id, project_id, user_id, level, name, description, occurence, impact, solution, status, attachment) FROM stdin;
+2	3	2	1	Risk 2	Can't upload file	Create org_asset	added time and cost		1	
+\.
+
+
+--
+-- TOC entry 3149 (class 0 OID 24615)
+-- Dependencies: 207
+-- Data for Name: org_asset; Type: TABLE DATA; Schema: org_asset; Owner: admin
+--
+
+COPY org_asset.org_asset (id, name, description, project_type, activity_type, status, attachment, user_id) FROM stdin;
+2	Plan CNTT	Bieu mau lap ke hoach du an XD	2	1	1		2
+3	Plan CNTT	Bieu mau lap ke hoach du an XD	2	1	1		2
+\.
+
+
+--
+-- TOC entry 3162 (class 0 OID 24835)
+-- Dependencies: 220
+-- Data for Name: activity; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.activity (id, name, activity_type, user_id, attachment, project_id, description, status) FROM stdin;
+2	Plan Mo ta he thong	1	2	/home/vietdo/Ha/JDA/file_upload	2	\N	1
+3	Metric Mo ta he thong	1	2	/home/vietdo/Ha/JDA/file_upload	2	\N	1
+6	Plan he thong	1	2	/home/vietdo/Ha/JDA/file_upload	2	\N	0
+7	Plan he thong	1	2	/home/vietdo/Ha/JDA/file_upload	3	\N	0
+\.
+
+
+--
+-- TOC entry 3155 (class 0 OID 24787)
+-- Dependencies: 213
+-- Data for Name: activity_type; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.activity_type (id, name) FROM stdin;
+1	Plan
+2	Metric
+3	Conf
+4	Fin
+\.
+
+
+--
+-- TOC entry 3181 (class 0 OID 41312)
+-- Dependencies: 239
+-- Data for Name: defect; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.defect (id, project_id, user_id, level, name, description, solution, status, attachment) FROM stdin;
+4	2	2	1	Bug 3	Can't upload file		1	
+3	2	2	1	Bug 3	Can't upload file		1	
+5	3	2	1	Bug 1	Can't upload file		1	
+\.
+
+
+--
+-- TOC entry 3166 (class 0 OID 41110)
+-- Dependencies: 224
+-- Data for Name: issue; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.issue (id, project_id, user_id, assignee_id, description, summary, status, type, priority, create_date, parent_issue_id, name, attachment) FROM stdin;
+0	2	2	4	Test issue1	Test issue1	1	1	2	\N	0	\N	\N
+1	2	2	4	Test issue2	Test issue2	1	1	2	\N	0	\N	\N
+3	2	2	4	Test issue5	Test issue5	1	1	2	\N	0	\N	\N
+6	2	2	4	Test issue3	Test issue3	1	1	2	\N	0	Test issue2	
+7	2	2	4	Test issue7	Test issue7	1	1	2	\N	0	Test issue2	
+5	2	2	4	Test issue5	Test issue3	1	1	2	\N	0	Test issue5	
+8	3	2	4	Test issue7	Test issue7	1	1	2	\N	0	Test issue2	
+\.
+
+
+--
+-- TOC entry 3168 (class 0 OID 41136)
+-- Dependencies: 226
+-- Data for Name: issue_comment; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.issue_comment (id, issue_id, comment, create_date, user_id, title) FROM stdin;
+1	1	Test Comment1	\N	4	\N
+2	1	Test Comment2	\N	4	\N
+4	8	Test Comment3	\N	4	\N
+\.
+
+
+--
+-- TOC entry 3160 (class 0 OID 24817)
+-- Dependencies: 218
+-- Data for Name: project; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.project (id, name, description, type_id, user_id, status, start_date, end_date) FROM stdin;
+2	Mail Exchange3	Nang cap he thong mail	1	2	0	\N	\N
+3	Mail Exchange3	Nang cap he thong mail2	1	1	0	\N	\N
+\.
+
+
+--
+-- TOC entry 3157 (class 0 OID 24798)
+-- Dependencies: 215
+-- Data for Name: project_type; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.project_type (id, name) FROM stdin;
+1	CNTT
+2	XD
+\.
+
+
+--
+-- TOC entry 3183 (class 0 OID 41333)
+-- Dependencies: 241
+-- Data for Name: risk; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project.risk (id, project_id, user_id, level, name, description, occurence, impact, solution, status, attachment) FROM stdin;
+1	2	2	1	Risk 2	Can't upload file2	Create org_asset	added time and cost		1	
+2	3	2	1	Risk 2	Can't upload file	Create org_asset	added time and cost		1	
+\.
+
+
+--
+-- TOC entry 3158 (class 0 OID 24807)
+-- Dependencies: 216
+-- Data for Name: user; Type: TABLE DATA; Schema: project; Owner: admin
+--
+
+COPY project."user" (id, username, password, name, role_id) FROM stdin;
+1	test	123456	Vu Thanh Ha	3
+2	test2	123456	Vu Thanh Ha	1
+4	test	123456	Vu Thanh Hai3	1
+\.
+
+
+--
+-- TOC entry 3172 (class 0 OID 41196)
+-- Dependencies: 230
+-- Data for Name: risk; Type: TABLE DATA; Schema: risk; Owner: admin
+--
+
+COPY risk.risk (id, project_id, user_id, name, description, occurence, impact, solution, level, status, attachment) FROM stdin;
+1	2	2	Risk 1	Can't upload file	Create org_asset	added time and cost		1	1	
+2	3	2	Risk 2	Can't upload file	Create org_asset	added time and cost		1	1	
+\.
+
+
+--
+-- TOC entry 3147 (class 0 OID 24603)
+-- Dependencies: 205
+-- Data for Name: user; Type: TABLE DATA; Schema: security; Owner: admin
+--
+
+COPY security."user" (id, username, password, name, role_id) FROM stdin;
+1	test	123456	Vu Thanh Ha	3
+2	test2	123456	Vu Thanh Ha2	1
+4	test	123456	Vu Thanh Hai3	1
+\.
+
+
+--
+-- TOC entry 3203 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: knowledge_asset_id_seq; Type: SEQUENCE SET; Schema: opa; Owner: admin
+--
+
+SELECT pg_catalog.setval('opa.knowledge_asset_id_seq', 1, false);
+
+
+--
+-- TOC entry 3204 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: org_asset_id_seq; Type: SEQUENCE SET; Schema: org_asset; Owner: admin
+--
+
+SELECT pg_catalog.setval('org_asset.org_asset_id_seq', 3, true);
+
+
+--
+-- TOC entry 3205 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: activity_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.activity_id_seq', 7, true);
+
+
+--
+-- TOC entry 3206 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: activity_type_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.activity_type_id_seq', 1, false);
+
+
+--
+-- TOC entry 3207 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: comment_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.comment_id_seq', 4, true);
+
+
+--
+-- TOC entry 3208 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: defect_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.defect_id_seq', 5, true);
+
+
+--
+-- TOC entry 3209 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: issue_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.issue_id_seq', 8, true);
+
+
+--
+-- TOC entry 3210 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: project_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.project_id_seq', 4, true);
+
+
+--
+-- TOC entry 3211 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: project_type_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.project_type_id_seq', 1, false);
+
+
+--
+-- TOC entry 3212 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: risk_id_seq; Type: SEQUENCE SET; Schema: project; Owner: admin
+--
+
+SELECT pg_catalog.setval('project.risk_id_seq', 2, true);
+
+
+--
+-- TOC entry 3213 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: security; Owner: admin
+--
+
+SELECT pg_catalog.setval('security.user_id_seq', 4, true);
+
+
+--
+-- TOC entry 2993 (class 2606 OID 41268)
 -- Name: comment comment_pkey; Type: CONSTRAINT; Schema: issue; Owner: admin
 --
 
@@ -1090,6 +1439,7 @@ ALTER TABLE ONLY issue.comment
 
 
 --
+-- TOC entry 2975 (class 2606 OID 41060)
 -- Name: issue issue_pkey; Type: CONSTRAINT; Schema: issue; Owner: admin
 --
 
@@ -1098,6 +1448,7 @@ ALTER TABLE ONLY issue.issue
 
 
 --
+-- TOC entry 2973 (class 2606 OID 40968)
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: issue; Owner: admin
 --
 
@@ -1106,70 +1457,70 @@ ALTER TABLE ONLY issue."user"
 
 
 --
--- Name: fin_asset fin_asset_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
+-- TOC entry 2985 (class 2606 OID 41223)
+-- Name: conf_asset conf_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
+--
+
+ALTER TABLE ONLY knowledge_asset.conf_asset
+    ADD CONSTRAINT conf_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2987 (class 2606 OID 41231)
+-- Name: fin_asset fin_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
 --
 
 ALTER TABLE ONLY knowledge_asset.fin_asset
-    ADD CONSTRAINT fin_asset_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT fin_pkey PRIMARY KEY (id);
 
 
 --
--- Name: metric_asset metric_asset_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
+-- TOC entry 2989 (class 2606 OID 41239)
+-- Name: metric_asset metric_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
 --
 
 ALTER TABLE ONLY knowledge_asset.metric_asset
-    ADD CONSTRAINT metric_asset_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT metric_pkey PRIMARY KEY (id);
 
 
 --
--- Name: knowledge_asset opa_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.knowledge_asset
-    ADD CONSTRAINT opa_pkey PRIMARY KEY (id);
-
-
---
--- Name: plan_asset plan_asset_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
+-- TOC entry 2991 (class 2606 OID 41247)
+-- Name: plan_asset plan_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
 --
 
 ALTER TABLE ONLY knowledge_asset.plan_asset
-    ADD CONSTRAINT plan_asset_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT plan_pkey PRIMARY KEY (id);
 
 
 --
--- Name: project project_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
+-- TOC entry 2983 (class 2606 OID 41176)
+-- Name: issue_comment comment_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
 --
 
-ALTER TABLE ONLY knowledge_asset.project
-    ADD CONSTRAINT project_pkey PRIMARY KEY (id);
-
-
---
--- Name: risk_asset risk_asset_pkey; Type: CONSTRAINT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.risk_asset
-    ADD CONSTRAINT risk_asset_pkey PRIMARY KEY (id);
-
-
---
--- Name: comment comment_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
---
-
-ALTER TABLE ONLY opa.comment
+ALTER TABLE ONLY opa.issue_comment
     ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
 
 
 --
--- Name: issue issue_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
+-- TOC entry 2997 (class 2606 OID 41301)
+-- Name: defect_asset defect_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
 --
 
-ALTER TABLE ONLY opa.issue
+ALTER TABLE ONLY opa.defect_asset
+    ADD CONSTRAINT defect_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2981 (class 2606 OID 41167)
+-- Name: issue_asset issue_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
+--
+
+ALTER TABLE ONLY opa.issue_asset
     ADD CONSTRAINT issue_pkey PRIMARY KEY (id);
 
 
 --
+-- TOC entry 2961 (class 2606 OID 24777)
 -- Name: knowledge_asset knowledge_asset_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
 --
 
@@ -1178,6 +1529,7 @@ ALTER TABLE ONLY opa.knowledge_asset
 
 
 --
+-- TOC entry 2957 (class 2606 OID 24761)
 -- Name: org_asset org_asset_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
 --
 
@@ -1186,22 +1538,34 @@ ALTER TABLE ONLY opa.org_asset
 
 
 --
--- Name: project project_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
+-- TOC entry 2959 (class 2606 OID 24766)
+-- Name: project_asset project_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
 --
 
-ALTER TABLE ONLY opa.project
+ALTER TABLE ONLY opa.project_asset
     ADD CONSTRAINT project_pkey PRIMARY KEY (id);
 
 
 --
--- Name: org_asset org_asset_pkey; Type: CONSTRAINT; Schema: organisational_asset; Owner: admin
+-- TOC entry 2995 (class 2606 OID 41286)
+-- Name: risk_asset risk_pkey; Type: CONSTRAINT; Schema: opa; Owner: admin
 --
 
-ALTER TABLE ONLY organisational_asset.org_asset
+ALTER TABLE ONLY opa.risk_asset
+    ADD CONSTRAINT risk_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2955 (class 2606 OID 24623)
+-- Name: org_asset org_asset_pkey; Type: CONSTRAINT; Schema: org_asset; Owner: admin
+--
+
+ALTER TABLE ONLY org_asset.org_asset
     ADD CONSTRAINT org_asset_pkey PRIMARY KEY (id);
 
 
 --
+-- TOC entry 2971 (class 2606 OID 24843)
 -- Name: activity activity_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1210,6 +1574,7 @@ ALTER TABLE ONLY project.activity
 
 
 --
+-- TOC entry 2963 (class 2606 OID 24795)
 -- Name: activity_type activity_type_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1218,14 +1583,16 @@ ALTER TABLE ONLY project.activity_type
 
 
 --
--- Name: comment comment_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
+-- TOC entry 2979 (class 2606 OID 41144)
+-- Name: issue_comment comment_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
-ALTER TABLE ONLY project.comment
+ALTER TABLE ONLY project.issue_comment
     ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
 
 
 --
+-- TOC entry 2999 (class 2606 OID 41320)
 -- Name: defect defect_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1234,6 +1601,7 @@ ALTER TABLE ONLY project.defect
 
 
 --
+-- TOC entry 2977 (class 2606 OID 41118)
 -- Name: issue issue_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1242,6 +1610,7 @@ ALTER TABLE ONLY project.issue
 
 
 --
+-- TOC entry 2969 (class 2606 OID 24822)
 -- Name: project project_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1250,6 +1619,7 @@ ALTER TABLE ONLY project.project
 
 
 --
+-- TOC entry 2965 (class 2606 OID 24806)
 -- Name: project_type project_type_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1258,6 +1628,7 @@ ALTER TABLE ONLY project.project_type
 
 
 --
+-- TOC entry 3001 (class 2606 OID 41341)
 -- Name: risk risk_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1266,6 +1637,7 @@ ALTER TABLE ONLY project.risk
 
 
 --
+-- TOC entry 2967 (class 2606 OID 24814)
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1274,6 +1646,7 @@ ALTER TABLE ONLY project."user"
 
 
 --
+-- TOC entry 2953 (class 2606 OID 24611)
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: security; Owner: admin
 --
 
@@ -1282,22 +1655,25 @@ ALTER TABLE ONLY security."user"
 
 
 --
+-- TOC entry 3017 (class 2606 OID 41269)
 -- Name: comment comment_issue_fk; Type: FK CONSTRAINT; Schema: issue; Owner: admin
 --
 
 ALTER TABLE ONLY issue.comment
-    ADD CONSTRAINT comment_issue_fk FOREIGN KEY (issue_id) REFERENCES issue.issue(id);
+    ADD CONSTRAINT comment_issue_fk FOREIGN KEY (issue_id) REFERENCES issue.issue(id) ON DELETE CASCADE;
 
 
 --
+-- TOC entry 3018 (class 2606 OID 41274)
 -- Name: comment comment_user_fk; Type: FK CONSTRAINT; Schema: issue; Owner: admin
 --
 
 ALTER TABLE ONLY issue.comment
-    ADD CONSTRAINT comment_user_fk FOREIGN KEY (user_id) REFERENCES issue."user"(id) NOT VALID;
+    ADD CONSTRAINT comment_user_fk FOREIGN KEY (user_id) REFERENCES issue."user"(id);
 
 
 --
+-- TOC entry 3008 (class 2606 OID 40978)
 -- Name: issue issue_user_assignee_fk; Type: FK CONSTRAINT; Schema: issue; Owner: admin
 --
 
@@ -1306,78 +1682,52 @@ ALTER TABLE ONLY issue.issue
 
 
 --
+-- TOC entry 3009 (class 2606 OID 40983)
 -- Name: issue issue_user_create_fk; Type: FK CONSTRAINT; Schema: issue; Owner: admin
 --
 
 ALTER TABLE ONLY issue.issue
-    ADD CONSTRAINT issue_user_create_fk FOREIGN KEY (user_create_id) REFERENCES issue."user"(id);
+    ADD CONSTRAINT issue_user_create_fk FOREIGN KEY (user_id) REFERENCES issue."user"(id);
 
 
 --
--- Name: conf_asset conf_opa_fk; Type: FK CONSTRAINT; Schema: knowledge_asset; Owner: admin
+-- TOC entry 3016 (class 2606 OID 49379)
+-- Name: issue_comment comment_issue; Type: FK CONSTRAINT; Schema: opa; Owner: admin
 --
 
-ALTER TABLE ONLY knowledge_asset.conf_asset
-    ADD CONSTRAINT conf_opa_fk FOREIGN KEY (opa_id) REFERENCES knowledge_asset.knowledge_asset(id);
-
-
---
--- Name: fin_asset fin_opa_fk; Type: FK CONSTRAINT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.fin_asset
-    ADD CONSTRAINT fin_opa_fk FOREIGN KEY (opa_id) REFERENCES knowledge_asset.knowledge_asset(id);
+ALTER TABLE ONLY opa.issue_comment
+    ADD CONSTRAINT comment_issue FOREIGN KEY (issue_id) REFERENCES opa.issue_asset(id) NOT VALID;
 
 
 --
--- Name: metric_asset metric_opa_fk; Type: FK CONSTRAINT; Schema: knowledge_asset; Owner: admin
+-- TOC entry 3020 (class 2606 OID 41302)
+-- Name: defect_asset defect_project_fk; Type: FK CONSTRAINT; Schema: opa; Owner: admin
 --
 
-ALTER TABLE ONLY knowledge_asset.metric_asset
-    ADD CONSTRAINT metric_opa_fk FOREIGN KEY (opa_id) REFERENCES knowledge_asset.knowledge_asset(id);
-
-
---
--- Name: knowledge_asset opa_project_fk; Type: FK CONSTRAINT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.knowledge_asset
-    ADD CONSTRAINT opa_project_fk FOREIGN KEY (project_id) REFERENCES knowledge_asset.project(id);
+ALTER TABLE ONLY opa.defect_asset
+    ADD CONSTRAINT defect_project_fk FOREIGN KEY (project_id) REFERENCES opa.project_asset(id) ON DELETE CASCADE NOT VALID;
 
 
 --
--- Name: plan_asset plan_opa_fk; Type: FK CONSTRAINT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.plan_asset
-    ADD CONSTRAINT plan_opa_fk FOREIGN KEY (opa_id) REFERENCES knowledge_asset.knowledge_asset(id);
-
-
---
--- Name: risk_asset risk_opa_fk; Type: FK CONSTRAINT; Schema: knowledge_asset; Owner: admin
---
-
-ALTER TABLE ONLY knowledge_asset.risk_asset
-    ADD CONSTRAINT risk_opa_fk FOREIGN KEY (opa_id) REFERENCES knowledge_asset.knowledge_asset(id);
-
-
---
--- Name: comment comment_issue_fk; Type: FK CONSTRAINT; Schema: opa; Owner: admin
---
-
-ALTER TABLE ONLY opa.comment
-    ADD CONSTRAINT comment_issue_fk FOREIGN KEY (issue_id) REFERENCES issue.issue(id);
-
-
---
+-- TOC entry 3002 (class 2606 OID 24778)
 -- Name: knowledge_asset knowledge_project_fk; Type: FK CONSTRAINT; Schema: opa; Owner: admin
 --
 
 ALTER TABLE ONLY opa.knowledge_asset
-    ADD CONSTRAINT knowledge_project_fk FOREIGN KEY (project_id) REFERENCES opa.project(id);
+    ADD CONSTRAINT knowledge_project_fk FOREIGN KEY (project_id) REFERENCES opa.project_asset(id);
 
 
 --
+-- TOC entry 3019 (class 2606 OID 41287)
+-- Name: risk_asset risk_project_fk; Type: FK CONSTRAINT; Schema: opa; Owner: admin
+--
+
+ALTER TABLE ONLY opa.risk_asset
+    ADD CONSTRAINT risk_project_fk FOREIGN KEY (project_id) REFERENCES opa.project_asset(id) ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 3005 (class 2606 OID 24844)
 -- Name: activity activity_project_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1386,14 +1736,16 @@ ALTER TABLE ONLY project.activity
 
 
 --
+-- TOC entry 3006 (class 2606 OID 24849)
 -- Name: activity activity_type_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
 ALTER TABLE ONLY project.activity
-    ADD CONSTRAINT activity_type_fk FOREIGN KEY (type_id) REFERENCES project.activity_type(id);
+    ADD CONSTRAINT activity_type_fk FOREIGN KEY (activity_type) REFERENCES project.activity_type(id);
 
 
 --
+-- TOC entry 3007 (class 2606 OID 24854)
 -- Name: activity activity_user_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1402,22 +1754,25 @@ ALTER TABLE ONLY project.activity
 
 
 --
--- Name: comment comment_issue_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
+-- TOC entry 3014 (class 2606 OID 41145)
+-- Name: issue_comment comment_issue_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
-ALTER TABLE ONLY project.comment
+ALTER TABLE ONLY project.issue_comment
     ADD CONSTRAINT comment_issue_fk FOREIGN KEY (issue_id) REFERENCES project.issue(id);
 
 
 --
--- Name: comment comment_user_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
+-- TOC entry 3015 (class 2606 OID 41150)
+-- Name: issue_comment comment_user_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
-ALTER TABLE ONLY project.comment
+ALTER TABLE ONLY project.issue_comment
     ADD CONSTRAINT comment_user_fk FOREIGN KEY (user_id) REFERENCES project."user"(id);
 
 
 --
+-- TOC entry 3021 (class 2606 OID 41321)
 -- Name: defect defect_project_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1426,6 +1781,7 @@ ALTER TABLE ONLY project.defect
 
 
 --
+-- TOC entry 3022 (class 2606 OID 41326)
 -- Name: defect defect_user_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1434,6 +1790,7 @@ ALTER TABLE ONLY project.defect
 
 
 --
+-- TOC entry 3010 (class 2606 OID 41119)
 -- Name: issue issue_issue_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1442,6 +1799,7 @@ ALTER TABLE ONLY project.issue
 
 
 --
+-- TOC entry 3013 (class 2606 OID 41155)
 -- Name: issue issue_project_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1450,6 +1808,7 @@ ALTER TABLE ONLY project.issue
 
 
 --
+-- TOC entry 3011 (class 2606 OID 41124)
 -- Name: issue issue_user_assignee_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1458,14 +1817,16 @@ ALTER TABLE ONLY project.issue
 
 
 --
+-- TOC entry 3012 (class 2606 OID 41129)
 -- Name: issue issue_user_create_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
 ALTER TABLE ONLY project.issue
-    ADD CONSTRAINT issue_user_create_fk FOREIGN KEY (user_create_id) REFERENCES project."user"(id);
+    ADD CONSTRAINT issue_user_create_fk FOREIGN KEY (user_id) REFERENCES project."user"(id);
 
 
 --
+-- TOC entry 3003 (class 2606 OID 24823)
 -- Name: project project_type_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1474,6 +1835,7 @@ ALTER TABLE ONLY project.project
 
 
 --
+-- TOC entry 3004 (class 2606 OID 24828)
 -- Name: project project_user_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1482,6 +1844,7 @@ ALTER TABLE ONLY project.project
 
 
 --
+-- TOC entry 3023 (class 2606 OID 41342)
 -- Name: risk risk_project_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
@@ -1490,12 +1853,15 @@ ALTER TABLE ONLY project.risk
 
 
 --
+-- TOC entry 3024 (class 2606 OID 41347)
 -- Name: risk risk_user_fk; Type: FK CONSTRAINT; Schema: project; Owner: admin
 --
 
 ALTER TABLE ONLY project.risk
     ADD CONSTRAINT risk_user_fk FOREIGN KEY (user_id) REFERENCES project."user"(id);
 
+
+-- Completed on 2023-06-12 12:10:40 PDT
 
 --
 -- PostgreSQL database dump complete

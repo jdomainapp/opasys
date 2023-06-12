@@ -46,5 +46,5 @@ public class IssueAsset extends KnowlegdeAsset{
 	private Date createDate;
 	
 	@OneToMany(mappedBy="issue")
-	private List<Comment> comments;
+	private List<CommentAsset> commentAssets;
 }

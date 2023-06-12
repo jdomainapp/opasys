@@ -1,8 +1,8 @@
-package jda.app.opasys.project.modules.issueasset;
+package jda.app.opasys.project.modules.issue;
 
 import org.springframework.stereotype.Controller;
 
-import jda.app.opasys.project.modules.issueasset.model.Comment;
+import jda.app.opasys.project.modules.issue.model.Comment;
 import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.opa.modules.defectasset.model.DefectAsset;
 import jda.app.opasys.opa.modules.issueasset.model.IssueAsset;
 import jda.app.opasys.opa.modules.knowledgeasset.model.OpaKnowledgeAsset;
@@ -17,6 +18,8 @@ import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import jda.app.opasys.opa.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.InterfaceController;
+import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 
 @RestController
 @RequestMapping(value = "/")
@@ -29,6 +32,7 @@ public class ManageOPAController {
 	public final static String PATH_DEFECT = "/defect_asset";
 	public final static String PATH_ISSUE = "/issue_asset";
 	public final static String PATH_ISSUE_COMMENT = "/comment";
+	public final static String PATH_OPA_REDIRECT = "/redirect";
 	
 	
 	@RequestMapping(value = PATH_ORG + "/**")
@@ -69,6 +73,14 @@ public class ManageOPAController {
 	@RequestMapping(value = PATH_ISSUE + "/**")
 	public ResponseEntity<?> handleIssueAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController2<IssueAsset, Integer> controller = ControllerRegistry2.getInstance().get(IssueAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	
+	@RequestMapping(value = PATH_OPA_REDIRECT + "/**")
+	public ResponseEntity<?> handleRedirect(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		InterfaceController<OPA, Integer> controller = InterfaceControllerRegistry.getInstance().get(OPA.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

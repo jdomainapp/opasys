@@ -1,7 +1,4 @@
-package jda.app.opasys.project.modules.issueasset.model;
-
-import java.util.Date;
-import java.util.List;
+package jda.app.opasys.project.modules.defect.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -27,37 +23,24 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "issue", schema = "project")
+@Table(name = "defect", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = IssueAsset.class)
-public class IssueAsset extends OPA{
+		  property = "id", scope = Defect.class)
+public class Defect extends OPA{
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
+
+	private int level;
 	
-	@Column(name="parent_issue_id")
-	private int parentIssueId;
-	
-	private String summary;
-	
-	private int type;
-	
-	private int priority;
-	
-	@Column(name = "create_date")
-	private Date createDate;
-	
-	@OneToMany(mappedBy="issue")
-	private List<Comment> comments;
+	private String solution;
 	
 	@ManyToOne
     @JoinColumn(name="project_id", nullable=false)
 	private Project project;
 	
-	@ManyToOne
-	@JoinColumn(name="assignee_id", nullable=false)
-	private User assignee;
 }

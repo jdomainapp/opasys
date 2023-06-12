@@ -27,6 +27,8 @@ import jda.modules.msacommon.connections.UserContextInterceptor;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerRegistry2;
 import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.InterfaceController;
+import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 import jda.modules.msacommon.controller.RedirectController;
 import jda.modules.msacommon.controller.RedirectControllerRegistry;
 import jda.modules.msacommon.controller.ServiceRegistry;
@@ -44,7 +46,7 @@ public class OPAServiceApp {
 	public static void main(String[] args) {
 		final ServiceRegistry serviceRegistry = ServiceRegistry.getInstance();
 		final ControllerRegistry2 controllerRegistry = ControllerRegistry2.getInstance();
-		final RedirectControllerRegistry redirectControllerRegistry = RedirectControllerRegistry.getInstance();
+		final InterfaceControllerRegistry interfaceControllerRegistry = InterfaceControllerRegistry.getInstance();
 		ApplicationContext ctx = SpringApplication.run(OPAServiceApp.class, args);
 		ctx.getBeansOfType(PagingAndSortingRepository.class).forEach((k, v) -> {serviceRegistry.put(k, v);
 		System.out.println("CHECK SERVICES: "+ k +"_"+v);
@@ -52,8 +54,8 @@ public class OPAServiceApp {
 		ctx.getBeansOfType(DefaultController2.class).forEach((k, v) -> {controllerRegistry.put(k, v);
 		System.out.println("CHECK Controller: "+ k +"_"+v);
 			});
-		ctx.getBeansOfType(RedirectController.class).forEach((k, v) -> {redirectControllerRegistry.put(k, v);
-		System.out.println("CHECK RedirectController: "+ k +"_"+v);
+		ctx.getBeansOfType(InterfaceController.class).forEach((k, v) -> {interfaceControllerRegistry.put(k, v);
+		System.out.println("CHECK IntefaceController: "+ k +"_"+v);
 			});
 		
 	}
