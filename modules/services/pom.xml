@@ -119,39 +119,6 @@
 			<artifactId>spring-cloud-starter-stream-kafka</artifactId>
 		</dependency>
 
-		<!-- JDA -->
-		<!-- 	<dependency>
-			<groupId>jda.modules</groupId>
-		<artifactId>jda-mccl</artifactId>
-			<version>${jda.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>jda.modules</groupId>
-		<artifactId>jda-mccltool</artifactId>
-			<version>${jda.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>jda.modules</groupId>
-		<artifactId>jda-sccl</artifactId>
-			<version>${jda.version}</version>
-		</dependency>-->
-		<!--		<dependency>-->
-		<!--			<groupId>jda.modules</groupId>-->
-		<!--			<artifactId>jda-sccltool</artifactId>-->
-		<!--			<version>${jda.version}</version>-->
-		<!--		</dependency>-->
-		<!--		<dependency>-->
-		<!--			<groupId>jda.modules</groupId>-->
-		<!--			<artifactId>jda-mosar</artifactId>-->
-		<!--			<version>${jda.version}</version>-->
-		<!--		</dependency>-->
-		<!--		<dependency>-->
-		<!--			<groupId>jda.modules</groupId>-->
-		<!--			<artifactId>jda-swtool</artifactId>-->
-		<!--			<version>${jda.version}</version>-->
-		<!--		</dependency>-->
-		<!-- END: JDA -->
-
 	</dependencies>
 
 

@@ -8,7 +8,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 import jda.modules.msacommon.connections.UserContext;
-import jda.modules.msacommon.events.model.ChangeModel2;
+import jda.modules.msacommon.events.model.ChangeModel;
 
 @Component
 public class SimpleSourceBean {
@@ -23,7 +23,7 @@ public class SimpleSourceBean {
 
     public void publishChange(String typeName, String action, int id, String path){
        logger.debug("Sending Kafka message {} for OrgAsset Id: {}", action, id);
-        ChangeModel2 change =  new ChangeModel2(
+        ChangeModel<Integer> change =  new ChangeModel<Integer>(
         		typeName,
                 action,
                 id,

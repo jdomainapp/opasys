@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.knowledgeasset.controller.ManageKnowledgeAssetController;
 import jda.app.opasys.knowledgeasset.modules.finasset.model.FinAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class FinAssetController extends DefaultController2<FinAsset, Integer>{
+public class FinAssetController extends DefaultController<FinAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

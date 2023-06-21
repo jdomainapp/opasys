@@ -14,11 +14,11 @@ import jda.app.opasys.orgasset.controller.ManageOrgAssetController;
 import jda.app.opasys.orgasset.kafka.source.SimpleSourceBean;
 import jda.app.opasys.orgasset.modules.orgasset.model.OrgAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.messaging.kafka.KafkaChangeAction;
 
 @Controller
-public class OrgAssetController extends DefaultController2<OrgAsset, Integer>{
+public class OrgAssetController extends DefaultController<OrgAsset, Integer>{
 	
 	@Autowired
 	SimpleSourceBean sourceBean;

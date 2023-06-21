@@ -11,12 +11,12 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.project.controller.ManageProjectController;
 import jda.app.opasys.project.modules.issue.model.Comment;
 import jda.app.opasys.project.modules.issue.model.Issue;
-import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class IssueController extends DefaultController2<Issue, Integer> {
+public class IssueController extends DefaultController<Issue, Integer> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
@@ -28,7 +28,7 @@ public class IssueController extends DefaultController2<Issue, Integer> {
 			
 		//project/{10}/issue/{issue_id}/comment/{comment_id}
 		}else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_ISSUE_COMMENT, path)) {
-			DefaultController2<Comment, Integer> childController = ControllerRegistry2.getInstance().get(Comment.class);
+			DefaultController<Comment, Integer> childController = ControllerRegistry.getInstance().get(Comment.class);
 			return childController.handleRequest(req, res, ids.size()==3 ? ids.get(2):null);
 		}else{
 			return ResponseEntity.badRequest().build();

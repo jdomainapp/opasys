@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.defect.modules.defectasset.model.DefectAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.ControllerRegistry2;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.ControllerRegistry;
+import jda.modules.msacommon.controller.DefaultController;
 
 @RestController
 @RequestMapping(value = "/")
@@ -22,7 +22,7 @@ public class ManageDefectAssetController {
 
 	@RequestMapping(value = PATH + "/**")
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController2<DefectAsset, Integer> controller = ControllerRegistry2.getInstance().get(DefectAsset.class);
+		DefaultController<DefectAsset, Integer> controller = ControllerRegistry.getInstance().get(DefectAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

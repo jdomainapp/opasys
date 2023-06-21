@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.knowledgeasset.controller.ManageKnowledgeAssetController;
 import jda.app.opasys.knowledgeasset.modules.planasset.model.PlanAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class PlanAssetController extends DefaultController2<PlanAsset, Integer>{
+public class PlanAssetController extends DefaultController<PlanAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

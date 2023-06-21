@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.knowledgeasset.controller.ManageKnowledgeAssetController;
 import jda.app.opasys.knowledgeasset.modules.metricasset.model.MetricAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class MetricAssetController extends DefaultController2<MetricAsset, Integer>{
+public class MetricAssetController extends DefaultController<MetricAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

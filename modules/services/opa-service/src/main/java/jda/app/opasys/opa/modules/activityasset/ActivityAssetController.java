@@ -12,10 +12,10 @@ import jda.app.opasys.opa.controller.ManageOPAController;
 import jda.app.opasys.opa.modules.activityasset.model.ActivityAsset;
 import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class ActivityAssetController extends DefaultController2<ActivityAsset, Integer> {
+public class ActivityAssetController extends DefaultController<ActivityAsset, Integer> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

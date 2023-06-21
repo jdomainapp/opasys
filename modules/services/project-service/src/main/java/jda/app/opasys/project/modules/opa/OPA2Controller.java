@@ -31,9 +31,9 @@ import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.project.model.ProjectAsset;
 import jda.app.opasys.project.modules.risk.model.Risk;
 import jda.app.opasys.project.modules.risk.model.RiskAsset;
-import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.InterfaceController;
 
 @Controller
@@ -64,7 +64,7 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 			int id = ControllerTk.getLastIdInPath(path);
 
 
-			DefaultController2<Project, Integer> projectController = ControllerRegistry2.getInstance()
+			DefaultController<Project, Integer> projectController = ControllerRegistry.getInstance()
 					.get(Project.class);
 			Project completedProject = projectController.getEntityById(id).getBody();
 

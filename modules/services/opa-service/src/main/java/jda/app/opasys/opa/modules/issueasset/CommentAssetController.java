@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.opa.controller.ManageOPAController;
 import jda.app.opasys.opa.modules.issueasset.model.CommentAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class CommentAssetController extends DefaultController2<CommentAsset, Integer> {
+public class CommentAssetController extends DefaultController<CommentAsset, Integer> {
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();

@@ -24,12 +24,11 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import jda.app.opasys.issue.modules.user.model.User;
 import jda.modules.msacommon.connections.UserContextInterceptor;
 import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.ControllerRegistry2;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.RedirectController;
 import jda.modules.msacommon.controller.RedirectControllerRegistry;
 import jda.modules.msacommon.controller.ServiceRegistry;
-import jda.modules.msacommon.events.model.ChangeModel2;
+import jda.modules.msacommon.events.model.ChangeModel;
 import jda.modules.msacommon.messaging.kafka.KafkaChangeAction;
 
 
@@ -42,13 +41,13 @@ public class IssueServiceApp {
 	
 	public static void main(String[] args) {
 		final ServiceRegistry serviceRegistry = ServiceRegistry.getInstance();
-		final ControllerRegistry2 controllerRegistry = ControllerRegistry2.getInstance();
+		final ControllerRegistry controllerRegistry = ControllerRegistry.getInstance();
 		final RedirectControllerRegistry redirectControllerRegistry = RedirectControllerRegistry.getInstance();
 		ApplicationContext ctx = SpringApplication.run(IssueServiceApp.class, args);
 		ctx.getBeansOfType(PagingAndSortingRepository.class).forEach((k, v) -> {serviceRegistry.put(k, v);
 		System.out.println("CHECK SERVICES: "+ k +"_"+v);
 			});
-		ctx.getBeansOfType(DefaultController2.class).forEach((k, v) -> {controllerRegistry.put(k, v);
+		ctx.getBeansOfType(DefaultController.class).forEach((k, v) -> {controllerRegistry.put(k, v);
 		System.out.println("CHECK Controller: "+ k +"_"+v);
 			});
 		ctx.getBeansOfType(RedirectController.class).forEach((k, v) -> {redirectControllerRegistry.put(k, v);
@@ -58,12 +57,12 @@ public class IssueServiceApp {
 	}
 	
 	@StreamListener(Sink.INPUT)
-	public void processChanges(ChangeModel2 model) {
+	public void processChanges(ChangeModel<Integer> model) {
 
 		logger.debug("Received a message of type " + model.getType());
 		if (model.getAction().equals(KafkaChangeAction.CREATED) || model.getAction().equals(KafkaChangeAction.UPDATED) || model.getAction().equals(KafkaChangeAction.DELETED)) {
 			logger.debug("Received a {} event from the user service for user id {}",model.getAction(), model.getId());
-			DefaultController2<User, Integer> controller = ControllerRegistry2.getInstance().get(User.class);
+			DefaultController<User, Integer> controller = ControllerRegistry.getInstance().get(User.class);
 			controller.executeReceivedEvent(model.getAction(), model.getId(), model.getPath());
 		} else {
 			logger.error("Received an UNKNOWN event from the user service of type {}", model.getType());

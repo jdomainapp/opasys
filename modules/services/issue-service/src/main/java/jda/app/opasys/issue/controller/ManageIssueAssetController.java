@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import jda.app.opasys.issue.modules.comment.model.Comment;
 import jda.app.opasys.issue.modules.issueasset.model.IssueAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @RestController
 @RequestMapping(value = "/")
@@ -30,12 +30,12 @@ public class ManageIssueAssetController {
 		List<Integer> ids = ControllerTk.findIntegers(path);
 		//issue/{10}
 		if (ControllerTk.isPathContainModule(ManageIssueAssetController.PATH_ISSUE, path)) {
-			DefaultController2<IssueAsset, Integer> childController = ControllerRegistry2.getInstance().get(IssueAsset.class);
+			DefaultController<IssueAsset, Integer> childController = ControllerRegistry.getInstance().get(IssueAsset.class);
 			return childController.handleRequest(req, res, ids.isEmpty()? null : ids.get(0));
 			
 		//issue/{issue_id}/comment/{comment_id}
 		}else if (ControllerTk.isPathContainModule(ManageIssueAssetController.PATH_COMMENT, path)) {
-			DefaultController2<Comment, Integer> childController = ControllerRegistry2.getInstance().get(Comment.class);
+			DefaultController<Comment, Integer> childController = ControllerRegistry.getInstance().get(Comment.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else{
 			return ResponseEntity.badRequest().build();

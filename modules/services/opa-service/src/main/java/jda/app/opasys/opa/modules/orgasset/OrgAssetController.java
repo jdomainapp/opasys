@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.opa.controller.ManageOPAController;
 import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class OrgAssetController extends DefaultController2<OrgAsset, Integer> {
+public class OrgAssetController extends DefaultController<OrgAsset, Integer> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

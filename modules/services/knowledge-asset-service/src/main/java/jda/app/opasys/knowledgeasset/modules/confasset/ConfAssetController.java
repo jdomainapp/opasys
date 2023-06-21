@@ -10,12 +10,12 @@ import org.springframework.stereotype.Controller;
 
 import jda.app.opasys.knowledgeasset.controller.ManageKnowledgeAssetController;
 import jda.app.opasys.knowledgeasset.modules.confasset.model.ConfAsset;
-import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class ConfAssetController extends DefaultController2<ConfAsset, Integer>{
+public class ConfAssetController extends DefaultController<ConfAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

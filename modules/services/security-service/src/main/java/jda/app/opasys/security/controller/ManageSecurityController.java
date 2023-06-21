@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.security.modules.model.User;
-import jda.modules.msacommon.controller.ControllerRegistry2;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.ControllerRegistry;
+import jda.modules.msacommon.controller.DefaultController;
 
 @RestController
 @RequestMapping(value = "/")
@@ -22,7 +22,7 @@ public class ManageSecurityController {
 
 	@RequestMapping(value = PATH + "/**")
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController2<User, Integer> controller = ControllerRegistry2.getInstance().get(User.class);
+		DefaultController<User, Integer> controller = ControllerRegistry.getInstance().get(User.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

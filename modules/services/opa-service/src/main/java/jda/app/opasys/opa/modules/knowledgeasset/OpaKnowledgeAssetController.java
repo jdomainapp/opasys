@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import jda.app.opasys.opa.controller.ManageOPAController;
 import jda.app.opasys.opa.modules.knowledgeasset.model.OpaKnowledgeAsset;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 
 @Controller
-public class OpaKnowledgeAssetController extends DefaultController2<OpaKnowledgeAsset, Integer>{
+public class OpaKnowledgeAssetController extends DefaultController<OpaKnowledgeAsset, Integer>{
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {

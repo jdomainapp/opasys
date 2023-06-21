@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jda.app.opasys.security.controller.ManageSecurityController;
 import jda.app.opasys.security.kafka.source.SimpleSourceBean;
 import jda.app.opasys.security.modules.model.User;
-import jda.modules.msacommon.connections.UserContext;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
-import jda.modules.msacommon.events.model.ChangeModel2;
+import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.messaging.kafka.KafkaChangeAction;
 
 @Controller
-public class UserController extends DefaultController2<User, Integer> {
+public class UserController extends DefaultController<User, Integer> {
 
 	@Autowired
 	SimpleSourceBean sourceBean;

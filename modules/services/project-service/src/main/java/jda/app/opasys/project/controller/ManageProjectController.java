@@ -23,9 +23,9 @@ import jda.app.opasys.project.modules.opa.model.OPA2;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.risk.model.Risk;
 import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.ControllerRegistry2;
+import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
-import jda.modules.msacommon.controller.DefaultController2;
+import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.InterfaceController;
 import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 
@@ -52,26 +52,26 @@ public class ManageProjectController {
 		//manageproject/project/{10}: CRUD project (click link to get activites of a project)
 		//project/2/acitivity: get list of activities in a project
 		if (ControllerTk.isPathContainModule(ManageProjectController.PATH_PROJECT, path)) {
-			DefaultController2<Project, Integer> childController = ControllerRegistry2.getInstance().get(Project.class);
+			DefaultController<Project, Integer> childController = ControllerRegistry.getInstance().get(Project.class);
 			return childController.handleRequest(req, res, ids.isEmpty()? null : ids.get(0));
 		//project/{10}/activity/{id}: CRUD a activity
 		//TODO: getActivityList by projectId
 		//TODO: File upload????
 		} else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_ACTIVITY, path)) {
-			DefaultController2<Activity, Integer> childController = ControllerRegistry2.getInstance().get(Activity.class);
+			DefaultController<Activity, Integer> childController = ControllerRegistry.getInstance().get(Activity.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		//project/{10}/risk/{id}
 		}else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_KNOWLEDGE, path)) {
-			DefaultController2<Knowledge, Integer> childController = ControllerRegistry2.getInstance().get(Knowledge.class);
+			DefaultController<Knowledge, Integer> childController = ControllerRegistry.getInstance().get(Knowledge.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_RISK, path)) {
-			DefaultController2<Risk, Integer> childController = ControllerRegistry2.getInstance().get(Risk.class);
+			DefaultController<Risk, Integer> childController = ControllerRegistry.getInstance().get(Risk.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_DEFECT, path)) {
-			DefaultController2<Defect, Integer> childController = ControllerRegistry2.getInstance().get(Defect.class);
+			DefaultController<Defect, Integer> childController = ControllerRegistry.getInstance().get(Defect.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else if (ControllerTk.checkParentChildService(ManageProjectController.PATH_ISSUE, ManageProjectController.PATH_ISSUE_COMMENT, path)) {
-			DefaultController2<Issue, Integer> childController = ControllerRegistry2.getInstance().get(Issue.class);
+			DefaultController<Issue, Integer> childController = ControllerRegistry.getInstance().get(Issue.class);
 			return childController.handleRequest(req, res);
 		}else{
 			// invalid path
