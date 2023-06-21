@@ -1,4 +1,6 @@
-package jda.app.opasys.opa.modules.knowledgeasset.model;
+package jda.app.opasys.opa.modules.activityasset.model;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,24 +11,32 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.common.model.KnowlegdeAsset;
+import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "knowledge_asset", schema = "opa")
+@Table(name = "activity_asset", schema = "opa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = OpaKnowledgeAsset.class)
-public class OpaKnowledgeAsset extends KnowlegdeAsset{
+		  property = "id", scope = ActivityAsset.class)
+public class ActivityAsset {
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;
+
+	private String name;
+
+	private String description;
 	
-	@Column(name = "knowledge_type")
-	private int knowledgeType;
+	@Column(name = "user_id")
+	private int userId;
+	
+	@Column(name = "project_id")
+	private int projectId;
+	
 
 }

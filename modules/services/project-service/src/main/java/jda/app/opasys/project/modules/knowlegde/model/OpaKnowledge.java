@@ -1,12 +1,14 @@
-package jda.app.opasys.project.modules.activity.model;
+package jda.app.opasys.project.modules.knowlegde.model;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class LocalKnowledgeAsset {
+public class OpaKnowledge {
 	private int id;
 
 	private int projectId;
+	
+	private int activityId;
 
 	private String name;
 
@@ -17,7 +19,6 @@ public class LocalKnowledgeAsset {
 	private String attachment;
 
 	private int userId;
-	
-	private int activityType;
+
 
 }

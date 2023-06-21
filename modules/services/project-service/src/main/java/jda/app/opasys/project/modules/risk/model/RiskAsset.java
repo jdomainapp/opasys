@@ -17,6 +17,8 @@ public class RiskAsset {
 	
 	private int projectId;
 	
+	private int activityId;
+	
 	private int userId;
 
 	private int level;

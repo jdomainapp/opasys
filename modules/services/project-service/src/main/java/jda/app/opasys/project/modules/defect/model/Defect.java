@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jda.app.opasys.common.model.KnowlegdeAsset;
 import jda.app.opasys.common.model.OPA;
+import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
@@ -42,5 +43,8 @@ public class Defect extends OPA{
 	@ManyToOne
     @JoinColumn(name="project_id", nullable=false)
 	private Project project;
+	
+    @Column(name="activity_id")
+	private int activityId;
 	
 }

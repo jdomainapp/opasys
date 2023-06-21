@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.app.opasys.project.modules.defect.model.Defect;
 import jda.app.opasys.project.modules.issue.model.Issue;
+import jda.app.opasys.project.modules.knowlegde.model.Knowledge;
 import jda.app.opasys.project.modules.risk.model.Risk;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
@@ -68,7 +69,7 @@ public class Project extends RepresentationModel<Project>{
 	private Date endDate;
 	
 	@OneToMany(mappedBy="project")
-	private List<Activity> activities;
+	private List<Knowledge> knowledges;
 	
 	@OneToMany(mappedBy="project")
 	private List<Issue> issues;
@@ -78,5 +79,8 @@ public class Project extends RepresentationModel<Project>{
 	
 	@OneToMany(mappedBy="project")
 	private List<Defect> defects;
+	
+	@OneToMany(mappedBy="project")
+	private List<Activity> activities;
 
 }

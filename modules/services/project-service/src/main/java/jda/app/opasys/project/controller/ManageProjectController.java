@@ -15,6 +15,7 @@ import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.app.opasys.project.modules.defect.model.Defect;
 import jda.app.opasys.project.modules.issue.model.Issue;
+import jda.app.opasys.project.modules.knowlegde.model.Knowledge;
 import jda.app.opasys.project.modules.opa.OPAController;
 import jda.app.opasys.project.modules.opa.OPA2Controller;
 import jda.app.opasys.project.modules.opa.OpaUrl;
@@ -34,6 +35,7 @@ public class ManageProjectController {
 	
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_ACTIVITY = "/activity";
+	public final static String PATH_KNOWLEDGE = "/knowledge";
 	public final static String PATH_RISK = "/risk";
 	public final static String PATH_DEFECT = "/defect";
 	public final static String PATH_ISSUE = "/issue";
@@ -59,6 +61,9 @@ public class ManageProjectController {
 			DefaultController2<Activity, Integer> childController = ControllerRegistry2.getInstance().get(Activity.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		//project/{10}/risk/{id}
+		}else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_KNOWLEDGE, path)) {
+			DefaultController2<Knowledge, Integer> childController = ControllerRegistry2.getInstance().get(Knowledge.class);
+			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
 		}else if (ControllerTk.isPathContainModule(ManageProjectController.PATH_RISK, path)) {
 			DefaultController2<Risk, Integer> childController = ControllerRegistry2.getInstance().get(Risk.class);
 			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);

@@ -50,6 +50,8 @@ public class IssueAsset2{
 	private int priority;
 	
 	private int projectId;
+	
+	private int activityId;
 
 	private User assignee;
 

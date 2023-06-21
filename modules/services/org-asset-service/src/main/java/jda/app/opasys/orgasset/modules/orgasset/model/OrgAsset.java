@@ -35,7 +35,7 @@ public class OrgAsset extends OPA{
 	@Column(name = "project_type")
 	private int projectType;
 	
-	@Column(name = "activity_type")
-	private int activityType;
+	@Column(name = "knowledge_type")
+	private int knowledgeType;
 	
 }

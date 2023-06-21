@@ -13,5 +13,6 @@ public class KnowlegdeAsset extends OPA {
 	@Column(name = "project_id")
 	private int projectId;
 	
-	
+	@Column(name = "activity_id")
+	private int activityId;
 }

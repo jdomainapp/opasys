@@ -1,29 +1,25 @@
-package jda.app.opasys.project.modules.defect.model;
+package jda.app.opasys.project.modules.knowlegde.model;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DefectAsset {
-
+public class LocalKnowledge {
 	private int id;
-	
-	private String name;
 
-	private String description;
-	
-	private int status;
-	
-	private String attachment;
-	
-	private int userId;
-	
 	private int projectId;
 	
 	private int activityId;
-	
-	private int level;
-	
-	private String solution;
 
+	private String name;
+
+	private String description;
+
+	private int status;
+
+	private String attachment;
+
+	private int userId;
 	
+	private int knowledgeType;
+
 }

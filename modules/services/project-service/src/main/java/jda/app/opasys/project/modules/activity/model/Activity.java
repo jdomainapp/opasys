@@ -9,11 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
@@ -22,26 +23,27 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "activity")
+@Table(name = "activity", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = Activity.class)
-public class Activity extends OPA{
-
+public class Activity extends RepresentationModel<Activity>{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
+	private String name;
 
-	@ManyToOne
-    @JoinColumn(name="activity_type", nullable=false)
-	private ActivityType type;
+	private String description;
 	
+	@ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+	private User user;
 	
 	@ManyToOne
     @JoinColumn(name="project_id", nullable=false)
 	private Project project;
-	
+
 }

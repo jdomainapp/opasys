@@ -6,6 +6,6 @@ import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.modules.msacommon.controller.DefaultController2;
 
 @Controller
-public class ActivityController extends DefaultController2<Activity, Integer>{
+public class ActivityController extends DefaultController2<Activity, Integer> {
 
 }

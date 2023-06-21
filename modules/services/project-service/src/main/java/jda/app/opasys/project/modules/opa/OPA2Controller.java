@@ -15,8 +15,7 @@ import com.google.gson.Gson;
 import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.project.controller.ManageProjectController;
 import jda.app.opasys.project.modules.activity.model.Activity;
-import jda.app.opasys.project.modules.activity.model.LocalKnowledgeAsset;
-import jda.app.opasys.project.modules.activity.model.OpaKnowledgeAsset;
+import jda.app.opasys.project.modules.activity.model.ActivityAsset;
 import jda.app.opasys.project.modules.defect.model.Defect;
 import jda.app.opasys.project.modules.defect.model.DefectAsset;
 import jda.app.opasys.project.modules.issue.model.Comment;
@@ -24,6 +23,9 @@ import jda.app.opasys.project.modules.issue.model.CommentAsset;
 import jda.app.opasys.project.modules.issue.model.CommentAsset2;
 import jda.app.opasys.project.modules.issue.model.Issue;
 import jda.app.opasys.project.modules.issue.model.IssueAsset2;
+import jda.app.opasys.project.modules.knowlegde.model.Knowledge;
+import jda.app.opasys.project.modules.knowlegde.model.LocalKnowledge;
+import jda.app.opasys.project.modules.knowlegde.model.OpaKnowledge;
 import jda.app.opasys.project.modules.opa.model.OPA2;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.project.model.ProjectAsset;
@@ -60,16 +62,15 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 		String path = req.getServletPath();
 		if (ControllerTk.isPathContainModuleAndId(ManageProjectController.PATH_CREATE_OPA, path)) {
 			int id = ControllerTk.getLastIdInPath(path);
-			String projectSavePath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
-					ManageProjectController.PATH_PROJECT);
+
 
 			DefaultController2<Project, Integer> projectController = ControllerRegistry2.getInstance()
 					.get(Project.class);
 			Project completedProject = projectController.getEntityById(id).getBody();
 
-			if (saveProjectAsset(completedProject, projectSavePath) && saveDefectAsset(completedProject.getDefects())
+			if (saveProjectAsset(completedProject) && saveActivityAsset(completedProject.getActivities()) && saveDefectAsset(completedProject.getDefects())
 					&& saveIssueAsset(completedProject.getIssues()) && saveRiskAsset(completedProject.getRisks())
-					&& saveKnowledgeAsset(completedProject.getActivities())) {
+					&& saveKnowledgeAsset(completedProject.getKnowledges())) {
 				return ResponseEntity.ok("SAVE OPA SUCCESSFULLY!!!");
 			}
 
@@ -80,9 +81,11 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 		}
 	}
 
-	private boolean saveProjectAsset(Project completedProject, String path) {
+	private boolean saveProjectAsset(Project completedProject) {
 		ProjectAsset projectAsset = convertProjectToAsset(completedProject);
 		String requestData = convertObjectToJSON(projectAsset);
+		String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
+				ManageProjectController.PATH_PROJECT);
 		ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return true;
@@ -94,6 +97,25 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 		return new ProjectAsset(completedProject.getId(), completedProject.getName(), completedProject.getDescription(),
 				completedProject.getType().getId(), completedProject.getProjManager().getId(),
 				completedProject.getStatus(), completedProject.getStartDate(), completedProject.getEndDate());
+	}
+	
+	private boolean saveActivityAsset(List<Activity> activities) {
+		for (Activity activity : activities) {
+			ActivityAsset activityAsset = convertActivityToActivityAsset(activity);
+			String requestData = convertObjectToJSON(activityAsset);
+			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
+					ManageProjectController.PATH_ACTIVITY);
+			ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
+			if (response.getStatusCode() != HttpStatus.OK) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private ActivityAsset convertActivityToActivityAsset(Activity activity) {
+		return new ActivityAsset(activity.getId(), activity.getName(), activity.getDescription(), activity.getUser().getId(),
+				activity.getProject().getId());
 	}
 
 	private boolean saveIssueAsset(List<Issue> issues) {
@@ -114,7 +136,7 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 	private IssueAsset2 convertIssueToIssueAsset(Issue issue) {
 		return new IssueAsset2(issue.getId(), issue.getName(), issue.getDescription(), issue.getStatus(),
 				issue.getAttachment(), issue.getUserId(), issue.getParentIssueId(), issue.getSummary(), issue.getType(),
-				issue.getPriority(), issue.getProject().getId(), issue.getAssignee(), issue.getCreateDate());
+				issue.getPriority(), issue.getProject().getId(), issue.getActivityId(), issue.getAssignee(), issue.getCreateDate());
 	}
 
 	private boolean saveIssueComment(List<Comment> comments) {
@@ -154,7 +176,7 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 
 	private RiskAsset convertRiskToRiskAsset(Risk risk) {
 		return new RiskAsset(risk.getId(), risk.getName(), risk.getDescription(), risk.getStatus(),
-				risk.getAttachment(), risk.getProject().getId(), risk.getUserId(), risk.getLevel(), risk.getOccurence(),
+				risk.getAttachment(), risk.getProject().getId(), risk.getActivityId(), risk.getUserId(), risk.getLevel(), risk.getOccurence(),
 				risk.getImpact(), risk.getSolution());
 	}
 
@@ -174,16 +196,16 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 
 	private DefectAsset convertDefectToDefecAsset(Defect defect) {
 		return new DefectAsset(defect.getId(), defect.getName(), defect.getDescription(), defect.getStatus(),
-				defect.getAttachment(), defect.getUserId(), defect.getProject().getId(), defect.getLevel(),
+				defect.getAttachment(), defect.getUserId(), defect.getProject().getId(), defect.getActivityId(), defect.getLevel(),
 				defect.getSolution());
 	}
 
-	private boolean saveKnowledgeAsset(List<Activity> activities) {
-		for (Activity activity : activities) {
-			OpaKnowledgeAsset knowledgeAsset = convertActivityToOpaKnowledgeAsset(activity);
+	private boolean saveKnowledgeAsset(List<Knowledge> knowledges) {
+		for (Knowledge knowledge : knowledges) {
+			OpaKnowledge knowledgeAsset = convertKnowledgeToOpaKnowledgeAsset(knowledge);
 			String requestData = convertObjectToJSON(knowledgeAsset);
 			String modulePath = "/config";
-			switch (activity.getType().getName()) {
+			switch (knowledge.getType().getName()) {
 			case "Plan":
 				modulePath = "/plan";
 				break;
@@ -209,9 +231,9 @@ public class OPA2Controller extends InterfaceController<Integer, OPA2> {
 		return true;
 	}
 
-	private OpaKnowledgeAsset convertActivityToOpaKnowledgeAsset(Activity activity) {
-		return new OpaKnowledgeAsset(activity.getId(), activity.getProject().getId(), activity.getName(),
-				activity.getDescription(), activity.getStatus(), activity.getAttachment(), activity.getUserId());
+	private OpaKnowledge convertKnowledgeToOpaKnowledgeAsset(Knowledge knowledge) {
+		return new OpaKnowledge(knowledge.getId(), knowledge.getProject().getId(), knowledge.getActivityId(), knowledge.getName(),
+				knowledge.getDescription(), knowledge.getStatus(), knowledge.getAttachment(), knowledge.getUserId());
 	}
 
 	public String convertObjectToJSON(Object object) {
