@@ -308,7 +308,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Plan he thong\",\n    \"type\":{\"id\":\"1\"},\n    \"userId\": \"2\",\n    \"project\": {\"id\": \"3\"},\n    \"attachment\":\"/home/vietdo/Ha/JDA/file_upload\"\n}",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Activity3\",\n    \"description\":\"Activity3\",\n    \"user\": {\"id\": \"2\"},\n    \"project\": {\"id\": \"3\"}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,7 +339,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Metric Mo ta he thong\",\n    \"type\":{\"id\":\"1\"},\n    \"userId\": \"2\",\n    \"project\": {\"id\": \"2\"},\n    \"attachment\":\"/home/vietdo/Ha/JDA/file_upload\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Activity2\",\n    \"description\":\"Activity22\",\n    \"user\": {\"id\": \"2\"},\n    \"project\": {\"id\": \"3\"}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -370,7 +370,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8072/project-service/project/2/activity/4",
+							"raw": "http://localhost:8072/project-service/project/2/activity/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -381,6 +381,137 @@
 								"project",
 								"2",
 								"activity",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKnowledgeList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/knowledge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"knowledge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKnowledgeById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/knowledge/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"knowledge",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createKnowledge",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Plan he thong\",\n    \"type\":{\"id\":\"1\"},\n    \"userId\": \"2\",\n    \"project\": {\"id\": \"3\"},\n    \"activityId\": \"2\",\n    \"attachment\":\"/home/vietdo/Ha/JDA/file_upload\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/knowledge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"knowledge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateKnowledge",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Metric Mo ta he thong\",\n    \"type\":{\"id\":\"1\"},\n    \"userId\": \"2\",\n    \"project\": {\"id\": \"2\"},\n    \"activityId\": \"2\",\n    \"attachment\":\"/home/vietdo/Ha/JDA/file_upload\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/knowledge/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"knowledge",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteKnowledge",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/project-service/project/2/knowledge/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"project-service",
+								"project",
+								"2",
+								"knowledge",
 								"4"
 							]
 						}
@@ -394,7 +525,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"3\"},\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"3\"},\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -425,7 +556,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"2\"},\n    \"level\":\"1\",\n    \"description\":\"Can't upload file2\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"2\"},\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file2\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -525,7 +656,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Bug 1\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"3\"},\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Bug 1\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"3\"},\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -556,7 +687,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Bug 3\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"2\"},\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Bug 3\",\n    \"userId\": \"2\",\n    \"project\": {\"id\":\"2\"},\n   \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -656,7 +787,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"0\",\n    \"project\":{\"id\":\"3\"},\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue2\",\n    \"description\":\"Test issue7\",\n    \"summary\":\"Test issue7\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"0\",\n    \"project\":{\"id\":\"3\"},\n    \"activityId\": \"2\",\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue2\",\n    \"description\":\"Test issue7\",\n    \"summary\":\"Test issue7\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -687,7 +818,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"5\",\n    \"project\":{\"id\":\"2\"},\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue5\",\n    \"description\":\"Test issue5\",\n    \"summary\":\"Test issue3\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"5\",\n    \"project\":{\"id\":\"2\"},\n    \"activityId\": \"2\",\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue5\",\n    \"description\":\"Test issue5\",\n    \"summary\":\"Test issue3\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -933,7 +1064,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Plan CNTT\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"activityType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
+							"raw": "{\n    \"id\":\"0\",\n    \"name\":\"Plan CNTT\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"knowledgeType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -962,7 +1093,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"name\": \"Plan XD\",\n    \"description\": \"Bieu mau lap ke hoach du an XD\",\n    \"projectType\": 2,\n    \"activityType\": 1,\n    \"status\": 1,\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
+							"raw": "{\n    \"id\": 2,\n    \"name\": \"Plan XD\",\n    \"description\": \"Bieu mau lap ke hoach du an XD\",\n    \"projectType\": 2,\n    \"knowledgeType\": 1,\n    \"status\": 1,\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1059,7 +1190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Plan X2D\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"activityType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"3\",\n    \"name\":\"Plan X2D\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"knowledgeType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1088,7 +1219,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan XD\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"activityType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan XD\",\n    \"description\":\"Bieu mau lap ke hoach du an XD\",\n    \"projectType\":\"2\",\n    \"knowledgeType\": \"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1180,7 +1311,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Risk 1\",\n    \"projectId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Risk 1\",\n    \"projectId\": \"2\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1209,7 +1340,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1301,7 +1432,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1330,7 +1461,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 3\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 3\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1537,13 +1668,134 @@
 					"response": []
 				},
 				{
+					"name": "getActivityList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActivityById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/activity/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"activity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createActivity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Activity3\",\n    \"description\":\"Activity3\",\n    \"userId\": \"2\",\n    \"projectId\": \"3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateActivity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Activity3\",\n    \"description\":\"Activity3\",\n    \"userId\": \"2\",\n    \"projectId\": \"3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/opa-service/activity/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"activity",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteActivity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/opa-service/activity/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"opa-service",
+								"activity",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "createKnowledgeAsset",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Metric1\",\n    \"description\":\"Metric1\",\n    \"projectId\":\"1\",\n    \"activityType\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Metric1\",\n    \"description\":\"Metric1\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"knowledgeType\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1572,7 +1824,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Metric2\",\n    \"description\":\"Metric1\",\n    \"projectId\":\"1\",\n    \"activityType\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Metric2\",\n    \"description\":\"Metric1\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"knowledgeType\":\"1\",\n    \"status\":\"1\",\n    \"attachment\": \"\",\n    \"userId\":\"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1664,7 +1916,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"8\",\n    \"projectId\":\"5\",\n    \"userId\": \"2\",\n    \"assigneeId\": \"4\",\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue8\",\n    \"description\":\"Test issue8\",\n    \"summary\":\"Test issue1\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"8\",\n    \"projectId\":\"5\",\n    \"activityId\": \"2\",\n    \"userId\": \"2\",\n    \"assigneeId\": \"4\",\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue8\",\n    \"description\":\"Test issue8\",\n    \"summary\":\"Test issue1\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1693,7 +1945,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"5\",\n    \"userId\": \"2\",\n    \"assigneeId\": \"4\",\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue3\",\n    \"description\":\"Test issue3\",\n    \"summary\":\"Test issue1\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"5\",\n    \"activityId\": \"2\",\n    \"userId\": \"2\",\n    \"assigneeId\": \"4\",\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue3\",\n    \"description\":\"Test issue3\",\n    \"summary\":\"Test issue1\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1921,7 +2173,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Config2\",\n    \"description\":\"Config2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Config2\",\n    \"description\":\"Config2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1950,7 +2202,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Config3\",\n    \"description\":\"Config2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Config3\",\n    \"description\":\"Config2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2042,7 +2294,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Finace2\",\n    \"description\":\"Finace2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Finace2\",\n    \"description\":\"Finace2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2071,7 +2323,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Finace3\",\n    \"description\":\"Finace2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Finace3\",\n    \"description\":\"Finace2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2163,7 +2415,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Metric2\",\n    \"description\":\"Metric2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Metric2\",\n    \"description\":\"Metric2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2192,7 +2444,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Metric3\",\n    \"description\":\"Metric2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Metric3\",\n    \"description\":\"Metric2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2284,7 +2536,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan12\",\n    \"description\":\"Plan2\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan12\",\n    \"description\":\"Plan2\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2313,7 +2565,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan12\",\n    \"description\":\"Plan3\",\n    \"projectId\":\"1\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Plan12\",\n    \"description\":\"Plan3\",\n    \"projectId\":\"1\",\n    \"activityId\": \"2\",\n    \"status\":\"1\",\n    \"userId\":\"2\",\n    \"attachment\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2410,7 +2662,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2439,7 +2691,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Risk 2\",\n    \"userId\": \"2\",\n    \"projectId\": \"2\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"occurence\":\"Create org_asset\",\n    \"impact\":\"added time and cost\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2536,7 +2788,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Bug 1\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"1\",\n    \"name\":\"Bug 1\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2565,7 +2817,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 3\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"name\":\"Bug 3\",\n    \"userId\": \"2\",\n    \"projectId\": \"1\",\n    \"activityId\": \"2\",\n    \"level\":\"1\",\n    \"description\":\"Can't upload file\",\n    \"solution\":\"\",\n    \"status\":\"1\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2662,7 +2914,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"5\",\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue2\",\n    \"description\":\"Test issue2\",\n    \"summary\":\"Test issue2\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"5\",\n    \"activityId\": \"2\",\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue2\",\n    \"description\":\"Test issue2\",\n    \"summary\":\"Test issue2\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2691,7 +2943,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"5\",\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue3\",\n    \"description\":\"Test issue3\",\n    \"summary\":\"Test issue2\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
+							"raw": "{\n    \"id\":\"2\",\n    \"projectId\":\"5\",\n    \"activityId\": \"2\",\n    \"userId\": \"2\",\n    \"assignee\": {\"id\":\"4\"},\n    \"parentIssueId\":\"0\",\n    \"name\":\"Test issue3\",\n    \"description\":\"Test issue3\",\n    \"summary\":\"Test issue2\",\n    \"status\":\"1\",\n    \"type\":\"1\",\n    \"priority\":\"2\",\n    \"createDate\":\"\",\n    \"attachment\":\"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2953,6 +3205,49 @@
 										"local_opa",
 										"project",
 										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getActivityList",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8072/project-service/local_opa/activity",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8072",
+									"path": [
+										"project-service",
+										"local_opa",
+										"activity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getActivityById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8072/project-service/local_opa/activity/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8072",
+									"path": [
+										"project-service",
+										"local_opa",
+										"activity",
+										"1"
 									]
 								}
 							},
@@ -3298,6 +3593,49 @@
 										"project-service",
 										"local_opa",
 										"project",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getActivityList",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8072/project-service/local_opa/activity",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8072",
+									"path": [
+										"project-service",
+										"local_opa",
+										"activity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getActivityById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8072/project-service/local_opa/activity/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8072",
+									"path": [
+										"project-service",
+										"local_opa",
+										"activity",
 										"2"
 									]
 								}
