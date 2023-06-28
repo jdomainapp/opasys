@@ -10,6 +10,6 @@ import jda.app.opasys.knowledgeasset.modules.planasset.model.PlanAsset;
 
 @Repository
 public interface PlanAssetRepository extends PagingAndSortingRepository<PlanAsset, Integer>{
-	List<MetricAsset> findByProjectId (int projectId);
-	List<MetricAsset> findByActivityId (int activityId);
+	List<PlanAsset> findByProjectId (int projectId);
+	List<PlanAsset> findByActivityId (int activityId);
 }

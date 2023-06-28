@@ -31,7 +31,7 @@ public class OrgAssetController extends DefaultController<OrgAsset, Integer>{
 		if(ControllerTk.isPathContainModule(ManageOrgAssetController.PATH, path)) {
 			ResponseEntity<?> responseEntity = handleRequest(req, res, ids.isEmpty() ? null : ids.get(0));
 			String requestMethod = req.getMethod();
-			String kafkaPath= ControllerTk.getServiceUri(ManageOrgAssetController.SERVICE_NAME, ManageOrgAssetController.PATH+"/{id}");
+			String kafkaPath= ControllerTk.getServiceUri(ManageOrgAssetController.SERVICE_NAME, ManageOrgAssetController.PATH+"/id/{id}");
 			if (requestMethod.equals(RequestMethod.POST.toString())) {
 				OrgAsset responseUser = (OrgAsset) responseEntity.getBody();
 				sourceBean.publishChange(OrgAsset.class.getTypeName(), KafkaChangeAction.CREATED, responseUser.getId(), kafkaPath);

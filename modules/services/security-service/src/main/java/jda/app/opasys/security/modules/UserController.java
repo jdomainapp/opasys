@@ -30,7 +30,7 @@ public class UserController extends DefaultController<User, Integer> {
 		ResponseEntity<?> responseEntity = handleRequest(req, res, ids.isEmpty() ? null : ids.get(0));
 		String requestMethod = req.getMethod();
 		String kafkaPath = ControllerTk.getServiceUri(ManageSecurityController.SERVICE_NAME,
-				ManageSecurityController.PATH + "/{id}");
+				ManageSecurityController.PATH + "/id/{id}");
 		if (requestMethod.equals(RequestMethod.POST.toString())) {
 			User responseUser = (User) responseEntity.getBody();
 			sourceBean.publishChange(User.class.getTypeName(), KafkaChangeAction.CREATED, responseUser.getId(),

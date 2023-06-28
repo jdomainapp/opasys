@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,9 @@ public class ManageProjectController {
 	public final static String PATH_CREATE_LOCAL_OPA = "/local_opa/oncomplete";
 	public final static String PATH_OPA = "/opa";
 	public final static String PATH_CREATE_OPA = "/opa/oncomplete";
+	
+	@Value("${filestorage.path}")
+	private String fileStoragePath;
 
 	@RequestMapping(value = PATH_PROJECT + "/**")
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {

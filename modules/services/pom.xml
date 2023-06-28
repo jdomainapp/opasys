@@ -26,6 +26,7 @@
 		<module>defect-service</module>
 		<module>issue-service</module>
 		<module>security-service</module>
+		<module>file-storage-service</module>
 
 	</modules>
 
