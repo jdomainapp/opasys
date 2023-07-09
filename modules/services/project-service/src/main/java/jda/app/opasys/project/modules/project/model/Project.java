@@ -68,19 +68,7 @@ public class Project extends RepresentationModel<Project>{
 	@Column(name = "end_date")
 	private Date endDate;
 	
-	@OneToMany(mappedBy="project")
-	private List<Knowledge> knowledges;
 	
-	@OneToMany(mappedBy="project")
-	private List<Issue> issues;
-	
-	@OneToMany(mappedBy="project")
-	private List<Risk> risks;
-	
-	@OneToMany(mappedBy="project")
-	private List<Defect> defects;
-	
-	@OneToMany(mappedBy="project")
-	private List<Activity> activities;
+	//oneToMany mapped OPA
 
 }

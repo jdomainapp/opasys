@@ -20,12 +20,10 @@ import jda.app.opasys.project.modules.defect.model.Defect;
 import jda.app.opasys.project.modules.defect.model.DefectAsset;
 import jda.app.opasys.project.modules.issue.model.Comment;
 import jda.app.opasys.project.modules.issue.model.LocalCommentAsset;
-import jda.app.opasys.project.modules.issue.model.CommentAsset;
 import jda.app.opasys.project.modules.issue.model.Issue;
-import jda.app.opasys.project.modules.issue.model.IssueAsset;
+import jda.app.opasys.project.modules.issue.model.LocalIssueAsset;
 import jda.app.opasys.project.modules.knowlegde.model.Knowledge;
 import jda.app.opasys.project.modules.knowlegde.model.LocalKnowledge;
-import jda.app.opasys.project.modules.knowlegde.model.OpaKnowledge;
 import jda.app.opasys.project.modules.opa.model.OPA2;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.project.model.ProjectAsset;
@@ -37,46 +35,45 @@ import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.InterfaceController;
 
 @Controller
-public class OPAController extends InterfaceController<Integer, OPA2> {
+public class LocalOPAController extends InterfaceController<Integer, OPA> {
 	private static final Logger logger = LoggerFactory.getLogger(InterfaceController.class);
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		if (req.getMethod().equals(HttpMethod.GET.toString())) {
-			return processGetOPA(req, res);
+			return processGetLocalOPA(req, res);
 		} else if (req.getMethod().equals(HttpMethod.POST.toString())) {
-			return processCreateOPA(req, res);
+			return processCreateLocalOPA(req, res);
 		} else {
 			return ResponseEntity.badRequest().build();
 		}
 
 	}
+	
 
-	public ResponseEntity<?> processGetOPA(HttpServletRequest req, HttpServletResponse res) {
-		String targetPath = ControllerTk.getServiceUri(OpaUrl.PATH_OPA_SERVICE,
-				req.getServletPath().replace("opa/", ""));
+	public ResponseEntity<?> processGetLocalOPA(HttpServletRequest req, HttpServletResponse res) {
+		String targetPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, req.getServletPath().replace("local_opa/", "").replace("opa/", ""));
 		return super.forwardRequest(targetPath, HttpMethod.resolve(req.getMethod()), null);
 	}
 
-	public ResponseEntity<?> processCreateOPA(HttpServletRequest req, HttpServletResponse res) {
+	public ResponseEntity<?> processCreateLocalOPA(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
-		if (ControllerTk.isPathContainModuleAndId(ManageProjectController.PATH_CREATE_OPA, path)) {
+		if (ControllerTk.isPathContainModuleAndId(ManageProjectController.PATH_CREATE_LOCAL_OPA, path)){
 			int id = ControllerTk.getLastIdInPath(path);
-
-
-			DefaultController<Project, Integer> projectController = ControllerRegistry.getInstance()
-					.get(Project.class);
+			
+			DefaultController<Project, Integer> projectController = ControllerRegistry.getInstance().get(Project.class);
 			Project completedProject = projectController.getEntityById(id).getBody();
-
-//			if (saveProjectAsset(completedProject) && saveActivityAsset(completedProject.getActivities()) && saveDefectAsset(completedProject.getDefects())
+			
+//			if(saveProjectAsset(completedProject) && saveActivityAsset(completedProject.getActivities()) && saveDefectAsset(completedProject.getDefects())
 //					&& saveIssueAsset(completedProject.getIssues()) && saveRiskAsset(completedProject.getRisks())
-//					&& saveKnowledgeAsset(completedProject.getKnowledges())) {
+//					&& saveKnowledgeAsset(completedProject.getKnowledges())){
 //				return ResponseEntity.ok("SAVE OPA SUCCESSFULLY!!!");
 //			}
-
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-		} else {
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); 
+			
+			
+		}else {
 			return ResponseEntity.badRequest().build();
 		}
 	}
@@ -84,15 +81,14 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 	private boolean saveProjectAsset(Project completedProject) {
 		ProjectAsset projectAsset = convertProjectToAsset(completedProject);
 		String requestData = convertObjectToJSON(projectAsset);
-		String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
-				ManageProjectController.PATH_PROJECT);
+		String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, ManageProjectController.PATH_PROJECT);
 		ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return true;
 		}
 		return false;
 	}
-
+	
 	public ProjectAsset convertProjectToAsset(Project completedProject) {
 		return new ProjectAsset(completedProject.getId(), completedProject.getName(), completedProject.getDescription(),
 				completedProject.getType().getId(), completedProject.getProjManager().getId(),
@@ -120,10 +116,9 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 
 	private boolean saveIssueAsset(List<Issue> issues) {
 		for (Issue issue : issues) {
-			IssueAsset issueAsset = convertIssueToIssueAsset(issue);
+			LocalIssueAsset issueAsset = convertIssueToIssueAsset(issue);
 			String requestData = convertObjectToJSON(issueAsset);
-			String path = ControllerTk.getServiceUri(OpaUrl.PATH_OPA_SERVICE,
-					OpaUrl.PATH_ISSUE_SERVICE);
+			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, OpaUrl.PATH_OPA_ISSUE_ASSET);
 			ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
@@ -132,20 +127,19 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 		}
 		return true;
 	}
-
-	private IssueAsset convertIssueToIssueAsset(Issue issue) {
-		return new IssueAsset(issue.getId(), issue.getName(), issue.getDescription(), issue.getStatus(),
-				issue.getAttachment(), issue.getUserId(), issue.getParentIssueId(), issue.getSummary(), issue.getType(),
-				issue.getPriority(), issue.getProject().getId(), issue.getActivityId(), issue.getAssignee(), issue.getCreateDate());
+	
+	private LocalIssueAsset convertIssueToIssueAsset(Issue issue) {
+		return new LocalIssueAsset(issue.getId(), issue.getName(), issue.getDescription(), issue.getStatus(), issue.getAttachment(), 
+				issue.getUserId(), issue.getParentIssueId(), issue.getSummary(), issue.getType(), issue.getPriority(), 
+				issue.getProject().getId(), issue.getActivityId(), issue.getAssignee().getId(), issue.getCreateDate());
 	}
-
+	
 	private boolean saveIssueComment(List<Comment> comments) {
 		for (Comment comment : comments) {
-			CommentAsset commentAsset = convertCommentToCommentAsset(comment);
+			LocalCommentAsset commentAsset = convertCommentToCommentAsset(comment);
 			String requestData = convertObjectToJSON(commentAsset);
-			String modulePath = String.format(OpaUrl.PATH_ISSUE_SERVICE_COMMENT,
-					"" + comment.getIssue().getId());
-			String path = ControllerTk.getServiceUri(OpaUrl.PATH_OPA_SERVICE, modulePath);
+			String modulePath = String.format(OpaUrl.PATH_OPA_ISSUE_COMMENT_ASSET, ""+comment.getIssue().getId());
+			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, modulePath);
 			ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
@@ -153,19 +147,17 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 		}
 		return true;
 	}
-
-	private CommentAsset convertCommentToCommentAsset(Comment comment) {
-		return new CommentAsset(comment.getId(), comment.getCommentUser(),
-				new IssueAsset(comment.getIssue().getId()), comment.getTitle(), comment.getComment(),
-				comment.getCreateDate());
+	
+	private LocalCommentAsset convertCommentToCommentAsset(Comment comment) {
+		return new LocalCommentAsset(comment.getId(), comment.getCommentUser().getId(), new LocalIssueAsset(comment.getIssue().getId()), 
+				comment.getTitle(), comment.getComment(), comment.getCreateDate());
 	}
-
+	
 	private boolean saveRiskAsset(List<Risk> risks) {
 		for (Risk risk : risks) {
 			RiskAsset riskAsset = convertRiskToRiskAsset(risk);
 			String requestData = convertObjectToJSON(riskAsset);
-			String path = ControllerTk.getServiceUri(OpaUrl.PATH_OPA_SERVICE,
-					OpaUrl.PATH_RISK_SERVICE);
+			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, OpaUrl.PATH_OPA_RISK_ASSET);
 			ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
@@ -173,19 +165,17 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 		}
 		return true;
 	}
-
+	
 	private RiskAsset convertRiskToRiskAsset(Risk risk) {
-		return new RiskAsset(risk.getId(), risk.getName(), risk.getDescription(), risk.getStatus(),
-				risk.getAttachment(), risk.getProject().getId(), risk.getActivityId(), risk.getUserId(), risk.getLevel(), risk.getOccurence(),
-				risk.getImpact(), risk.getSolution());
+		return new RiskAsset(risk.getId(), risk.getName(), risk.getDescription(), risk.getStatus(), risk.getAttachment(), 
+				risk.getProject().getId(), risk.getActivityId(),risk.getUserId(), risk.getLevel(), risk.getOccurence(), risk.getImpact(), risk.getSolution());
 	}
-
+	
 	private boolean saveDefectAsset(List<Defect> defects) {
 		for (Defect defect : defects) {
 			DefectAsset defectAsset = convertDefectToDefecAsset(defect);
 			String requestData = convertObjectToJSON(defectAsset);
-			String path = ControllerTk.getServiceUri(OpaUrl.PATH_OPA_SERVICE,
-					OpaUrl.PATH_DEFECT_SERVICE);
+			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, OpaUrl.PATH_OPA_DEFECT_ASSET);
 			ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
@@ -193,36 +183,17 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 		}
 		return true;
 	}
-
+	
 	private DefectAsset convertDefectToDefecAsset(Defect defect) {
-		return new DefectAsset(defect.getId(), defect.getName(), defect.getDescription(), defect.getStatus(),
-				defect.getAttachment(), defect.getUserId(), defect.getProject().getId(), defect.getActivityId(), defect.getLevel(),
-				defect.getSolution());
+		return new DefectAsset(defect.getId(), defect.getName(), defect.getDescription(), defect.getStatus(), defect.getAttachment(), 
+				defect.getUserId(), defect.getProject().getId(), defect.getActivityId(),defect.getLevel(), defect.getSolution());
 	}
-
+	
 	private boolean saveKnowledgeAsset(List<Knowledge> knowledges) {
 		for (Knowledge knowledge : knowledges) {
-			OpaKnowledge knowledgeAsset = convertKnowledgeToOpaKnowledgeAsset(knowledge);
+			LocalKnowledge knowledgeAsset = convertKnowledgeToLocalOpaKnowledgeAsset(knowledge);
 			String requestData = convertObjectToJSON(knowledgeAsset);
-			String modulePath = "/config";
-			switch (knowledge.getType().getName()) {
-			case "Plan":
-				modulePath = "/plan";
-				break;
-			case "Metric":
-				modulePath = "/metric";
-				break;
-			case "Conf":
-				modulePath = "/config";
-				break;
-			case "Fin":
-				modulePath = "/finance";
-				break;
-			default:
-				break;
-			}
-			String path = ControllerTk.getServiceUri(OpaUrl.PATH_OPA_SERVICE,
-					OpaUrl.PATH_KNOWLEDGE_SERVICE + modulePath);
+			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, OpaUrl.PATH_OPA_KNOWLEDGE_ASSET);
 			ResponseEntity<?> response = forwardRequest(path, HttpMethod.POST, requestData);
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
@@ -230,16 +201,19 @@ public class OPAController extends InterfaceController<Integer, OPA2> {
 		}
 		return true;
 	}
-
-	private OpaKnowledge convertKnowledgeToOpaKnowledgeAsset(Knowledge knowledge) {
-		return new OpaKnowledge(knowledge.getId(), knowledge.getProject().getId(), knowledge.getActivityId(), knowledge.getName(),
-				knowledge.getDescription(), knowledge.getStatus(), knowledge.getAttachment(), knowledge.getUserId());
+	
+	private LocalKnowledge convertKnowledgeToLocalOpaKnowledgeAsset(Knowledge knowledge) {
+		return new LocalKnowledge(knowledge.getId(), knowledge.getProject().getId(), knowledge.getActivityId(),knowledge.getName(),
+				knowledge.getDescription(), knowledge.getStatus(), knowledge.getAttachment(), knowledge.getUserId(), knowledge.getType().getId());
 	}
+
+	
 
 	public String convertObjectToJSON(Object object) {
 		Gson gson = new Gson();
-
+	
 		return gson.toJson(object);
 	}
+
 
 }

@@ -2,17 +2,16 @@ package jda.app.opasys.project.modules.issue.model;
 
 import java.util.Date;
 
-import jda.app.opasys.project.modules.user.model.User;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CommentAsset {
+public class LocalCommentAsset {
 
 	private int id;
 
-	private User commentUser;
+	private int commentUserId;
 	
-	private IssueAsset issue;
+	private LocalIssueAsset issue;
 	
 	private String title;
 

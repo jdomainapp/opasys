@@ -27,7 +27,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
-public class IssueAsset{
+public class LocalIssueAsset{
 
 	private int id;
 	
@@ -53,11 +53,11 @@ public class IssueAsset{
 	
 	private int activityId;
 
-	private User assignee;
+	private int assigneeId;
 
 	private Date createDate;
 
-	public IssueAsset(int id) {
+	public LocalIssueAsset(int id) {
 		super();
 		this.id = id;
 	}
