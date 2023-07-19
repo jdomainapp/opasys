@@ -22,16 +22,6 @@ public class IssueAssetController extends DefaultController<IssueAsset, Integer>
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		//project/{10}/issue/{id}
-		if (ControllerTk.isPathContainModule(ManageOPAController.PATH_ISSUE, path)) {
-			return super.handleRequest(req, res, ids.size()==1 ? ids.get(0):null);
-			
-		//project/{10}/issue/{issue_id}/comment/{comment_id}
-		}else if (ControllerTk.isPathContainModule(ManageOPAController.PATH_ISSUE_COMMENT, path)) {
-			DefaultController<CommentAsset, Integer> childController = ControllerRegistry.getInstance().get(CommentAsset.class);
-			return childController.handleRequest(req, res, ids.size()==2 ? ids.get(1):null);
-		}else{
-			return ResponseEntity.badRequest().build();
-		}
+		return super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0));
 	}
 }

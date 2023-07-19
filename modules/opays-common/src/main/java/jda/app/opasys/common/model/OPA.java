@@ -12,7 +12,6 @@ import lombok.Setter;
 @MappedSuperclass
 public class OPA{
 
-
 	private String name;
 
 	private String description;

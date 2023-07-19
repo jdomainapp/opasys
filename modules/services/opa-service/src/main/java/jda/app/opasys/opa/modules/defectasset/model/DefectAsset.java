@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.common.model.KnowlegdeAsset;
+import jda.app.opasys.common.model.KnowledgeAsset;
 import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ import lombok.ToString;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = DefectAsset.class)
-public class DefectAsset extends KnowlegdeAsset{
+public class DefectAsset extends KnowledgeAsset{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;

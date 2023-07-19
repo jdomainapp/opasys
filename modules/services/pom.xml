@@ -20,7 +20,7 @@
 	<modules>
 		<module>opa-service</module>
 		<module>project-service</module>
-		<module>knowledge-asset-service</module>
+		<module>common-knowledge-asset-service</module>
 		<module>org-asset-service</module>
 		<module>risk-service</module>
 		<module>defect-service</module>

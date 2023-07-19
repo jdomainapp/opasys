@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.common.model.KnowlegdeAsset;
+import jda.app.opasys.common.model.KnowledgeAsset;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,7 +25,7 @@ import lombok.ToString;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = IssueAsset.class)
-public class IssueAsset extends KnowlegdeAsset{
+public class IssueAsset extends KnowledgeAsset{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;

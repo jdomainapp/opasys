@@ -20,8 +20,6 @@ public class DefectAssetController extends DefaultController<DefectAsset, Intege
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String path = req.getServletPath();
 		List<Integer> ids = ControllerTk.findIntegers(path);
-		return ControllerTk.isPathContainModule(ManageDefectAssetController.PATH, path)
-				? super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0))
-				: ResponseEntity.badRequest().build();
+		return super.handleRequest(req, res, ids.isEmpty() ? null : ids.get(0));
 	}
 }

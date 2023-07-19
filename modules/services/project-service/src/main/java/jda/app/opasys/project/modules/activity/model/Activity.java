@@ -25,9 +25,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "activity", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = Activity.class)
+
 public class Activity extends RepresentationModel<Activity>{
 	@Id
 	@Column(name = "id", nullable = false)

@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.opa.modules.activityasset.model.ActivityAsset;
+import jda.app.opasys.opa.modules.commonknowledgeasset.model.CommonKnowledgeAsset;
 import jda.app.opasys.opa.modules.defectasset.model.DefectAsset;
+import jda.app.opasys.opa.modules.issueasset.model.CommentAsset;
 import jda.app.opasys.opa.modules.issueasset.model.IssueAsset;
-import jda.app.opasys.opa.modules.knowledgeasset.model.OpaKnowledgeAsset;
 import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
 import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import jda.app.opasys.opa.modules.riskasset.model.RiskAsset;
@@ -26,7 +27,7 @@ import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 @RequestMapping(value = "/")
 public class ManageOPAController {
 	
-	public final static String PATH_KNOWLEDGE = "/opa_knowledge_asset";
+	public final static String PATH_COMMON_KNOWLEDGE = "/common_knowledge_asset";
 	public final static String PATH_ORG = "/org_asset";
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_ACTIVITY = "/activity";
@@ -58,9 +59,9 @@ public class ManageOPAController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@RequestMapping(value = PATH_KNOWLEDGE + "/**")
+	@RequestMapping(value = PATH_COMMON_KNOWLEDGE + "/**")
 	public ResponseEntity<?> handleKnowledgeAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<OpaKnowledgeAsset, Integer> controller = ControllerRegistry.getInstance().get(OpaKnowledgeAsset.class);
+		DefaultController<CommonKnowledgeAsset, Integer> controller = ControllerRegistry.getInstance().get(CommonKnowledgeAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
@@ -82,6 +83,13 @@ public class ManageOPAController {
 	@RequestMapping(value = PATH_ISSUE + "/**")
 	public ResponseEntity<?> handleIssueAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<IssueAsset, Integer> controller = ControllerRegistry.getInstance().get(IssueAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@RequestMapping(value = PATH_ISSUE_COMMENT + "/**")
+	public ResponseEntity<?> handleIssueCommentAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		DefaultController<CommentAsset, Integer> controller = ControllerRegistry.getInstance().get(CommentAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.common.model.KnowlegdeAsset;
+import jda.app.opasys.common.model.KnowledgeAsset;
 import jda.app.opasys.common.model.OPA;
 import lombok.Getter;
 import lombok.Setter;
