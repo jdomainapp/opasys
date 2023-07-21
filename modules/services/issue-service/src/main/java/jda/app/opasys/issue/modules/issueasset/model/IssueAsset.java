@@ -34,9 +34,8 @@ public class IssueAsset extends KnowledgeAsset{
 	@Column(name = "id", nullable = false)
 	private int id;
 	
-	@ManyToOne
-    @JoinColumn(name="assignee_id", nullable=false)
-	private User assignee;
+	@Column(name="assignee_id", nullable=false)
+	private int assigneeId;
 	
 	@Column(name="parent_issue_id")
 	private int parentIssueId;

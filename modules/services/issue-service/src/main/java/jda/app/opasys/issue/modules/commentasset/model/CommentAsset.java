@@ -35,9 +35,8 @@ public class CommentAsset extends RepresentationModel<CommentAsset>{
 	@Column(name = "id", nullable = false)
 	private int id;
 
-	@ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-	private User commentUser;
+	@Column(name="user_id", nullable=false)
+	private int commentUserId;
 	
 	@ManyToOne
     @JoinColumn(name="issue_id", nullable=false)

@@ -53,9 +53,5 @@ public class Project extends RepresentationModel<Project>{
 	
 	@Column(name = "end_date")
 	private Date endDate;
-	
-	
-	//oneToMany mapped OPA
-
 
 }

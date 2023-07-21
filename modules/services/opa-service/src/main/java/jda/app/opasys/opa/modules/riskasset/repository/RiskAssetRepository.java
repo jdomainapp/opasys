@@ -2,7 +2,7 @@ package jda.app.opasys.opa.modules.riskasset.repository;
 
 import org.springframework.stereotype.Repository;
 
-import jda.app.opasys.opa.modules.commonknowledgeasset.model.CommonKnowledgeAsset;
+import jda.app.opasys.opa.modules.planasset.model.PlanAsset;
 import jda.app.opasys.opa.modules.riskasset.model.RiskAsset;
 
 import java.util.List;

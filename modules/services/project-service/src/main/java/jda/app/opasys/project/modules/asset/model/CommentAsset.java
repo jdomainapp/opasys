@@ -10,7 +10,7 @@ public class CommentAsset {
 
 	private int id;
 
-	private User commentUser;
+	private int commentUserId;
 	
 	private IssueAsset issue;
 	

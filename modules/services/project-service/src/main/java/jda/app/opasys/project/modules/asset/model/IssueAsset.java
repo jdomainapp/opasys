@@ -53,7 +53,7 @@ public class IssueAsset{
 	
 	private int activityId;
 
-	private User assignee;
+	private int assigneeId;
 
 	private Date createDate;
 

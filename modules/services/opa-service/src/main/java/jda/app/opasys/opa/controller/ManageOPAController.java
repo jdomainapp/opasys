@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.opa.modules.activityasset.model.ActivityAsset;
-import jda.app.opasys.opa.modules.commonknowledgeasset.model.CommonKnowledgeAsset;
 import jda.app.opasys.opa.modules.defectasset.model.DefectAsset;
 import jda.app.opasys.opa.modules.issueasset.model.CommentAsset;
 import jda.app.opasys.opa.modules.issueasset.model.IssueAsset;
 import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
+import jda.app.opasys.opa.modules.planasset.model.PlanAsset;
 import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import jda.app.opasys.opa.modules.riskasset.model.RiskAsset;
 import jda.modules.msacommon.controller.ControllerRegistry;
@@ -27,14 +27,14 @@ import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 @RequestMapping(value = "/")
 public class ManageOPAController {
 	
-	public final static String PATH_COMMON_KNOWLEDGE = "/common_knowledge_asset";
+	public final static String PATH_PLAN = "/plan_asset";
 	public final static String PATH_ORG = "/org_asset";
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_ACTIVITY = "/activity";
 	public final static String PATH_RISK = "/risk_asset";
 	public final static String PATH_DEFECT = "/defect_asset";
 	public final static String PATH_ISSUE = "/issue_asset";
-	public final static String PATH_ISSUE_COMMENT = "/comment";
+	public final static String PATH_ISSUE_COMMENT = "/issue_comment";
 	public final static String PATH_OPA_REDIRECT = "/redirect";
 	
 	
@@ -59,9 +59,9 @@ public class ManageOPAController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@RequestMapping(value = PATH_COMMON_KNOWLEDGE + "/**")
+	@RequestMapping(value = PATH_PLAN + "/**")
 	public ResponseEntity<?> handleKnowledgeAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<CommonKnowledgeAsset, Integer> controller = ControllerRegistry.getInstance().get(CommonKnowledgeAsset.class);
+		DefaultController<PlanAsset, Integer> controller = ControllerRegistry.getInstance().get(PlanAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}

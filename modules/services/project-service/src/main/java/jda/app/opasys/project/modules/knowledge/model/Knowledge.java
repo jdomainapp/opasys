@@ -24,7 +24,10 @@ import lombok.ToString;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.EXISTING_PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
-	@JsonSubTypes.Type(value = CommonKnowledge.class, name = "common"),
+	@JsonSubTypes.Type(value = Plan.class, name = "plan"),
+	@JsonSubTypes.Type(value = Config.class, name = "config"),
+	@JsonSubTypes.Type(value = Metric.class, name = "metric"),
+	@JsonSubTypes.Type(value = Finance.class, name = "finance"),
 	@JsonSubTypes.Type(value = Defect.class, name = "defect"),
 	@JsonSubTypes.Type(value = Issue.class, name = "issue"),
 	@JsonSubTypes.Type(value = Risk.class, name = "risk")
