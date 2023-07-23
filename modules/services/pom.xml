@@ -25,7 +25,7 @@
 		<module>defect-service</module>
 		<module>issue-service</module>
 		<module>security-service</module>
-		<module>file-storage-service</module>
+		<module>asset-storage-service</module>
 		<module>plan-service</module>
 		<module>metric-service</module>
 		<module>config-service</module>

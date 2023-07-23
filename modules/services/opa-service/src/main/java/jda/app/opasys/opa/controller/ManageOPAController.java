@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jda.app.opasys.common.model.OPA;
 import jda.app.opasys.opa.modules.activityasset.model.ActivityAsset;
+import jda.app.opasys.opa.modules.configasset.model.ConfigAsset;
 import jda.app.opasys.opa.modules.defectasset.model.DefectAsset;
+import jda.app.opasys.opa.modules.financeasset.model.FinanceAsset;
 import jda.app.opasys.opa.modules.issueasset.model.CommentAsset;
 import jda.app.opasys.opa.modules.issueasset.model.IssueAsset;
+import jda.app.opasys.opa.modules.metricasset.model.MetricAsset;
 import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
 import jda.app.opasys.opa.modules.planasset.model.PlanAsset;
 import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
@@ -28,6 +31,9 @@ import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 public class ManageOPAController {
 	
 	public final static String PATH_PLAN = "/plan_asset";
+	public final static String PATH_METRIC = "/metric_asset";
+	public final static String PATH_CONFIG = "/config_asset";
+	public final static String PATH_FINANCE = "/finance_asset";
 	public final static String PATH_ORG = "/org_asset";
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_ACTIVITY = "/activity";
@@ -36,7 +42,7 @@ public class ManageOPAController {
 	public final static String PATH_ISSUE = "/issue_asset";
 	public final static String PATH_ISSUE_COMMENT = "/issue_comment";
 	public final static String PATH_OPA_REDIRECT = "/redirect";
-	
+
 	
 	@RequestMapping(value = PATH_ORG + "/**")
 	public ResponseEntity<?> handleOrgAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -60,11 +66,33 @@ public class ManageOPAController {
 	}
 	
 	@RequestMapping(value = PATH_PLAN + "/**")
-	public ResponseEntity<?> handleKnowledgeAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public ResponseEntity<?> handlePlanAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<PlanAsset, Integer> controller = ControllerRegistry.getInstance().get(PlanAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
+	
+	@RequestMapping(value = PATH_METRIC + "/**")
+	public ResponseEntity<?> handleMetricAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		DefaultController<MetricAsset, Integer> controller = ControllerRegistry.getInstance().get(MetricAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@RequestMapping(value = PATH_CONFIG + "/**")
+	public ResponseEntity<?> handleConfigAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		DefaultController<ConfigAsset, Integer> controller = ControllerRegistry.getInstance().get(ConfigAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@RequestMapping(value = PATH_FINANCE + "/**")
+	public ResponseEntity<?> handleFinanceAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		DefaultController<FinanceAsset, Integer> controller = ControllerRegistry.getInstance().get(FinanceAsset.class);
+		return controller != null ? controller.handleRequest(req, res)
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
 	
 	@RequestMapping(value = PATH_RISK + "/**")
 	public ResponseEntity<?> handleRiskAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -96,7 +124,7 @@ public class ManageOPAController {
 	
 	
 	@RequestMapping(value = PATH_OPA_REDIRECT + "/**")
-	public ResponseEntity<?> handleRedirect(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public ResponseEntity<?> saveAssetSubtype(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		InterfaceController<OPA, Integer> controller = InterfaceControllerRegistry.getInstance().get(OPA.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

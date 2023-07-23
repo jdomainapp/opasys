@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.project.modules.knowledge.model.Issue;
+import jda.app.opasys.project.modules.knowledgeelement.model.Issue;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
