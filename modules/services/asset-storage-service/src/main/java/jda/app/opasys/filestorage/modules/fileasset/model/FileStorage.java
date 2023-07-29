@@ -13,24 +13,24 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString
+@AllArgsConstructor @Getter @Setter @ToString
 @Entity
-@Table(name = "file_storage", schema = "file_storage")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id", scope = FileStorage.class)
+@Table(name = "asset_storage", schema = "asset_storage")
 public class FileStorage extends RepresentationModel<FileStorage>{
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "file_name")
-	private String fileName;
+	@Column(name = "file_path")
+	private String filePath;
+	
+	public FileStorage() {
+		
+	}
 
 }

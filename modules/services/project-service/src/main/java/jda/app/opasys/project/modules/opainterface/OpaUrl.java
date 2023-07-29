@@ -1,6 +1,9 @@
 package jda.app.opasys.project.modules.opainterface;
 
 public class OpaUrl {
+	
+	public final static String PATH_ASSET_STORAGE_SERVICE = "asset-storage-service/file";
+	
 	public final static String PATH_LOCAL_OPA_SERVICE = "opa-service";
 	
 	public final static String PATH_SUBTYPE_OPA_SERVICE = "opa-service/redirect";

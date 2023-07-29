@@ -1,14 +1,27 @@
 package jda.app.opasys.project.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -40,7 +53,12 @@ import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.InterfaceController;
 
-public class SendToOPA {
+@Component
+public class MaterialiseOPA {
+	
+	
+	@Value("${filestorage.path}")
+	private String fileStoragePath="/home/vietdo/opasys_storage_temp";
 	
 	public ResponseEntity<?> processGetLocalOPA(InterfaceController<OPAInterface, Integer>  interfaceController, HttpServletRequest req) {
 		String targetPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
@@ -94,15 +112,17 @@ public class SendToOPA {
 				}
 			}
 
-			if (saveProjectAsset(completedProject, interfaceController) 
-					&& saveActivityAsset(activities, interfaceController) 
-					&& saveDefectAsset(defects, interfaceController)
-					&& saveIssueAsset(issues, interfaceController)
-					&& saveRiskAsset(risks, interfaceController)
-					&& savePlanAsset(plans, interfaceController) 
-					&& saveConfigAsset(configs, interfaceController)
-					&& saveMetricAsset(metrics, interfaceController)
-					&& saveFinanceAsset(finances, interfaceController)) {
+			if (
+//					saveProjectAsset(completedProject, interfaceController) 
+//					&& saveActivityAsset(activities, interfaceController) 
+//					&& saveDefectAsset(defects, interfaceController)
+//					&& saveIssueAsset(issues, interfaceController)
+//					&& saveRiskAsset(risks, interfaceController)
+					savePlanAsset(plans, interfaceController)) 
+//					&& saveConfigAsset(configs, interfaceController)
+//					&& saveMetricAsset(metrics, interfaceController)
+//					&& saveFinanceAsset(finances, interfaceController)) 
+			{
 				return ResponseEntity.ok("SAVE OPA SUCCESSFULLY!!!");
 			}
 			
@@ -168,6 +188,8 @@ public class SendToOPA {
 			if (!saveIssueComment(issue.getComments(), interfaceController)){
 				return false;
 			}
+			
+			return saveFileToAssetStorage(issue.getId(), issue.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -219,6 +241,8 @@ public class SendToOPA {
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
 			}
+
+			return saveFileToAssetStorage(risk.getId(), risk.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -244,6 +268,8 @@ public class SendToOPA {
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
 			}
+
+			return saveFileToAssetStorage(defect.getId(), defect.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -256,19 +282,21 @@ public class SendToOPA {
 
 	private boolean savePlanAsset(List<Plan> plans, InterfaceController<OPAInterface, Integer>  interfaceController) {
 		for (Plan plan : plans) {
-			PlanAsset planAsset = convertPlanToPlanAsset(plan);
-			String requestData = convertObjectToJSON(planAsset);
-			String localPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, OpaUrl.PATH_OPA_PLAN_ASSET);
-			ResponseEntity<?> response = interfaceController.forwardRequest(localPath, HttpMethod.POST, requestData);
-			if (response.getStatusCode() != HttpStatus.OK) {
-				return false;
-			}
-			
-			String subtypePath = ControllerTk.getServiceUri(OpaUrl.PATH_SUBTYPE_OPA_SERVICE, OpaUrl.PATH_PLAN_SERVICE);
-			response = interfaceController.forwardRequest(subtypePath, HttpMethod.POST, requestData);
-			if (response.getStatusCode() != HttpStatus.OK) {
-				return false;
-			}
+//			PlanAsset planAsset = convertPlanToPlanAsset(plan);
+//			String requestData = convertObjectToJSON(planAsset);
+//			String localPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, OpaUrl.PATH_OPA_PLAN_ASSET);
+//			ResponseEntity<?> response = interfaceController.forwardRequest(localPath, HttpMethod.POST, requestData);
+//			if (response.getStatusCode() != HttpStatus.OK) {
+//				return false;
+//			}
+//			
+//			String subtypePath = ControllerTk.getServiceUri(OpaUrl.PATH_SUBTYPE_OPA_SERVICE, OpaUrl.PATH_PLAN_SERVICE);
+//			response = interfaceController.forwardRequest(subtypePath, HttpMethod.POST, requestData);
+//			if (response.getStatusCode() != HttpStatus.OK) {
+//				return false;
+//			}
+
+			return saveFileToAssetStorage(plan.getId(), plan.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -293,6 +321,8 @@ public class SendToOPA {
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
 			}
+
+			return saveFileToAssetStorage(metric.getId(), metric.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -316,6 +346,8 @@ public class SendToOPA {
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
 			}
+
+			return saveFileToAssetStorage(config.getId(), config.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -340,6 +372,8 @@ public class SendToOPA {
 			if (response.getStatusCode() != HttpStatus.OK) {
 				return false;
 			}
+
+			return saveFileToAssetStorage(finance.getId(), finance.getAttachment(), interfaceController);
 		}
 		return true;
 	}
@@ -353,6 +387,24 @@ public class SendToOPA {
 		Gson gson = new Gson();
 
 		return gson.toJson(object);
+	}
+	
+	private boolean saveFileToAssetStorage(int id, String fileName, InterfaceController<OPAInterface, Integer>  interfaceController) {
+		if(fileName.isEmpty()) {
+			return true;
+		}
+		String storagePath = ControllerTk.getServiceUri(OpaUrl.PATH_ASSET_STORAGE_SERVICE, "");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		MultiValueMap <String, Object> body = new LinkedMultiValueMap<>();
+		File localFile = new File(fileStoragePath+File.separator+fileName);
+		body.add("file", new FileSystemResource(localFile));
+		body.add("id", id);
+		body.add("name", fileName);
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+		
+		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(storagePath, requestEntity);
+		return response.getStatusCode() == HttpStatus.OK ? true : false;
 	}
 
 }
