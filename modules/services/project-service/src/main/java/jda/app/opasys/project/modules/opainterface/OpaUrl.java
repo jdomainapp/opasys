@@ -1,5 +1,8 @@
 package jda.app.opasys.project.modules.opainterface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class OpaUrl {
 	
 	public final static String PATH_ASSET_STORAGE_SERVICE = "asset-storage-service/file";
@@ -25,4 +28,10 @@ public class OpaUrl {
 	public final static String PATH_ISSUE_SERVICE_COMMENT = "/issue-service/comment";
 	public final static String PATH_OPA_ISSUE_ASSET = "/issue_asset";
 	public final static String PATH_OPA_ISSUE_COMMENT_ASSET = "/issue_comment";
+	
+	public final static Map<Class, String> opaUrls = new HashMap<>();
+	
+	static {
+	  // todo: initialise opaUrls
+	}
 }

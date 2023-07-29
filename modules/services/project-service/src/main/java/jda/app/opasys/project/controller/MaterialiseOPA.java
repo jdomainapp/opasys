@@ -1,14 +1,15 @@
 package jda.app.opasys.project.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -17,11 +18,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -48,6 +47,7 @@ import jda.app.opasys.project.modules.opainterface.modelasset.PlanAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.RiskAsset;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.project.model.ProjectAsset;
+import jda.modules.common.exceptions.NotImplementedException;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
@@ -86,6 +86,9 @@ public class MaterialiseOPA {
 					.get(KnowledgeElement.class);
 			ResponseEntity<List<KnowledgeElement>> knowledgeReponse = (ResponseEntity<List<KnowledgeElement>>) knowledgeController
 					.getDataByPropertyName("projectId", completedProject.getId());
+
+			//todo: call materialiseSubtypeAsset() instead of calling each individual method
+			
 			List<KnowledgeElement> knowledgeElements = knowledgeReponse.getBody();
 			List<Defect> defects = new ArrayList<>();
 			List<Issue> issues = new ArrayList<>();
@@ -169,7 +172,108 @@ public class MaterialiseOPA {
 				activity.getUser().getId(), activity.getProject().getId());
 	}
 
-	private boolean saveIssueAsset(List<Issue> issues, InterfaceController<OPAInterface, Integer>  interfaceController) {
+	private <T> boolean materialiseSubtypeAsset(Class<T> type, Collection<T> objects, String subTypeOPAUrl, InterfaceController<OPAInterface, Integer>  interfaceController) {
+    for (T objRaw : objects) {
+      KnowledgeElement obj = (KnowledgeElement) objRaw;
+      KnowledgeElementAsset assetObj = convertObjectToAsset(obj);
+      String requestData = convertObjectToJSON(assetObj);
+      
+      // TODO: refactor 
+      String localPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, subTypeOPAUrl);
+      ResponseEntity<?> response = interfaceController.forwardRequest(localPath, HttpMethod.POST, requestData);
+      if (response.getStatusCode() != HttpStatus.OK) {
+        return false;
+      }
+      
+//      String subtypePath = ControllerTk.getServiceUri(OpaUrl.PATH_SUBTYPE_OPA_SERVICE, OpaUrl.PATH_ISSUE_SERVICE);
+//      response = interfaceController.forwardRequest(subtypePath, HttpMethod.POST, requestData);
+//      if (response.getStatusCode() != HttpStatus.OK) {
+//        return false;
+//      }
+      
+      materialiseAssocAssets(type, obj, interfaceController);
+//      if (!saveIssueComment(issue.getComments(), interfaceController)){
+//        return false;
+//      }
+      
+      return saveFileToAssetStorage(obj.getId(), obj.getAttachment(), interfaceController);
+    }
+    return true;
+  }
+	
+	/**
+   * @effects 
+   *  return the KnowledgeElementAsset object that represents the materialised version of <tt>obj</tt>
+   */
+  private KnowledgeElementAsset convertObjectToAsset(KnowledgeElement obj) {
+    // todo: generalise from other convertX() methods 
+    throw new NotImplementedException("Not yet implemented");
+  }
+
+  /**
+   * @effects 
+   * 
+   * @version 
+   * 
+   */
+  private void materialiseAssocAssets(Class<?> type, Object obj, 
+      InterfaceController<OPAInterface, Integer> interfaceController) {
+    // get all associated objects
+    Map<Class, Collection> objsMap = getAssociatedObjects(type, obj);
+    
+    // materialise each group
+    for (Entry<Class, Collection> entry: objsMap.entrySet()) {
+      Class assocType = entry.getKey();
+      String assocTypeUrl = getTypeUrl(assocType);
+      materialiseSubtypeAsset(assocType, entry.getValue(), assocTypeUrl, interfaceController);
+    }
+  }
+
+  /**
+   * @effects 
+   *  return Map of the associated objects of <tt>obj</tt>: 
+   *    key is the associated object type and value is Collection of the associated objects of <tt>obj</tt> of that type
+   */
+  private Map<Class, Collection> getAssociatedObjects(Class<?> type,
+      Object obj) {
+    // todo: use reflection or if...else block
+    Map<Class, Collection> objMap = new HashMap<>();
+    if (obj instanceof Defect) {
+      // todo
+      throw new NotImplementedException("Not yet implemented");
+    }else if (obj instanceof Issue) {
+      // todo
+      objMap.put(Comment.class, ((Issue)obj).getComments());
+    }else if (obj instanceof Risk) {
+      // todo
+      throw new NotImplementedException("Not yet implemented");
+
+    }else if (obj instanceof Plan) {
+      // todo
+      throw new NotImplementedException("Not yet implemented");
+    }else if (obj instanceof Config) {
+      // todo
+      throw new NotImplementedException("Not yet implemented");
+    }else if (obj instanceof Metric) {
+      // todo
+      throw new NotImplementedException("Not yet implemented");
+    }else if (obj instanceof Finance) {
+      // todo
+      throw new NotImplementedException("Not yet implemented");
+    }
+    
+    return objMap;
+  }
+
+  /**
+   * @effects 
+   *  return the service Url of <tt>assocType</tt>
+   */
+  private String getTypeUrl(Class assocType) {
+    return OpaUrl.opaUrls.get(assocType);
+  }
+
+  private boolean saveIssueAsset(List<Issue> issues, InterfaceController<OPAInterface, Integer>  interfaceController) {
 		for (Issue issue : issues) {
 			IssueAsset issueAsset = convertIssueToIssueAsset(issue);
 			String requestData = convertObjectToJSON(issueAsset);
