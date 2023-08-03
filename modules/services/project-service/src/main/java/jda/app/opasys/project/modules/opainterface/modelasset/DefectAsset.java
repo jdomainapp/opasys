@@ -1,29 +1,17 @@
 package jda.app.opasys.project.modules.opainterface.modelasset;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-public class DefectAsset {
-
-	private int id;
-	
-	private String name;
-
-	private String description;
-	
-	private int status;
-	
-	private String attachment;
-	
-	private int userId;
-	
-	private int projectId;
-	
-	private int activityId;
+public class DefectAsset extends KnowledgeElementAsset{
 	
 	private int level;
 	
 	private String solution;
-
+	
+	
+	public DefectAsset(int id, String name, String description, int status, String attachment, int projectId, int activityId,
+			int userId, int level, String solution) {
+		super(id,name,description,status,attachment,projectId,activityId,userId);
+		this.level = level;
+		this.solution = solution;
+	}
 	
 }

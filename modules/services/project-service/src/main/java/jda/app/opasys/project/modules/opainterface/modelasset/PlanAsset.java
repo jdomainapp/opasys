@@ -1,24 +1,8 @@
 package jda.app.opasys.project.modules.opainterface.modelasset;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-public class PlanAsset {
-	private int id;
-
-	private int projectId;
+public class PlanAsset extends KnowledgeElementAsset{
 	
-	private int activityId;
-
-	private String name;
-
-	private String description;
-
-	private int status;
-
-	private String attachment;
-
-	private int userId;
-
-
+	public PlanAsset(int id, String name, String description, int status, String attachment, int projectId, int activityId,int userId) {
+		super(id,name,description,status,attachment,projectId,activityId,userId);
+	}
 }

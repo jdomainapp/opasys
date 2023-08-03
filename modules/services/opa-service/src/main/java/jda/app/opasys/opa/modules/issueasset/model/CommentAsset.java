@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @Entity
 @Table(name = "issue_comment", schema = "opa")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = "attachment")
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = CommentAsset.class)

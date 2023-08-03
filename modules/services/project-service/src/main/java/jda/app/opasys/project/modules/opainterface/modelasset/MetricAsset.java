@@ -1,24 +1,8 @@
 package jda.app.opasys.project.modules.opainterface.modelasset;
 
-import lombok.AllArgsConstructor;
+public class MetricAsset extends KnowledgeElementAsset{
 
-@AllArgsConstructor
-public class MetricAsset {
-	private int id;
-
-	private int projectId;
-	
-	private int activityId;
-
-	private String name;
-
-	private String description;
-
-	private int status;
-
-	private String attachment;
-
-	private int userId;
-
-
+	public MetricAsset(int id, String name, String description, int status, String attachment, int projectId, int activityId,int userId) {
+		super(id,name,description,status,attachment,projectId,activityId,userId);
+	}
 }

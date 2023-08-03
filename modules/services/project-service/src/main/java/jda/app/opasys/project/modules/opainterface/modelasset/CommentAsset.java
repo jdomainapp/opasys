@@ -5,10 +5,7 @@ import java.util.Date;
 import jda.app.opasys.project.modules.user.model.User;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class CommentAsset {
-
-	private int id;
+public class CommentAsset extends Asset{
 
 	private int commentUserId;
 	
@@ -19,6 +16,15 @@ public class CommentAsset {
 	private String comment;
 	
 	private Date createDate;
-	
 
+	public CommentAsset(int id, int commentUserId, IssueAsset issue, String title, String comment, Date createDate) {
+		super(id);
+		this.commentUserId = commentUserId;
+		this.issue = issue;
+		this.title = title;
+		this.comment = comment;
+		this.createDate = createDate;
+	}
+	
+	
 }
