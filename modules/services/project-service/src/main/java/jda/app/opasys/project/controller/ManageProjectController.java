@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,8 @@ public class ManageProjectController {
 	public final static String PATH_GET_LOCAL_OPA = "/opa/local";
 	public final static String PATH_GET_SUBTYPE_OPA = "/opa/subtype";
 	
-
+	@Value("${filestorage.path}")
+	private String fileStoragePath;
 
 	@RequestMapping(value = PATH_PROJECT + "/**")
 	public ResponseEntity<?> handleProjectRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -71,6 +73,7 @@ public class ManageProjectController {
 	}
 	
 	@GetMapping(value = PATH_KNOWLEDGE + "/**")
+	@DeleteMapping(value = PATH_KNOWLEDGE + "/**")
 	public ResponseEntity<?> handleKnowledgeGetRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<KnowledgeElement, Integer> controller = ControllerRegistry.getInstance().get(KnowledgeElement.class);
 		return controller != null ? controller.handleRequest(req, res)
@@ -89,7 +92,7 @@ public class ManageProjectController {
 			throws IOException {
 		InterfaceController<OPAInterface, Integer> interfaceController = InterfaceControllerRegistry.getInstance()
 				.get(OPAInterface.class);
-		return new MaterialiseOPA().processCreateOPA(interfaceController, req.getServletPath());
+		return new MaterialiseOPA(fileStoragePath).processCreateOPA(interfaceController, req.getServletPath());
 	}
 
 	@RequestMapping(value = PATH_GET_LOCAL_OPA + "/**")

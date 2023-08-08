@@ -1,7 +1,6 @@
 package jda.app.opasys.project.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +16,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.google.gson.Gson;
+
 
 import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.app.opasys.project.modules.activity.model.ActivityAsset;
@@ -42,24 +39,28 @@ import jda.app.opasys.project.modules.opainterface.modelasset.ConfigAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.DefectAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.FinanceAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.IssueAsset;
-import jda.app.opasys.project.modules.opainterface.modelasset.KnowledgeElementAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.MetricAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.OPAInterface;
 import jda.app.opasys.project.modules.opainterface.modelasset.PlanAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.RiskAsset;
 import jda.app.opasys.project.modules.project.model.Project;
 import jda.app.opasys.project.modules.project.model.ProjectAsset;
-import jda.modules.common.exceptions.NotImplementedException;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.InterfaceController;
 
-@Component
 public class MaterialiseOPA {
 
-	@Value("${filestorage.path}")
-	private String fileStoragePath = "/home/vietdo/opasys_storage_temp";
+	private String fileStoragePath;
+
+	public MaterialiseOPA(String fileStoragePath) {
+		super();
+		this.fileStoragePath = fileStoragePath;
+	}
+	
+	public MaterialiseOPA() {
+	}
 
 	public ResponseEntity<?> processGetLocalOPA(InterfaceController<OPAInterface, Integer> interfaceController,
 			HttpServletRequest req) {
@@ -93,10 +94,9 @@ public class MaterialiseOPA {
 
 			List<KnowledgeElement> knowledgeElements = knowledgeReponse.getBody();
 
-			if (
-//					saveProjectAsset(completedProject, interfaceController)
-//					&& saveActivityAsset(activities, interfaceController)
-			materialiseSubtypeAsset(KnowledgeElement.class, knowledgeElements, interfaceController)) {
+			if (saveProjectAsset(completedProject, interfaceController)
+				&& saveActivityAsset(activities, interfaceController)
+				&& materialiseSubtypeAsset(KnowledgeElement.class, knowledgeElements, interfaceController)) {
 				return ResponseEntity.ok("SAVE OPA SUCCESSFULLY!!!");
 			}
 
@@ -110,7 +110,7 @@ public class MaterialiseOPA {
 	private boolean saveProjectAsset(Project completedProject,
 			InterfaceController<OPAInterface, Integer> interfaceController) {
 		ProjectAsset projectAsset = convertProjectToAsset(completedProject);
-		String requestData = convertObjectToJSON(projectAsset);
+		String requestData = ControllerTk.convertObjectToJSON(projectAsset);
 		String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, ManageProjectController.PATH_PROJECT);
 		ResponseEntity<?> response = interfaceController.forwardRequest(path, HttpMethod.POST, requestData);
 		if (response.getStatusCode() == HttpStatus.OK) {
@@ -129,7 +129,7 @@ public class MaterialiseOPA {
 			InterfaceController<OPAInterface, Integer> interfaceController) {
 		for (Activity activity : activities) {
 			ActivityAsset activityAsset = convertActivityToActivityAsset(activity);
-			String requestData = convertObjectToJSON(activityAsset);
+			String requestData = ControllerTk.convertObjectToJSON(activityAsset);
 			String path = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
 					ManageProjectController.PATH_ACTIVITY);
 			ResponseEntity<?> response = interfaceController.forwardRequest(path, HttpMethod.POST, requestData);
@@ -152,7 +152,7 @@ public class MaterialiseOPA {
 			if (assetObj == null) {
 				return false;
 			}
-			String requestData = convertObjectToJSON(assetObj);
+			String requestData = ControllerTk.convertObjectToJSON(assetObj);
 
 			String subTypeOPAUrl = getTypeUrl(objRaw.getClass());
 			String localPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, subTypeOPAUrl);
@@ -273,12 +273,6 @@ public class MaterialiseOPA {
 	 */
 	private String getTypeUrl(Class assocType) {
 		return OpaUrl.opaUrls.get(assocType);
-	}
-
-	private String convertObjectToJSON(Object object) {
-		Gson gson = new Gson();
-
-		return gson.toJson(object);
 	}
 
 	private boolean saveFileToAssetStorage(int id, String fileName,

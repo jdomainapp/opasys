@@ -2,10 +2,13 @@ package jda.app.opasys.opa.controller;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ import jda.app.opasys.opa.modules.orgasset.model.OrgAsset;
 import jda.app.opasys.opa.modules.planasset.model.PlanAsset;
 import jda.app.opasys.opa.modules.projectasset.model.ProjectAsset;
 import jda.app.opasys.opa.modules.riskasset.model.RiskAsset;
+import jda.modules.msacommon.connections.CachedBodyHttpServletRequest;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.controller.InterfaceController;
@@ -29,102 +33,45 @@ import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 @RestController
 @RequestMapping(value = "/")
 public class ManageOPAController {
-	
-	public final static String PATH_PLAN = "/plan_asset";
-	public final static String PATH_METRIC = "/metric_asset";
-	public final static String PATH_CONFIG = "/config_asset";
-	public final static String PATH_FINANCE = "/finance_asset";
-	public final static String PATH_ORG = "/org_asset";
 	public final static String PATH_PROJECT = "/project";
 	public final static String PATH_ACTIVITY = "/activity";
-	public final static String PATH_RISK = "/risk_asset";
-	public final static String PATH_DEFECT = "/defect_asset";
-	public final static String PATH_ISSUE = "/issue_asset";
-	public final static String PATH_ISSUE_COMMENT = "/issue_comment";
+	public final static String PATH_OPA_ORG_ASSET = "/org_asset";
 	public final static String PATH_OPA_REDIRECT = "/redirect";
-
 	
-	@RequestMapping(value = PATH_ORG + "/**")
+	@RequestMapping(value = PATH_OPA_ORG_ASSET + "/**")
 	public ResponseEntity<?> handleOrgAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<OrgAsset, Integer> controller = ControllerRegistry.getInstance().get(OrgAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@RequestMapping(value = PATH_PROJECT + "/**")
+	@PostMapping(value = PATH_PROJECT + "/**")
 	public ResponseEntity<?> handleProject(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<ProjectAsset, Integer> controller = ControllerRegistry.getInstance().get(ProjectAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@RequestMapping(value = PATH_ACTIVITY + "/**")
+	@PostMapping(value = PATH_ACTIVITY + "/**")
 	public ResponseEntity<?> handleActivity(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<ActivityAsset, Integer> controller = ControllerRegistry.getInstance().get(ActivityAsset.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@RequestMapping(value = PATH_PLAN + "/**")
-	public ResponseEntity<?> handlePlanAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<PlanAsset, Integer> controller = ControllerRegistry.getInstance().get(PlanAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	@RequestMapping(value = PATH_METRIC + "/**")
-	public ResponseEntity<?> handleMetricAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<MetricAsset, Integer> controller = ControllerRegistry.getInstance().get(MetricAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	@RequestMapping(value = PATH_CONFIG + "/**")
-	public ResponseEntity<?> handleConfigAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<ConfigAsset, Integer> controller = ControllerRegistry.getInstance().get(ConfigAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	@RequestMapping(value = PATH_FINANCE + "/**")
-	public ResponseEntity<?> handleFinanceAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<FinanceAsset, Integer> controller = ControllerRegistry.getInstance().get(FinanceAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
+	@PostMapping(value = "opa_**")
+	public ResponseEntity<?> handleCreateAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		Class<?> clazz = SubtypeUrls.opaUrls.get(req.getServletPath());
+		HttpServletRequest cloneRequest = new CachedBodyHttpServletRequest(req);
+		processAssetSubtype(cloneRequest, res);
+		DefaultController<?, Integer> controller = ControllerRegistry.getInstance().get(clazz);
+		return controller != null ? controller.handleRequest(cloneRequest, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
 	
-	@RequestMapping(value = PATH_RISK + "/**")
-	public ResponseEntity<?> handleRiskAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<RiskAsset, Integer> controller = ControllerRegistry.getInstance().get(RiskAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	@RequestMapping(value = PATH_DEFECT + "/**")
-	public ResponseEntity<?> handleDefectAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<DefectAsset, Integer> controller = ControllerRegistry.getInstance().get(DefectAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	@RequestMapping(value = PATH_ISSUE + "/**")
-	public ResponseEntity<?> handleIssueAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<IssueAsset, Integer> controller = ControllerRegistry.getInstance().get(IssueAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	@RequestMapping(value = PATH_ISSUE_COMMENT + "/**")
-	public ResponseEntity<?> handleIssueCommentAsset(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		DefaultController<CommentAsset, Integer> controller = ControllerRegistry.getInstance().get(CommentAsset.class);
-		return controller != null ? controller.handleRequest(req, res)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-	
-	
-	@RequestMapping(value = PATH_OPA_REDIRECT + "/**")
-	public ResponseEntity<?> saveAssetSubtype(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	@GetMapping(value = PATH_OPA_REDIRECT + "/**")
+	public ResponseEntity<?> processAssetSubtype(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		InterfaceController<OPA, Integer> controller = InterfaceControllerRegistry.getInstance().get(OPA.class);
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

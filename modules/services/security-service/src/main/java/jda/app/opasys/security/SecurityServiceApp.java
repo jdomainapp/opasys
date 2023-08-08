@@ -23,10 +23,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import jda.modules.msacommon.connections.UserContextInterceptor;
 import jda.modules.msacommon.controller.ControllerRegistry;
-import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.DefaultController;
-import jda.modules.msacommon.controller.RedirectController;
-import jda.modules.msacommon.controller.RedirectControllerRegistry;
+import jda.modules.msacommon.controller.InterfaceController;
+import jda.modules.msacommon.controller.InterfaceControllerRegistry;
 import jda.modules.msacommon.controller.ServiceRegistry;
 
 @SpringBootApplication
@@ -39,7 +38,7 @@ public class SecurityServiceApp {
 	public static void main(String[] args) {
 		final ServiceRegistry serviceRegistry = ServiceRegistry.getInstance();
 		final ControllerRegistry controllerRegistry = ControllerRegistry.getInstance();
-		final RedirectControllerRegistry redirectControllerRegistry = RedirectControllerRegistry.getInstance();
+		final InterfaceControllerRegistry interfaceControllerRegistry = InterfaceControllerRegistry.getInstance();
 		ApplicationContext ctx = SpringApplication.run(SecurityServiceApp.class, args);
 		ctx.getBeansOfType(PagingAndSortingRepository.class).forEach((k, v) -> {serviceRegistry.put(k, v);
 		System.out.println("CHECK SERVICES: "+ k +"_"+v);
@@ -47,8 +46,8 @@ public class SecurityServiceApp {
 		ctx.getBeansOfType(DefaultController.class).forEach((k, v) -> {controllerRegistry.put(k, v);
 		System.out.println("CHECK Controller: "+ k +"_"+v);
 			});
-		ctx.getBeansOfType(RedirectController.class).forEach((k, v) -> {redirectControllerRegistry.put(k, v);
-		System.out.println("CHECK RedirectController: "+ k +"_"+v);
+		ctx.getBeansOfType(InterfaceController.class).forEach((k, v) -> {interfaceControllerRegistry.put(k, v);
+		System.out.println("CHECK IntefaceController: "+ k +"_"+v);
 			});
 		
 	}

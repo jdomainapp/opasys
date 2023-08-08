@@ -1,4 +1,4 @@
-package jda.app.opasys.orgasset.modules.orgasset.model;
+package jda.app.opasys.filestorage.modules.orgasset.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,26 +13,24 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jda.app.opasys.common.model.OPA;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
-@Getter @Setter @ToString
+@AllArgsConstructor @Getter @Setter @ToString
 @Entity
-@Table(name = "org_asset", schema = "org_asset")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrgAsset extends OPA{
+@Table(name = "org_asset", schema = "asset_storage")
+public class OrgAssetStorage extends RepresentationModel<OrgAssetStorage>{
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "file_path")
+	private String filePath;
 	
-	@Column(name = "project_type")
-	private int projectType;
-	
-	@Column(name = "knowledge_type")
-	private int knowledgeType;
-	
+	public OrgAssetStorage() {
+		
+	}
+
 }

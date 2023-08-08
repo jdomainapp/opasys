@@ -36,8 +36,9 @@ public class KnowledgeElementController extends DefaultController<KnowledgeEleme
 			entity.setAttachment(attachmentPath);
 			String filePath = fileStoragePath+ File.separator+ attachmentPath;
 			return super.handleRequestWithFile(httpMethod, entity, id, fileUpload, filePath);
+		}else {
+			return super.handleReques(httpMethod, entity, id);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
 

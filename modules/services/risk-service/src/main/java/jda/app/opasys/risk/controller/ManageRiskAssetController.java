@@ -26,6 +26,4 @@ public class ManageRiskAssetController {
 		return controller != null ? controller.handleRequest(req, res)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
-	
-	//TODO: download and upload file
 }

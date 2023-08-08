@@ -1,4 +1,4 @@
-package jda.app.opasys.filestorage.modules.fileasset.model;
+package jda.app.opasys.filestorage.modules.knowledgeasset.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +20,8 @@ import lombok.ToString;
 
 @AllArgsConstructor @Getter @Setter @ToString
 @Entity
-@Table(name = "asset_storage", schema = "asset_storage")
-public class FileStorage extends RepresentationModel<FileStorage>{
+@Table(name = "knowledge_asset", schema = "asset_storage")
+public class KnowledgeAssetStorage extends RepresentationModel<KnowledgeAssetStorage>{
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;
@@ -29,7 +29,7 @@ public class FileStorage extends RepresentationModel<FileStorage>{
 	@Column(name = "file_path")
 	private String filePath;
 	
-	public FileStorage() {
+	public KnowledgeAssetStorage() {
 		
 	}
 

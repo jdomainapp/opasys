@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import jda.app.opasys.common.model.OPA;
+import jda.app.opasys.opa.controller.SubtypeUrls;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.InterfaceController;
 
@@ -24,7 +25,13 @@ public class OPAController extends InterfaceController<Integer, OPA> {
 
 	@Override
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
-		String targetPath = ControllerTk.getServiceUri("", req.getServletPath().replace("redirect/", ""));
+		String targetPath = null;
+		if(req.getMethod().equals(HttpMethod.GET.name())) {
+			targetPath = ControllerTk.getServiceUri("", req.getServletPath().replace("redirect/", ""));
+		}else if(req.getMethod().equals(HttpMethod.POST.name())) {
+			String subtype = SubtypeUrls.subtypeUrls.get(req.getServletPath());
+			targetPath = ControllerTk.getServiceUri("", subtype);
+		}
 		String requestData;
 		try {
 			requestData = req.getReader().lines().collect(Collectors.joining()).trim();
