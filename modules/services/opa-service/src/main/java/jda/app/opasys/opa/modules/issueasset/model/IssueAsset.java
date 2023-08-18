@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,9 +25,6 @@ import lombok.ToString;
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = IssueAsset.class)
 public class IssueAsset extends KnowledgeAsset{
-	@Id
-	@Column(name = "id", nullable = false)
-	private int id;
 
 	@Column(name="assignee_id", nullable=false)
 	private int assigneeId;

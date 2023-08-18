@@ -1,8 +1,15 @@
 package jda.app.opasys.project.modules.opainterface.modelasset;
 
 import java.util.Date;
+import jda.app.opasys.common.model.KnowledgeAsset;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-public class IssueAsset extends KnowledgeElementAsset{
+@Getter @Setter @ToString
+public class IssueAsset extends KnowledgeAsset{
+
+	private int assigneeId;
 	
 	private int parentIssueId;
 	
@@ -11,28 +18,26 @@ public class IssueAsset extends KnowledgeElementAsset{
 	private int type;
 	
 	private int priority;
-
-	private int assigneeId;
-
+	
 	private Date createDate;
 	
 	public IssueAsset(int id) {
-		super(id);
+		
 	}
-
-	public IssueAsset(int id, String name, String description, int status, String attachment, int projectId,
-			int activityId, int userId, int parentIssueId, String summary, int type, int priority, int assigneeId,
+	
+	public IssueAsset(int id, String name, String description, int status, String attachment, int userId, int projectId,
+			int activityId,  int parentIssueId, String summary,int assigneeId, int type, int priority,
 			Date createDate) {
-		super(id, name, description, status, attachment, projectId, activityId, userId);
+		super(name, description, status, attachment, userId, projectId, activityId, id);
+		
+		this.assigneeId = assigneeId;
 		this.parentIssueId = parentIssueId;
 		this.summary = summary;
 		this.type = type;
 		this.priority = priority;
-		this.assigneeId = assigneeId;
 		this.createDate = createDate;
 	}
-
 	
 	
-
+	
 }

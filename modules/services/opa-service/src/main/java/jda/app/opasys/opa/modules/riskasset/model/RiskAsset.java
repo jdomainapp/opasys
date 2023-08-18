@@ -1,8 +1,6 @@
 package jda.app.opasys.opa.modules.riskasset.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -22,10 +20,6 @@ import lombok.ToString;
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = RiskAsset.class)
 public class RiskAsset extends KnowledgeAsset{
-
-	@Id
-	@Column(name = "id", nullable = false)
-	private int id;
 	
 	private int level;
 	

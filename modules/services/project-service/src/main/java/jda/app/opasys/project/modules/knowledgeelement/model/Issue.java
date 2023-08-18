@@ -46,7 +46,7 @@ public class Issue extends KnowledgeElement{
 	private Date createDate;
 	
 	@OneToMany(mappedBy="issue")
-	private List<Comment> comments;
+ 	private List<Comment> comments;
 	
 	@ManyToOne
 	@JoinColumn(name="assignee_id", nullable=false)

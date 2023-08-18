@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import jda.app.opasys.common.model.KnowledgeAsset;
 import jda.app.opasys.orgasset.modules.opainterface.modelasset.OPAInterface;
 import jda.app.opasys.orgasset.modules.orgasset.model.OrgAsset;
 import jda.modules.msacommon.controller.ControllerTk;
@@ -28,46 +29,35 @@ public class MaterialiseOPA {
 
 	public ResponseEntity<?> processCreateOPA(OrgAsset orgAsset,HttpMethod method, InterfaceController<OPAInterface, Integer> interfaceController) {
 
-			if (materialiseSubtypeAsset(orgAsset, method, interfaceController)
-					&& saveFileToAssetStorage(orgAsset.getId(), orgAsset.getAttachment(), interfaceController)) {
+			if (materialiseSubtypeAsset(orgAsset, method, interfaceController)) {
 				return ResponseEntity.ok("SAVE OPA SUCCESSFULLY!!!");
 			}
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
-	private <T> boolean materialiseSubtypeAsset(OrgAsset orgAsset,HttpMethod method,
+	private boolean materialiseSubtypeAsset(OrgAsset orgAsset,HttpMethod method,
 			InterfaceController<OPAInterface, Integer> interfaceController) {
-		
-			String requestData = ControllerTk.convertObjectToJSON(orgAsset);
 
 			String localPath = ControllerTk.getServiceUri(ManageOrgAssetController.PATH_LOCAL_OPA_SERVICE, ManageOrgAssetController.PATH_OPA_ORG_ASSET);
-			ResponseEntity<?> response = interfaceController.forwardRequest(localPath, method, requestData);
-			if (response.getStatusCode() != HttpStatus.OK) {
-				return false;
-			}
-			
-		
-		return true;
+			return sendSubtypeAndFile(localPath, orgAsset, interfaceController);
 	}
 
 
-	private boolean saveFileToAssetStorage(int id, String fileName,
-			InterfaceController<OPAInterface, Integer> interfaceController) {
-		if (fileName.isEmpty()) {
+	private boolean sendSubtypeAndFile(String opaUrl, OrgAsset orgAsset, InterfaceController<OPAInterface, Integer> interfaceController) {
+		if (orgAsset.getAttachment().isEmpty()) {
 			return true;
 		}
-		String storagePath = ControllerTk.getServiceUri(ManageOrgAssetController.PATH_ASSET_STORAGE_SERVICE, "");
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		File localFile = new File(fileStoragePath + File.separator + fileName);
+		File localFile = new File(fileStoragePath + File.separator + orgAsset.getAttachment());
 		body.add("file", new FileSystemResource(localFile));
-		body.add("id", id);
-		body.add("name", fileName);
+		body.add("data", orgAsset);
 		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(storagePath, requestEntity);
+		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(opaUrl, requestEntity);
 		return response.getStatusCode() == HttpStatus.OK ? true : false;
 	}
 

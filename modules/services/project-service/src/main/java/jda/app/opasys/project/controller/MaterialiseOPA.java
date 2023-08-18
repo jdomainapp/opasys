@@ -19,8 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-
-
+import jda.app.opasys.common.model.Asset;
+import jda.app.opasys.common.model.KnowledgeAsset;
 import jda.app.opasys.project.modules.activity.model.Activity;
 import jda.app.opasys.project.modules.activity.model.ActivityAsset;
 import jda.app.opasys.project.modules.issuecomment.model.Comment;
@@ -33,7 +33,6 @@ import jda.app.opasys.project.modules.knowledgeelement.model.Metric;
 import jda.app.opasys.project.modules.knowledgeelement.model.Plan;
 import jda.app.opasys.project.modules.knowledgeelement.model.Risk;
 import jda.app.opasys.project.modules.opainterface.OpaUrl;
-import jda.app.opasys.project.modules.opainterface.modelasset.Asset;
 import jda.app.opasys.project.modules.opainterface.modelasset.CommentAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.ConfigAsset;
 import jda.app.opasys.project.modules.opainterface.modelasset.DefectAsset;
@@ -149,20 +148,23 @@ public class MaterialiseOPA {
 			InterfaceController<OPAInterface, Integer> interfaceController) {
 		for (T objRaw : objects) {
 			Asset assetObj = convertObjectToAsset(objRaw);
-			if (assetObj == null) {
-				return false;
-			}
-			String requestData = ControllerTk.convertObjectToJSON(assetObj);
-
 			String subTypeOPAUrl = getTypeUrl(objRaw.getClass());
 			String localPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE, subTypeOPAUrl);
-			ResponseEntity<?> response = interfaceController.forwardRequest(localPath, HttpMethod.POST, requestData);
-			if (response.getStatusCode() != HttpStatus.OK) {
+			if (assetObj == null) {
 				return false;
+			}else if(assetObj instanceof KnowledgeAsset) {
+				if (!sendSubtypeAndFile(localPath, (KnowledgeAsset) assetObj, interfaceController)) {
+					return false;
+				}
+			}else {
+				String requestData = ControllerTk.convertObjectToJSON(assetObj);
+				ResponseEntity<?> response = interfaceController.forwardRequest(localPath, HttpMethod.POST, requestData);
+				if (response.getStatusCode() != HttpStatus.OK) {
+					return false;
+				}
 			}
-
-			if (!materialiseAssocAssets(type, objRaw, interfaceController)
-					|| !saveFileToAssetStorage(assetObj.getId(), assetObj.getAttachment(), interfaceController)) {
+			
+			if (!materialiseAssocAssets(type, objRaw, interfaceController)) {
 				return false;
 			}
 		}
@@ -217,7 +219,7 @@ public class MaterialiseOPA {
 		} else if (obj instanceof Comment) {
 			Comment subtypeObj = (Comment) obj;
 			return new CommentAsset(subtypeObj.getId(), subtypeObj.getCommentUser().getId(),
-					new IssueAsset(subtypeObj.getIssue().getId()), subtypeObj.getTitle(), subtypeObj.getComment(),
+					new IssueAsset(subtypeObj.getIssue().getId()), subtypeObj.getComment(),
 					subtypeObj.getCreateDate());
 		}
 		return null;
@@ -275,22 +277,16 @@ public class MaterialiseOPA {
 		return OpaUrl.opaUrls.get(assocType);
 	}
 
-	private boolean saveFileToAssetStorage(int id, String fileName,
-			InterfaceController<OPAInterface, Integer> interfaceController) {
-		if (fileName.isEmpty()) {
-			return true;
-		}
-		String storagePath = ControllerTk.getServiceUri(OpaUrl.PATH_ASSET_STORAGE_SERVICE, "");
+	private boolean sendSubtypeAndFile(String opaUrl, KnowledgeAsset asset, InterfaceController<OPAInterface, Integer> interfaceController) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		File localFile = new File(fileStoragePath + File.separator + fileName);
+		File localFile = new File(fileStoragePath + File.separator + asset.getAttachment());
 		body.add("file", new FileSystemResource(localFile));
-		body.add("id", id);
-		body.add("name", fileName);
+		body.add("data", asset);
 		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(storagePath, requestEntity);
+		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(opaUrl, requestEntity);
 		return response.getStatusCode() == HttpStatus.OK ? true : false;
 	}
 

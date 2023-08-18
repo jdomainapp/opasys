@@ -1,8 +1,16 @@
 package jda.app.opasys.project.modules.opainterface.modelasset;
 
-public class ConfigAsset extends KnowledgeElementAsset{
+import jda.app.opasys.common.model.KnowledgeAsset;
+import lombok.Getter;
+import lombok.Setter;
 
-	public ConfigAsset(int id, String name, String description, int status, String attachment, int projectId, int activityId,int userId) {
-		super(id,name,description,status,attachment,projectId,activityId,userId);
+@Getter @Setter
+public class ConfigAsset extends KnowledgeAsset{
+
+	public ConfigAsset(int id, String name, String description, int status, String attachment, int userId, int projectId,
+			int activityId) {
+		super(name, description, status, attachment, userId, projectId, activityId, id);
 	}
+
+	
 }

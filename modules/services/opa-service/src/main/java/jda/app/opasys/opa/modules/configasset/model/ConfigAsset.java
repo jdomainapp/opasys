@@ -1,8 +1,6 @@
 package jda.app.opasys.opa.modules.configasset.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -22,8 +20,4 @@ import lombok.ToString;
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = ConfigAsset.class)
 public class ConfigAsset extends KnowledgeAsset{
-	@Id
-	@Column(name = "id", nullable = false)
-	private int id;
-
 }

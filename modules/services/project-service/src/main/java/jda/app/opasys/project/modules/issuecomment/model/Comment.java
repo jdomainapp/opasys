@@ -41,8 +41,6 @@ public class Comment extends RepresentationModel<Comment>{
 	@ManyToOne
     @JoinColumn(name="issue_id", nullable=false)
 	private Issue issue;
-	
-	private String title;
 
 	private String comment;
 	

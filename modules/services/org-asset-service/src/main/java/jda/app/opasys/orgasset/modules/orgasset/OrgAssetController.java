@@ -45,6 +45,7 @@ public class OrgAssetController extends DefaultController<OrgAsset, Integer>{
 						.get(OPAInterface.class);
 				OrgAsset orgAsset = (OrgAsset) response.getBody();
 				new MaterialiseOPA(fileStoragePath).processCreateOPA(orgAsset, HttpMethod.valueOf(httpMethod), interfaceController);
+				return ResponseEntity.ok(orgAsset);
 			}
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}else {
