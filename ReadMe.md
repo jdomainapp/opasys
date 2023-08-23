@@ -119,16 +119,20 @@ java -jar /jda/gatewayserver.jar
 Suppose the service name is `address`, whose server port is 8082 and we wish to expose it to the public:
 
 ```
-docker run -p 8072:8082 --name address -it ducmle/jdare:latest bash
+docker run --add-host=inf-server:host-gateway -p 8082:8082 --name address -it ducmle/jdare:latest bash
 ```
 
-2. Copy .jar files of the infrastructure services to the `/jda` folder in the container
+2. Update the service configuration file to use `inf-server` instead of `localhost`:
+   - Change in the `.properties` file of the service in the `/config` folder of the config server
+   - Change in the the `bootstrap.yml`
+   
+3. Copy .jar files of the infrastructure services to the `/jda` folder in the container
    Use the `docker cp` command on the host machine. For example:
 ```
 docker cp $ADDRESS/target/address-service-0.0.1-SNAPSHOT.jar address:/jda/address-service.jar
 ```
 
-3. Execute the jar file from the shell of the Docker container using the `java -jar` command.
+4. Execute the jar file from the shell of the Docker container using the `java -jar` command.
 
 ```
 java -jar /jda/address-service.jar
@@ -136,13 +140,16 @@ java -jar /jda/address-service.jar
 
 ## Running multiple instances of a service in different Docker containers
 
-Similar to running a single instance in a Docker container (discussed in the previous section), except that step 1 requires that, for each instance, the service port is mapped to a different host port. 
+Similar to running a single instance in a Docker container (discussed in the previous section), except that **step 1** requires that, for each instance, the service port is mapped to a different host port. 
 
 The following commands create two containers running two instances of the service `address`. The two containers are named `address1`, `address2` and their host ports are 7071 and 7072 (respectively).
 
 ```
-docker run -p 7071:8082 --name address1 -it ducmle/jdare:latest bash
+docker run --add-host=inf-server:host-gateway -p 7071:8082 --name address1 -it ducmle/jdare:latest bash
 
-docker run -p 7072:8082 --name address2 -it ducmle/jdare:latest bash
+docker run --add-host=inf-server:host-gateway -p 7072:8082 --name address2 -it ducmle/jdare:latest bash
 
 ```
+
+### Note:
+1. If you get the `java.net.UnknownHostException: <some-host-name>` when service is connecting to the Kafka server then you need to add `<some-host-name>` to the `hosts` file of the container OS
