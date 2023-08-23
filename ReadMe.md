@@ -1,4 +1,6 @@
-# OPASys
+OPASys
+-------------
+
 ## 1. Download and Build projects
 ### JPA project
 - Download JPA project from https://github.com/jdomainapp/jda.git
@@ -74,3 +76,73 @@ instances from an environment without impacting the service clients. We use Eure
 ### security-service
 - Manage users of the system.
 - When user is changed (add/edit/delete), `security-service` sends kafka event to `project-service` and `issue-service` to update their local users.
+
+# Running OPASys using Docker Engine
+
+## Running infrastructure services in a Docker container
+
+1. Create a Docker container to run the services
+
+```
+docker run --network host --name infra-services -it ducmle/jdare:latest bash
+```
+
+2. Copy .jar files of the infrastructure services to the `/jda` folder in the container
+   Use the `docker cp` command on the host machine. For example:
+```
+CONFIG_SERVER=~/short/opasys/modules/configserver
+EUREKA_SERVER=~/short/opasys/modules/eurekaserver
+GW_SERVER=~/short/opasys/modules/gatewayserver
+
+docker cp $CONFIG_SERVER/target/configserver-0.0.1-SNAPSHOT.jar infra-services:/jda/configserver.jar
+
+docker cp $EUREKA_SERVER/target/eurekaserver-0.0.1-SNAPSHOT.jar infra-services:/jda/eurekaserver.jar
+
+docker cp $GW_SERVER/target/gatewayserver-0.0.1-SNAPSHOT.jar infra-services:/jda/gatewayserver.jar
+```
+
+3. Execute the jar files in this order: config-server => discovery server => gateway server
+   - From the shell of the Docker container, run the application `.jar` file, using the `java -jar` command.
+
+```
+java -jar /jda/configserver.jar
+
+java -jar /jda/eurekaserver.jar
+
+java -jar /jda/gatewayserver.jar
+```
+
+## Running each service in a separate Docker container
+
+1. Create a Docker container to run the service
+
+Suppose the service name is `address`, whose server port is 8082 and we wish to expose it to the public:
+
+```
+docker run -p 8072:8082 --name address -it ducmle/jdare:latest bash
+```
+
+2. Copy .jar files of the infrastructure services to the `/jda` folder in the container
+   Use the `docker cp` command on the host machine. For example:
+```
+docker cp $ADDRESS/target/address-service-0.0.1-SNAPSHOT.jar address:/jda/address-service.jar
+```
+
+3. Execute the jar file from the shell of the Docker container using the `java -jar` command.
+
+```
+java -jar /jda/address-service.jar
+```
+
+## Running multiple instances of a service in different Docker containers
+
+Similar to running a single instance in a Docker container (discussed in the previous section), except that step 1 requires that, for each instance, the service port is mapped to a different host port. 
+
+The following commands create two containers running two instances of the service `address`. The two containers are named `address1`, `address2` and their host ports are 7071 and 7072 (respectively).
+
+```
+docker run -p 7071:8082 --name address1 -it ducmle/jdare:latest bash
+
+docker run -p 7072:8082 --name address2 -it ducmle/jdare:latest bash
+
+```
