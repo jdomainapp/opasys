@@ -81,7 +81,7 @@ instances from an environment without impacting the service clients. We use Eure
 
 ## Running infrastructure services in a Docker container
 
-1. Create a Docker container to run the services
+1. Create a Docker container to run the infra services
 
 ```
 docker run --network host --name infra-services -it ducmle/jdare:latest bash
@@ -105,12 +105,18 @@ docker cp $GW_SERVER/target/gatewayserver-0.0.1-SNAPSHOT.jar infra-services:/jda
    - From the shell of the Docker container, run the application `.jar` file, using the `java -jar` command.
 
 ```
-java -jar /jda/configserver.jar
+java -jar /jda/configserver.jar & 
 
-java -jar /jda/eurekaserver.jar
+# (wait for it to completely finish...)
 
-java -jar /jda/gatewayserver.jar
+java -jar /jda/eurekaserver.jar & 
+
+# (wait for it to completely finish...)
+
+java -jar /jda/gatewayserver.jar &
 ```
+
+Don't forget the `&` symbol at the end as it allows you to run all three commands on the same shell. 
 
 ## Running each service in a separate Docker container
 
@@ -136,6 +142,12 @@ docker cp $ADDRESS/target/address-service-0.0.1-SNAPSHOT.jar address:/jda/addres
 
 ```
 java -jar /jda/address-service.jar
+```
+
+5. To terminate the infrastructure services use the `pkill` command:
+
+```
+pkill -f java
 ```
 
 ## Running multiple instances of a service in different Docker containers
