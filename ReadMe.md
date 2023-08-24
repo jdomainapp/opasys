@@ -108,10 +108,12 @@ docker cp $GW_SERVER/target/gatewayserver-0.0.1-SNAPSHOT.jar infra-services:/jda
 java -jar /jda/configserver.jar & 
 
 # (wait for it to completely finish...)
+sleep 20
 
 java -jar /jda/eurekaserver.jar & 
 
 # (wait for it to completely finish...)
+sleep 15 
 
 java -jar /jda/gatewayserver.jar &
 ```
@@ -164,4 +166,4 @@ docker run --add-host=inf-server:host-gateway -p 7072:8082 --name address2 -it d
 ```
 
 ### Note:
-1. If you get the `java.net.UnknownHostException: <some-host-name>` when service is connecting to the Kafka server then you need to add `<some-host-name>` to the `hosts` file of the container OS
+1. If you get the `java.net.UnknownHostException: <some-host-name>` when the service is connecting to the Kafka server then you need to add an entry for `172.17.0.1     <some-host-name>` to the `hosts` file of the container OS
