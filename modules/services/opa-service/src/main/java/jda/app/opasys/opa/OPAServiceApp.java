@@ -36,7 +36,7 @@ import jda.modules.msacommon.messaging.kafka.KafkaChangeAction;
 @SpringBootApplication
 @RefreshScope
 @EnableEurekaClient
-@EnableBinding(Sink.class)
+//@EnableBinding(Sink.class)
 public class OPAServiceApp {
 	private static final Logger logger = LoggerFactory.getLogger(OPAServiceApp.class);
 	
@@ -54,23 +54,22 @@ public class OPAServiceApp {
 		ctx.getBeansOfType(InterfaceController.class).forEach((k, v) -> {interfaceControllerRegistry.put(k, v);
 		System.out.println("CHECK IntefaceController: "+ k +"_"+v);
 			});
-		
-	}
-	
-	@StreamListener(Sink.INPUT)
-	public void processChanges(ChangeModel<Integer> model) {
-
-		logger.debug("Received a message of type " + model.getType());
-		if (model.getAction().equals(KafkaChangeAction.CREATED) || model.getAction().equals(KafkaChangeAction.UPDATED) || model.getAction().equals(KafkaChangeAction.DELETED)) {
-			logger.debug("Received a {} event from the OrgAsset service for user id {}",model.getAction(), model.getId());
-			DefaultController<OrgAsset, Integer> controller = ControllerRegistry.getInstance().get(OrgAsset.class);
-			controller.executeReceivedEvent(model.getAction(), model.getId(), model.getPath());
-		} else {
-			logger.error("Received an UNKNOWN event from the OrgAsset service of type {}", model.getType());
-		}
-		
 	}
 
+//
+//	@StreamListener(Sink.INPUT)
+//	public void processChanges(ChangeModel<Integer> model) {
+//
+//		logger.debug("Received a message of type " + model.getType());
+//		if (model.getAction().equals(KafkaChangeAction.CREATED) || model.getAction().equals(KafkaChangeAction.UPDATED) || model.getAction().equals(KafkaChangeAction.DELETED)) {
+//			logger.debug("Received a {} event from the OrgAsset service for user id {}",model.getAction(), model.getId());
+//			DefaultController<OrgAsset, Integer> controller = ControllerRegistry.getInstance().get(OrgAsset.class);
+//			controller.executeReceivedEvent(model.getAction(), model.getId(), model.getPath());
+//		} else {
+//			logger.error("Received an UNKNOWN event from the OrgAsset service of type {}", model.getType());
+//		}
+//
+//	}
 	
 	@Bean
 	public LocaleResolver localeResolver() {

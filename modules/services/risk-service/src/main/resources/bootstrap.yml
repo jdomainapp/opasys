@@ -4,8 +4,8 @@ spring:
     profiles:
       active: dev
     cloud:
-        config: 
-            uri: http://localhost:8071
+        config:
+          uri: http://host.docker.internal:8071
 
 logging:
   level:

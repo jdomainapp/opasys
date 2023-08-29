@@ -1,4 +1,4 @@
-package jda.app.opasys.filestorage.modules.orgasset;
+package jda.app.opasys.assetstorage.modules.orgasset;
 
 import java.io.File;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
-import jda.app.opasys.filestorage.modules.orgasset.model.OrgAssetStorage;
+import jda.app.opasys.assetstorage.modules.orgasset.model.OrgAssetStorage;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
 

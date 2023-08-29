@@ -12,4 +12,8 @@
 	<name>opa-service</name>
 	<description>Manage OPAs</description>
 
+	<properties>
+		<start-class>jda.app.opasys.opa.OPAServiceApp</start-class>
+	</properties>
+
 </project>

@@ -13,6 +13,10 @@
 	<name>API Gateway server</name>
 	<description>API Gateway server</description>
 
+	<properties>
+		<start-class>org.jda.example.coursemanmsa.gatewayserver.ApiGatewayServerApplication</start-class>
+	</properties>
+
 	<dependencies>
 		
 		<dependency>

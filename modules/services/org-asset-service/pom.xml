@@ -13,4 +13,8 @@
 	<name>org-asset-service</name>
 	<description>Manage Organisational asset</description>
 
+	<properties>
+		<start-class>jda.app.opasys.orgasset.OrgAssetServiceApp</start-class>
+	</properties>
+
 </project>

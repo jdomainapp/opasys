@@ -13,4 +13,8 @@
 	<name>risk-service</name>
 	<description>Manage Risks</description>
 
+	<properties>
+		<start-class>jda.app.opasys.risk.RiskServiceApp</start-class>
+	</properties>
+
 </project>

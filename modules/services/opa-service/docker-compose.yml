@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  service:
+    build: .
+    networks:
+      - configserver_default-network
+    ports:
+      - 9000:9000
+networks:
+  configserver_default-network:
+    external: true

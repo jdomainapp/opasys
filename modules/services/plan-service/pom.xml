@@ -13,4 +13,8 @@
 	<name>plan-service</name>
 	<description>Manage plan assets</description>
 
+	<properties>
+		<start-class>jda.app.opasys.plan.PlanAssetServiceApp</start-class>
+	</properties>
+
 </project>

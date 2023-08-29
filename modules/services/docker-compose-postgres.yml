@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: opasys
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - configserver_default-network
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres-data:
+networks:
+  configserver_default-network:
+    external: true

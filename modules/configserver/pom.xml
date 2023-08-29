@@ -12,6 +12,10 @@
 	<name>Configuration Server</name>
 	<description>Configuration Server</description>
 
+	<properties>
+		<start-class>org.jda.example.coursemanmsa.configserver.ConfigurationServerApplication</start-class>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

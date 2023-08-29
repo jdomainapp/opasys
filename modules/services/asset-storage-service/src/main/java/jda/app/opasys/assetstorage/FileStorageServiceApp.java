@@ -1,4 +1,4 @@
-package jda.app.opasys.filestorage;
+package jda.app.opasys.assetstorage;
 
 import java.util.Collections;
 import java.util.List;

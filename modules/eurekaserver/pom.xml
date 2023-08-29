@@ -12,6 +12,10 @@
 	<name>Eureka Server</name>
 	<description>Eureka Server</description>
 
+	<properties>
+		<start-class>org.jda.example.coursemanmsa.eureka.EurekaServerApplication</start-class>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

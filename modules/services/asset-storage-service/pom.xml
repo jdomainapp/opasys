@@ -13,4 +13,8 @@
 	<name>file-storage-service</name>
 	<description>Manage files storage</description>
 
+	<properties>
+		<start-class>jda.app.opasys.assetstorage.FileStorageServiceApp</start-class>
+	</properties>
+
 </project>

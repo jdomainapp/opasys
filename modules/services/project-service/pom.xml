@@ -14,9 +14,8 @@
 	<name>project-service</name>
 	<description>Manage projects</description>
 
-	<dependencies>
-
-
-	</dependencies>
+	<properties>
+		<start-class>jda.app.opasys.project.ProjectServiceApp</start-class>
+	</properties>
 
 </project>

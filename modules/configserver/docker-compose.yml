@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  service:
+    build: .
+    networks:
+      - default-network
+    ports:
+      - 8071:8071
+
+networks:
+  default-network:
+    driver: bridge

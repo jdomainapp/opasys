@@ -13,4 +13,8 @@
 	<name>security-service</name>
 	<description>Manage security</description>
 
+	<properties>
+		<start-class>jda.app.opasys.security.SecurityServiceApp</start-class>
+	</properties>
+
 </project>

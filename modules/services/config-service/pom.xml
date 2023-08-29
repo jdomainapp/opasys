@@ -13,4 +13,8 @@
 	<name>config-service</name>
 	<description>Manage config assets</description>
 
+	<properties>
+		<start-class>jda.app.opasys.config.ConfigAssetServiceApp</start-class>
+	</properties>
+
 </project>

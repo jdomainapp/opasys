@@ -13,4 +13,8 @@
 	<name>defect-service</name>
 	<description>Manage defects</description>
 
+	<properties>
+		<start-class>jda.app.opasys.defect.DefectServiceApp</start-class>
+	</properties>
+
 </project>

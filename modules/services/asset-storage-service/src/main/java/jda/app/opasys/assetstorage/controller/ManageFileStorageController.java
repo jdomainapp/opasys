@@ -1,4 +1,4 @@
-package jda.app.opasys.filestorage.controller;
+package jda.app.opasys.assetstorage.controller;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import jda.app.opasys.filestorage.modules.knowledgeasset.model.KnowledgeAssetStorage;
-import jda.app.opasys.filestorage.modules.orgasset.model.OrgAssetStorage;
+import jda.app.opasys.assetstorage.modules.knowledgeasset.model.KnowledgeAssetStorage;
+import jda.app.opasys.assetstorage.modules.orgasset.model.OrgAssetStorage;
 import jda.modules.msacommon.controller.ControllerRegistry;
 import jda.modules.msacommon.controller.DefaultController;
 
