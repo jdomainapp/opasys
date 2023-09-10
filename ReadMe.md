@@ -167,3 +167,15 @@ docker run --add-host=inf-server:host-gateway -p 7072:8082 --name address2 -it d
 
 ### Note:
 1. If you get the `java.net.UnknownHostException: <some-host-name>` when the service is connecting to the Kafka server then you need to add an entry for `172.17.0.1     <some-host-name>` to the `hosts` file of the container OS
+
+# Running OPASys using Docker Compose
+## Running infrastructure services in a Docker container
+In folder `/opaysys/modules/services`:
+1. Run Postgres service
+```
+docker-compose -f docker-compose-postgres.yml up
+```
+2. Start Kafka service
+```
+docker-compose -f docker-compose-kafka.yml up
+```
