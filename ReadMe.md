@@ -187,11 +187,11 @@ In the folder of each service that contains docker compose .yml file:
 mvn package spring-boot:repackage -DskipTests
 ```
 2. Containerize & start service
- 2a. Start service and apply new built code
+- Start service and apply new built code
 ```
 docker-compose -f docker-compose.yml up --force-recreate --no-deps --build
 ```
- 2b. Only start service
+- Only start service
 ```
 docker-compose -f docker-compose.yml up
 ```
@@ -199,11 +199,11 @@ docker-compose -f docker-compose.yml up
 
 ## Stop services
 In the folder of each service that contains docker compose .yml file:
-1a. Only stop service
+1. Only stop service
 ```
 docker-compose -f docker-compose.yml stop
 ```
-1b. Stop service and remove container (all data will be removed too)
+2. Stop service and remove container (all data will be removed too)
 ```
 docker-compose -f docker-compose.yml down
 ```
