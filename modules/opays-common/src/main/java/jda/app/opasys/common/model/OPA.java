@@ -6,8 +6,9 @@ import javax.persistence.MappedSuperclass;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter @Setter
+@Getter @Setter @ToString
 @MappedSuperclass
 public class OPA extends Asset{
 	
@@ -23,22 +24,17 @@ public class OPA extends Asset{
 	@Column(name = "user_id")
 	private int userId;
 	
-	@Id
-	@Column(name = "id", nullable = false)
-	private int id;
-	
 	public OPA() {
 		
 	}
 
-	public OPA(String name, String description, int status, String attachment, int userId, int id) {
+	public OPA(String name, String description, int status, String attachment, int userId) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.status = status;
 		this.attachment = attachment;
 		this.userId = userId;
-		this.id = id;
 	}
 	
 	

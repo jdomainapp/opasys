@@ -29,8 +29,6 @@ public class ManageOrgAssetController {
 	public final static String SERVICE_NAME = "org-asset-service";
 	public final static String PATH_LOCAL_OPA_SERVICE ="opa-service";
 	public final static String PATH_OPA_ORG_ASSET = "/org_asset";
-	public final static String PATH_ASSET_STORAGE_SERVICE = "asset-storage-service/orgasset";
-
 	
 	@PostMapping(value = PATH + "/**")
 	public ResponseEntity<?> handleKnowledgePostRequest(@RequestPart("data") OrgAsset entity, @RequestPart("file") MultipartFile fileUpload) throws IOException {

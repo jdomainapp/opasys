@@ -28,7 +28,7 @@ import lombok.ToString;
 @Table(name = "issue_comment", schema = "project")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
-public class Comment extends RepresentationModel<Comment>{
+public class Comment{
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

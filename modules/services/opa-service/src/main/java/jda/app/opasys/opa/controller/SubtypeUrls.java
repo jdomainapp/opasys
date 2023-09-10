@@ -23,14 +23,14 @@ public class SubtypeUrls {
 	public final static String PATH_ISSUE_SERVICE = "/issue-service/issue";
 	public final static String PATH_ISSUE_SERVICE_COMMENT = "/issue-service/comment";
 	
-	public final static String PATH_OPA_PLAN_ASSET = "/opa_plan_asset";
-	public final static String PATH_OPA_METRIC_ASSET = "/opa_metric_asset";
-	public final static String PATH_OPA_CONFIG_ASSET = "/opa_config_asset";
-	public final static String PATH_OPA_FINANCE_ASSET = "/opa_finance_asset";
-	public final static String PATH_OPA_RISK_ASSET = "/opa_risk_asset";
-	public final static String PATH_OPA_DEFECT_ASSET = "/opa_defect_asset";
-	public final static String PATH_OPA_ISSUE_ASSET = "/opa_issue_asset";
-	public final static String PATH_OPA_ISSUE_COMMENT_ASSET = "/opa_issue_comment";
+	public final static String PATH_OPA_PLAN_ASSET = "local_plan_asset";
+	public final static String PATH_OPA_METRIC_ASSET = "local_metric_asset";
+	public final static String PATH_OPA_CONFIG_ASSET = "local_config_asset";
+	public final static String PATH_OPA_FINANCE_ASSET = "local_finance_asset";
+	public final static String PATH_OPA_RISK_ASSET = "local_risk_asset";
+	public final static String PATH_OPA_DEFECT_ASSET = "local_defect_asset";
+	public final static String PATH_OPA_ISSUE_ASSET = "local_issue_asset";
+	public final static String PATH_OPA_ISSUE_COMMENT_ASSET = "local_issue_comment";
 	
 	public final static Map<String, Class> opaUrls = new HashMap<>();
 	
@@ -54,7 +54,7 @@ public class SubtypeUrls {
 		subtypeUrls.put(PATH_OPA_FINANCE_ASSET, PATH_FINANCE_SERVICE);
 		subtypeUrls.put(PATH_OPA_RISK_ASSET, PATH_RISK_SERVICE);
 		subtypeUrls.put(PATH_OPA_DEFECT_ASSET, PATH_DEFECT_SERVICE);
-		subtypeUrls.put(PATH_OPA_ISSUE_ASSET, PATH_OPA_ISSUE_ASSET);
-		subtypeUrls.put(PATH_OPA_ISSUE_COMMENT_ASSET, PATH_OPA_ISSUE_COMMENT_ASSET);
+		subtypeUrls.put(PATH_OPA_ISSUE_ASSET, PATH_ISSUE_SERVICE);
+		subtypeUrls.put(PATH_OPA_ISSUE_COMMENT_ASSET, PATH_ISSUE_SERVICE_COMMENT);
 	}
 }

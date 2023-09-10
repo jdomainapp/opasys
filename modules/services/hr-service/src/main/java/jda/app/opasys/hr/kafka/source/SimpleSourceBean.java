@@ -1,4 +1,4 @@
-package jda.app.opasys.security.kafka.source;
+package jda.app.opasys.hr.kafka.source;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

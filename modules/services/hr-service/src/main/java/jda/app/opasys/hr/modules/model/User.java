@@ -1,4 +1,4 @@
-package jda.app.opasys.security.modules.model;
+package jda.app.opasys.hr.modules.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "user", schema = "security")
+@Table(name = "user", schema = "hr")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 

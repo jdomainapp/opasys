@@ -8,13 +8,13 @@
 	</parent>
 	
 	<groupId>jda.app</groupId>
-	<artifactId>security-service</artifactId>
+	<artifactId>hr-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>security-service</name>
-	<description>Manage security</description>
+	<name>hr-service</name>
+	<description>Manage HR</description>
 
 	<properties>
-		<start-class>jda.app.opasys.security.SecurityServiceApp</start-class>
+		<start-class>jda.app.opasys.hr.HRServiceApp</start-class>
 	</properties>
 
 </project>

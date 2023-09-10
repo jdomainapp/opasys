@@ -4,6 +4,7 @@ spring:
     cloud:
         config:
           uri: http://host.docker.internal:8071
+          #uri: http://localhost:8071
     main:
         web-application-type: reactive
 

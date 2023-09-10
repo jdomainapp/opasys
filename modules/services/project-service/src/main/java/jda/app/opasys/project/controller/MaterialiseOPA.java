@@ -64,7 +64,7 @@ public class MaterialiseOPA {
 	public ResponseEntity<?> processGetLocalOPA(InterfaceController<OPAInterface, Integer> interfaceController,
 			HttpServletRequest req) {
 		String targetPath = ControllerTk.getServiceUri(OpaUrl.PATH_LOCAL_OPA_SERVICE,
-				req.getServletPath().replace(ManageProjectController.PATH_GET_LOCAL_OPA, ""));
+				req.getServletPath().replace(ManageProjectController.PATH_OPA, "")).replace("local/","");
 		return interfaceController.forwardRequest(targetPath, HttpMethod.resolve(req.getMethod()), null);
 	}
 
@@ -93,9 +93,9 @@ public class MaterialiseOPA {
 
 			List<KnowledgeElement> knowledgeElements = knowledgeReponse.getBody();
 
-			if (saveProjectAsset(completedProject, interfaceController)
-				&& saveActivityAsset(activities, interfaceController)
-				&& materialiseSubtypeAsset(KnowledgeElement.class, knowledgeElements, interfaceController)) {
+//			if (saveProjectAsset(completedProject, interfaceController)
+//				&& saveActivityAsset(activities, interfaceController)
+			if(materialiseSubtypeAsset(KnowledgeElement.class, knowledgeElements, interfaceController)) {
 				return ResponseEntity.ok("SAVE OPA SUCCESSFULLY!!!");
 			}
 
@@ -157,9 +157,8 @@ public class MaterialiseOPA {
 					return false;
 				}
 			}else {
-				String requestData = ControllerTk.convertObjectToJSON(assetObj);
-				ResponseEntity<?> response = interfaceController.forwardRequest(localPath, HttpMethod.POST, requestData);
-				if (response.getStatusCode() != HttpStatus.OK) {
+
+				if (!sendSubtypeWithoutFile(localPath, assetObj, interfaceController)) {
 					return false;
 				}
 			}
@@ -252,19 +251,8 @@ public class MaterialiseOPA {
 	private Map<Class, Collection> getAssociatedObjects(Class<?> type, Object obj) {
 		// todo: use reflection or if...else block
 		Map<Class, Collection> objMap = new HashMap<>();
-		if (obj instanceof Defect) {
-		} else if (obj instanceof Issue) {
+		if (obj instanceof Issue) {
 			objMap.put(Comment.class, ((Issue) obj).getComments());
-		} else if (obj instanceof Risk) {
-
-		} else if (obj instanceof Plan) {
-
-		} else if (obj instanceof Config) {
-
-		} else if (obj instanceof Metric) {
-
-		} else if (obj instanceof Finance) {
-
 		}
 
 		return objMap;
@@ -281,13 +269,26 @@ public class MaterialiseOPA {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		File localFile = new File(fileStoragePath + File.separator + asset.getAttachment());
-		body.add("file", new FileSystemResource(localFile));
+		if(asset.getAttachment()!=null && !asset.getAttachment().isEmpty()) {
+			File localFile = new File(fileStoragePath + File.separator + asset.getAttachment());
+			body.add("file", new FileSystemResource(localFile));
+		}
 		body.add("data", asset);
 		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
 		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(opaUrl, requestEntity);
-		return response.getStatusCode() == HttpStatus.OK ? true : false;
+		return response.getStatusCode() == HttpStatus.OK;
+	}
+
+	private boolean sendSubtypeWithoutFile(String opaUrl, Asset asset, InterfaceController<OPAInterface, Integer> interfaceController) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		body.add("data", asset);
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+		ResponseEntity<OPAInterface> response = interfaceController.forwardRequest(opaUrl, requestEntity);
+		return response.getStatusCode() == HttpStatus.OK;
 	}
 
 }

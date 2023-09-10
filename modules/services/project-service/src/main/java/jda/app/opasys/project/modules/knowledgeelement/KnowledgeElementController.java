@@ -19,7 +19,7 @@ import jda.modules.msacommon.controller.DefaultController;
 @Controller
 public class KnowledgeElementController extends DefaultController<KnowledgeElement, Integer>{
 	
-	@Value("${filestorage.path}")
+	//@Value("${filestorage.path}")
 	private String fileStoragePath;
 	
 	@Override

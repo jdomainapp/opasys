@@ -1,4 +1,4 @@
-package jda.app.opasys.security.modules;
+package jda.app.opasys.hr.modules;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jda.app.opasys.security.controller.ManageSecurityController;
-import jda.app.opasys.security.kafka.source.SimpleSourceBean;
-import jda.app.opasys.security.modules.model.User;
+import jda.app.opasys.hr.controller.ManageHRController;
+import jda.app.opasys.hr.kafka.source.SimpleSourceBean;
+import jda.app.opasys.hr.modules.model.User;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.DefaultController;
 import jda.modules.msacommon.messaging.kafka.KafkaChangeAction;
@@ -29,8 +29,8 @@ public class UserController extends DefaultController<User, Integer> {
 		List<Integer> ids = ControllerTk.findIntegers(path);
 		ResponseEntity<?> responseEntity = handleRequest(req, res, ids.isEmpty() ? null : ids.get(0));
 		String requestMethod = req.getMethod();
-		String kafkaPath = ControllerTk.getServiceUri(ManageSecurityController.SERVICE_NAME,
-				ManageSecurityController.PATH + "/id/{id}");
+		String kafkaPath = ControllerTk.getServiceUri(ManageHRController.SERVICE_NAME,
+				ManageHRController.PATH + "/id/{id}");
 		if (requestMethod.equals(RequestMethod.POST.toString())) {
 			User responseUser = (User) responseEntity.getBody();
 			sourceBean.publishChange(User.class.getTypeName(), KafkaChangeAction.CREATED, responseUser.getId(),

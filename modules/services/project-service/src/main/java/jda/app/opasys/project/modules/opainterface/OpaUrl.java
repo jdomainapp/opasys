@@ -18,17 +18,17 @@ public class OpaUrl {
 	
 	public final static String PATH_LOCAL_OPA_SERVICE = "opa-service";
 	
-	public final static String PATH_SUBTYPE_OPA_SERVICE = "opa-service/redirect";
+	public final static String PATH_SUBTYPE_OPA_SERVICE = "opa-service/subtype";
 	
 	public final static String PATH_OPA_PROJECT = "/project";
-	public final static String PATH_OPA_PLAN_ASSET = "/opa_plan_asset";
-	public final static String PATH_OPA_METRIC_ASSET = "/opa_metric_asset";
-	public final static String PATH_OPA_CONFIG_ASSET = "/opa_config_asset";
-	public final static String PATH_OPA_FINANCE_ASSET = "/opa_finance_asset";
-	public final static String PATH_OPA_RISK_ASSET = "/opa_risk_asset";
-	public final static String PATH_OPA_DEFECT_ASSET = "/opa_defect_asset";
-	public final static String PATH_OPA_ISSUE_ASSET = "/opa_issue_asset";
-	public final static String PATH_OPA_ISSUE_COMMENT_ASSET = "/opa_issue_comment";
+	public final static String PATH_OPA_PLAN_ASSET = "/local_plan_asset";
+	public final static String PATH_OPA_METRIC_ASSET = "/local_metric_asset";
+	public final static String PATH_OPA_CONFIG_ASSET = "/local_config_asset";
+	public final static String PATH_OPA_FINANCE_ASSET = "/local_finance_asset";
+	public final static String PATH_OPA_RISK_ASSET = "/local_risk_asset";
+	public final static String PATH_OPA_DEFECT_ASSET = "/local_defect_asset";
+	public final static String PATH_OPA_ISSUE_ASSET = "/local_issue_asset";
+	public final static String PATH_OPA_ISSUE_COMMENT_ASSET = "/local_issue_comment";
 	
 	public final static Map<Class, String> opaUrls = new HashMap<>();
 	

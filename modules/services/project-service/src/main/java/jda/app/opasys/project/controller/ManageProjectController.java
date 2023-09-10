@@ -8,14 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import jda.app.opasys.project.modules.activity.model.Activity;
@@ -37,11 +30,12 @@ public class ManageProjectController {
 	public final static String PATH_KNOWLEDGE = "/knowledge";
 	public final static String PATH_ISSUE_COMMENT = "/comment";
 
-	public final static String PATH_CREATE_OPA = "/opa/oncomplete";
-	public final static String PATH_GET_LOCAL_OPA = "/opa/local";
-	public final static String PATH_GET_SUBTYPE_OPA = "/opa/subtype";
+	public final static String PATH_OPA = "/opa";
+	public final static String PATH_CREATE_OPA = PATH_OPA+"/oncomplete";
+	public final static String PATH_GET_LOCAL_OPA = PATH_OPA+"/local";
+	public final static String PATH_GET_SUBTYPE_OPA = PATH_OPA+"/subtype";
 	
-	@Value("${filestorage.path}")
+	//@Value("${filestorage.path}")
 	private String fileStoragePath;
 
 	@RequestMapping(value = PATH_PROJECT + "/**")
@@ -72,8 +66,7 @@ public class ManageProjectController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 	
-	@GetMapping(value = PATH_KNOWLEDGE + "/**")
-	@DeleteMapping(value = PATH_KNOWLEDGE + "/**")
+	@RequestMapping(value = PATH_KNOWLEDGE + "/**", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public ResponseEntity<?> handleKnowledgeGetRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		DefaultController<KnowledgeElement, Integer> controller = ControllerRegistry.getInstance().get(KnowledgeElement.class);
 		return controller != null ? controller.handleRequest(req, res)
@@ -95,7 +88,7 @@ public class ManageProjectController {
 		return new MaterialiseOPA(fileStoragePath).processCreateOPA(interfaceController, req.getServletPath());
 	}
 
-	@RequestMapping(value = PATH_GET_LOCAL_OPA + "/**")
+	@RequestMapping(value = PATH_GET_LOCAL_OPA + "**/**")
 	public ResponseEntity<?> handleGetLocalOPARequest(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		InterfaceController<OPAInterface, Integer> interfaceController = InterfaceControllerRegistry.getInstance()

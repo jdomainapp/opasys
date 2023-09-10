@@ -22,7 +22,7 @@ public class IssueAsset extends KnowledgeAsset{
 	private Date createDate;
 	
 	public IssueAsset(int id) {
-		
+		super(id);
 	}
 	
 	public IssueAsset(int id, String name, String description, int status, String attachment, int userId, int projectId,

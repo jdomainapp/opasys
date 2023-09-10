@@ -26,6 +26,9 @@ import lombok.ToString;
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id", scope = OrgAsset.class)
 public class OrgAsset extends OPA{
+	@Id
+	@Column(name = "id", nullable = false)
+	private int id;
 	
 	@Column(name = "project_type")
 	private int projectType;

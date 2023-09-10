@@ -1,4 +1,4 @@
-package jda.app.opasys.security;
+package jda.app.opasys.hr;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,14 +32,14 @@ import jda.modules.msacommon.controller.ServiceRegistry;
 @RefreshScope
 @EnableEurekaClient
 @EnableBinding(Source.class)
-public class SecurityServiceApp {
-	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceApp.class);
+public class HRServiceApp {
+	private static final Logger logger = LoggerFactory.getLogger(HRServiceApp.class);
 	
 	public static void main(String[] args) {
 		final ServiceRegistry serviceRegistry = ServiceRegistry.getInstance();
 		final ControllerRegistry controllerRegistry = ControllerRegistry.getInstance();
 		final InterfaceControllerRegistry interfaceControllerRegistry = InterfaceControllerRegistry.getInstance();
-		ApplicationContext ctx = SpringApplication.run(SecurityServiceApp.class, args);
+		ApplicationContext ctx = SpringApplication.run(HRServiceApp.class, args);
 		ctx.getBeansOfType(PagingAndSortingRepository.class).forEach((k, v) -> {serviceRegistry.put(k, v);
 		System.out.println("CHECK SERVICES: "+ k +"_"+v);
 			});

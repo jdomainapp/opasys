@@ -25,8 +25,8 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrgAsset extends OPA{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "project_type")

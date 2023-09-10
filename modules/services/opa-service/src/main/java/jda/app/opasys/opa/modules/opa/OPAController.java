@@ -18,6 +18,8 @@ import jda.app.opasys.opa.controller.SubtypeUrls;
 import jda.modules.msacommon.controller.ControllerTk;
 import jda.modules.msacommon.controller.InterfaceController;
 
+import static jda.app.opasys.opa.controller.ManageOPAController.PATH_OPA_SUBTYPE;
+
 @Controller
 public class OPAController extends InterfaceController<Integer, OPA> {
 	private static final Logger logger = LoggerFactory.getLogger(InterfaceController.class);
@@ -27,9 +29,10 @@ public class OPAController extends InterfaceController<Integer, OPA> {
 	public ResponseEntity<?> handleRequest(HttpServletRequest req, HttpServletResponse res) {
 		String targetPath = null;
 		if(req.getMethod().equals(HttpMethod.GET.name())) {
-			targetPath = ControllerTk.getServiceUri("", req.getServletPath().replace("redirect/", ""));
+			targetPath = ControllerTk.getServiceUri("", req.getServletPath().replace(PATH_OPA_SUBTYPE, ""));
 		}else if(req.getMethod().equals(HttpMethod.POST.name())) {
-			String subtype = SubtypeUrls.subtypeUrls.get(req.getServletPath());
+			String className = req.getServletPath().split("/")[1];
+			String subtype = SubtypeUrls.subtypeUrls.get(className);
 			targetPath = ControllerTk.getServiceUri("", subtype);
 		}
 		String requestData;
